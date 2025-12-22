@@ -264,10 +264,12 @@ def update_post(filename):
 
         # 读取现有文件内容
         with open(file_path, 'r', encoding='utf-8') as f:
-            lines = f.readlines()
+            full_content = f.read()
 
-        # 找到front matter的结束位置
+        # 分离 front matter 和正文内容
         front_matter_end = -1
+        lines = full_content.split('\n')
+
         if lines and lines[0].strip() == '---':
             for i in range(1, len(lines)):
                 if lines[i].strip() == '---':
@@ -275,11 +277,14 @@ def update_post(filename):
                     break
 
         # 构建新的front matter
+        tags_array = ', '.join([f"'{tag}'" for tag in tags]) if tags else ''
+        categories_array = ', '.join([f"'{cat}'" for cat in categories]) if categories else ''
+
         new_front_matter = f"""---
 title: {title}
 date: {date}
-tags: [{', '.join(f"'{tag}'" for tag in tags)}]
-categories: [{', '.join(f"'{cat}'" for cat in categories)}]
+tags: [{tags_array}]
+categories: [{categories_array}]
 layout: {layout}
 ---
 
@@ -288,11 +293,16 @@ layout: {layout}
         # 写入新内容
         if front_matter_end != -1:
             # 保留原有内容，只替换front matter
-            content_after_front_matter = ''.join(lines[front_matter_end + 1:])
-            new_content = new_front_matter + content_after_front_matter
+            content_lines = lines[front_matter_end + 1:]
+            # 移除开头的空行
+            while content_lines and not content_lines[0].strip():
+                content_lines.pop(0)
+
+            content_after_front_matter = '\n'.join(content_lines) if content_lines else ''
+            new_content = new_front_matter + content + '\n'
         else:
             # 如果没有front matter，直接添加
-            new_content = new_front_matter + content
+            new_content = new_front_matter + content + '\n'
 
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(new_content)
