@@ -1,8 +1,9 @@
-name: Deploy Hexo Blog to GitHub Pages
+name: Deploy Next.js Blog to GitHub Pages
 
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 # Sets permissions for the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -26,34 +27,26 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: List files
-      run: |
-        echo "Current directory: $(pwd)"
-        echo "All files:"
-        ls -la
-
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        cache: 'npm'
 
     - name: Install dependencies
       run: |
         npm install
 
-    - name: Setup Hexo CLI
+    - name: Build Next.js static site
       run: |
-        npm install -g hexo-cli
-
-    - name: Generate static files
-      run: |
-        hexo clean
-        hexo generate
+        npm run next-build
 
     - name: Show generated files
       run: |
-        echo "Generated files:"
-        ls -la public/ || echo "Public directory not found"
+        echo "Generated files in out/ directory:"
+        ls -la out/
+        echo "Index file exists:"
+        ls -la out/index.html || echo "Index file not found"
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
@@ -61,7 +54,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:
-        path: ./public
+        path: ./out
 
     - name: Deploy to GitHub Pages
       id: deployment
