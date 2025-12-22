@@ -4,7 +4,7 @@ date: 2024-11-29
 tags: ['CTF', '网络安全', '游戏', 'CDK']
 categories: ['网络安全', '游戏安全']
 layout: post
-banner: https://blogtc.jimmyki.com/images/cdk/7.webp
+cover: https://blogtc.jimmyki.com/images/cdk/7.webp
 ---
 
 事情是这样的，我去某多多逛，发现地平线5国区才0.25！这能忍，立马准备下单，可是发现不对，哪来那么多便宜捡，世界上哪来那么多做慈善的人。于是乎，我问了客服，截图如下：

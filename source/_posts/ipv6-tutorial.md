@@ -5,7 +5,7 @@ tags: ['IPv6', '网络配置', '远程桌面', '服务器', '游戏', '网络']
 categories: ['技术教程']
 layout: post
 author: JimmyKi
-banner: /images/ipv6/1.webp
+cover: /images/ipv6/1.webp
 ---
 
 # 公网IPv6配置教程他来了！可用作远程桌面连接、服务器（非Web网页）、游戏服务（我的世界）

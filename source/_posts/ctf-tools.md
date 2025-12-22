@@ -3,7 +3,7 @@ title: CTF工具集｜by ki
 date: 2024-11-27
 tags: [CTF, 工具, 网络安全]
 categories: [CTF, 工具]
-banner:
+cover:
 layout: post
 ---
 

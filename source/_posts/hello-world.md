@@ -4,7 +4,7 @@ date: 2019-11-21 22:00:00
 tags: ['博客', 'Hexo', '技术', '欢迎']
 categories: ['博客', '欢迎']
 layout: post
-banner: https://blogtc.jimmyki.com/images/%E6%88%AA%E5%B1%8F2024-11-29%2014.33.35.png
+cover: https://blogtc.jimmyki.com/images/%E6%88%AA%E5%B1%8F2024-11-29%2014.33.35.png
 author: Jimmy Ki
 ---
 

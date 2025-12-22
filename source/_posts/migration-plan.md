@@ -3,7 +3,7 @@ title: 博客服务器迁移计划
 date: 1970-01-01
 tags: ['迁移计划', '博客']
 categories: ['博客']
-banner: https://blogtc.jimmyki.com/images/%E6%88%AA%E5%B1%8F2025-02-28%2001.21.50.png
+cover: https://blogtc.jimmyki.com/images/%E6%88%AA%E5%B1%8F2025-02-28%2001.21.50.png
 layout: post
 ---
 

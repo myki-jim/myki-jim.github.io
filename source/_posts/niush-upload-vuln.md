@@ -4,7 +4,7 @@ date: 2025-03-23
 tags: ['CTF', '网络安全', '渗透', '抓包']
 categories: ['CTF', '工具', '抓包', '渗透测试']
 layout: post
-banner: "https://blogtc.jimmyki.com/images/CTF/n7.png"
+cover: "https://blogtc.jimmyki.com/images/CTF/n7.png"
 ---
 
 ！！！注意：本文章仅用于学习交流，请勿用于非法用途！！！

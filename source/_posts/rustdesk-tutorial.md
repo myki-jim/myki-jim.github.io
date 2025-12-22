@@ -3,7 +3,7 @@ title: RustDesk远程桌面配置教程
 date: 2024-04-29
 tags: [工具, 教程, 远程桌面, RustDesk]
 categories: [教程]
-banner: https://linux.do/uploads/default/original/3X/e/d/ed3834e59e0be33970fa3c055a5324073742229b.png
+cover: https://linux.do/uploads/default/original/3X/e/d/ed3834e59e0be33970fa3c055a5324073742229b.png
 layout: post
 ---
 
