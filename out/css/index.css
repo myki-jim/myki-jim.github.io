@@ -1,0 +1,104 @@
+/* Glass Effect Classes */
+.glass-surface {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+.glass-surface:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="light"] .glass-surface {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+[data-theme="light"] .glass-surface:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* Liquid Background Animation */
+.liquid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.liquid-bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffffff, #a5f3fc, #ffffff);
+  filter: blur(60px);
+  opacity: 0.4;
+  animation: liquidFloat 20s infinite ease-in-out;
+}
+
+.liquid-bubble:nth-child(1) {
+  width: 300px;
+  height: 300px;
+  top: -150px;
+  left: -150px;
+  animation-delay: 0s;
+}
+
+.liquid-bubble:nth-child(2) {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  right: -100px;
+  animation-delay: 5s;
+}
+
+.liquid-bubble:nth-child(3) {
+  width: 400px;
+  height: 400px;
+  bottom: -200px;
+  left: 30%;
+  animation-delay: 10s;
+}
+
+.liquid-bubble:nth-child(4) {
+  width: 250px;
+  height: 250px;
+  top: 20%;
+  left: 60%;
+  animation-delay: 15s;
+}
+
+.liquid-bubble:nth-child(5) {
+  width: 350px;
+  height: 350px;
+  top: 60%;
+  right: 30%;
+  animation-delay: 20s;
+}
+
+@keyframes liquidFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 30px) scale(0.9);
+  }
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}

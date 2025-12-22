@@ -1,0 +1,20 @@
+<div class="page-content">
+  <article class="page-article glass-surface">
+    <header class="page-header">
+      <h1 class="page-title text-liquid-gradient">
+        <%= page.title %>
+      </h1>
+      <% if (page.date) { %>
+        <div class="page-meta">
+          <time class="page-date" datetime="<%= date(page.date, 'YYYY-MM-DD') %>">
+            <%= date(page.date, 'YYYY年MM月DD日') %>
+          </time>
+        </div>
+      <% } %>
+    </header>
+
+    <div class="page-body">
+      <%- page.content %>
+    </div>
+  </article>
+</div>

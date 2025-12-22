@@ -1,0 +1,31 @@
+{
+  "name": "hexo-theme-glasses",
+  "version": "1.0.0",
+  "description": "Modern glass morphism theme for Hexo with liquid animation effects",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "npx tailwindcss -i ./src/css/input.css -o ./source/css/style.css --minify",
+    "build:js": "npx terser ./src/js/main.js -o ./source/js/main.js --compress --mangle",
+    "dev": "concurrently \"npm run dev:css\" \"npm run dev:js\"",
+    "dev:css": "npx tailwindcss -i ./src/css/input.css -o ./source/css/style.css --watch",
+    "dev:js": "npx terser ./src/js/main.js -o ./source/js/main.js --compress --mangle --watch"
+  },
+  "keywords": [
+    "hexo",
+    "theme",
+    "glass",
+    "modern",
+    "liquid",
+    "animation"
+  ],
+  "author": "jimmyki",
+  "license": "MIT",
+  "dependencies": {
+    "tailwindcss": "^3.4.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "terser": "^5.27.0"
+  }
+}

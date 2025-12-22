@@ -1,0 +1,66 @@
+<div class="archive-page">
+  <div class="archive-header glass-surface">
+    <h1 class="archive-title text-liquid-gradient">
+      <%= page.title %>
+    </h1>
+    <p class="archive-subtitle text-secondary">
+      共 <%= site.posts.length %> 篇文章
+    </p>
+  </div>
+
+  <div class="archive-content">
+    <% page.posts.forEach(function(post) { %>
+      <article class="archive-item glass-surface">
+        <time class="archive-date" datetime="<%= date(post.date, 'YYYY-MM-DD') %>">
+          <%= date(post.date, 'YYYY-MM-DD') %>
+        </time>
+        <a href="<%- url_for(post.path) %>" class="archive-title">
+          <%= post.title %>
+        </a>
+        <div class="archive-meta">
+          <% if (post.categories && post.categories.length > 0) { %>
+            <span class="archive-category">
+              <%= post.categories.first().name %>
+            </span>
+          <% } %>
+          <% if (post.tags && post.tags.length > 0) { %>
+            <div class="archive-tags">
+              <% post.tags.forEach(function(tag) { %>
+                <span class="tag"><%= tag.name %></span>
+              <% }) %>
+            </div>
+          <% } %>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+
+  <!-- Pagination -->
+  <% if (page.total > 1) { %>
+    <nav class="pagination glass-surface">
+      <% if (page.prev) { %>
+        <a href="<%- url_for(page.prev_link) %>" class="page-link prev">
+          ← 上一页
+        </a>
+      <% } %>
+
+      <div class="page-numbers">
+        <% for (var i = 1; i <= page.total; i++) { %>
+          <% if (i === page.current) { %>
+            <span class="page-number current"><%= i %></span>
+          <% } else { %>
+            <a href="<%- url_for(url_for(page.path) + page.path + '/' + i) %>" class="page-number">
+              <%= i %>
+            </a>
+          <% } %>
+        <% } %>
+      </div>
+
+      <% if (page.next) { %>
+        <a href="<%- url_for(page.next_link) %>" class="page-link next">
+          下一页 →
+        </a>
+      <% } %>
+    </nav>
+  <% } %>
+</div>

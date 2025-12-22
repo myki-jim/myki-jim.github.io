@@ -1,0 +1,86 @@
+<div class="post-page">
+  <article class="post-article glass-surface">
+    <!-- Post Header -->
+    <header class="post-header">
+      <div class="post-meta">
+        <time class="post-date" datetime="<%= date(page.date, 'YYYY-MM-DD') %>">
+          <%= date(page.date, 'YYYY年MM月DD日') %>
+        </time>
+        <% if (page.categories && page.categories.length > 0) { %>
+          <span class="post-category">
+            <%= page.categories.first().name %>
+          </span>
+        <% } %>
+        <% if (page.updated && page.updated !== page.date) { %>
+          <span class="post-updated">
+            更新于 <%= date(page.updated, 'YYYY年MM月DD日') %>
+          </span>
+        <% } %>
+      </div>
+
+      <h1 class="post-title text-liquid-gradient">
+        <%= page.title %>
+      </h1>
+
+      <div class="post-tags">
+        <% if (page.tags && page.tags.length > 0) { %>
+          <% page.tags.forEach(function(tag) { %>
+            <span class="tag">
+              <%= tag.name %>
+            </span>
+          <% }) %>
+        <% } %>
+      </div>
+    </header>
+
+    <!-- Post Content -->
+    <div class="post-content">
+      <%- page.content %>
+    </div>
+
+    <!-- Post Footer -->
+    <footer class="post-footer">
+      <div class="post-navigation">
+        <% if (page.prev) { %>
+          <a href="<%- url_for(page.prev.path) %>" class="nav-link prev">
+            <div class="nav-label">← 上一篇</div>
+            <div class="nav-title"><%= page.prev.title %></div>
+          </a>
+        <% } %>
+
+        <% if (page.next) { %>
+          <a href="<%- url_for(page.next.path) %>" class="nav-link next">
+            <div class="nav-label">下一篇 →</div>
+            <div class="nav-title"><%= page.next.title %></div>
+          </a>
+        <% } %>
+      </div>
+
+      <!-- Copyright Notice -->
+      <div class="copyright">
+        <p>
+          本文作者：<%= config.author %>
+          <br>
+          本文链接：<a href="<%- url_for(page.path) %>" class="article-link"><%- config.url + url_for(page.path) %></a>
+          <br>
+          版权声明：本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议进行许可
+        </p>
+      </div>
+    </footer>
+  </article>
+
+  <!-- Related Posts -->
+  <% if (theme.related_posts && page.related && page.related.length > 0) { %>
+    <section class="related-posts glass-surface">
+      <h3 class="section-title text-liquid-gradient">相关文章</h3>
+      <div class="related-posts-grid">
+        <% page.related.forEach(function(post) { %>
+          <a href="<%- url_for(post.path) %>" class="related-post-card">
+            <div class="related-post-title"><%= post.title %></div>
+            <div class="related-post-date"><%= date(post.date, 'MM月DD日') %></div>
+          </a>
+        <% }) %>
+      </div>
+    </section>
+  <% } %>
+</div>

@@ -1,0 +1,112 @@
+<div class="home-page">
+  <!-- Hero Section -->
+  <section class="hero-section glass-surface">
+    <div class="hero-content">
+      <h1 class="hero-title text-liquid-gradient">
+        <%= config.title %>
+      </h1>
+      <p class="hero-subtitle text-secondary">
+        <%= config.description || '欢迎来到我的博客' %>
+      </p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number"><%= site.posts.length %></span>
+          <span class="stat-label">文章</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number"><%= site.categories.length %></span>
+          <span class="stat-label">分类</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number"><%= site.tags.length %></span>
+          <span class="stat-label">标签</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Posts Section -->
+  <section class="recent-posts">
+    <div class="section-header">
+      <h2 class="section-title text-liquid-gradient">最新文章</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="posts-grid">
+      <% page.posts.forEach(function(post) { %>
+        <article class="post-card glass-surface">
+          <div class="post-card-content">
+            <div class="post-meta">
+              <time class="post-date" datetime="<%= date(post.date, 'YYYY-MM-DD') %>">
+                <%= date(post.date, 'YYYY年MM月DD日') %>
+              </time>
+              <% if (post.categories && post.categories.length > 0) { %>
+                <span class="post-category">
+                  <%= post.categories.first().name %>
+                </span>
+              <% } %>
+            </div>
+
+            <h3 class="post-title">
+              <a href="<%- url_for(post.path) %>" class="title-link">
+                <%= post.title %>
+              </a>
+            </h3>
+
+            <p class="post-excerpt">
+              <% if (post.excerpt) { %>
+                <%= truncate(strip_html(post.excerpt), {length: 120, omission: '...'}) %>
+              <% } else { %>
+                <%= truncate(strip_html(post.content), {length: 120, omission: '...'}) %>
+              <% } %>
+            </p>
+
+            <div class="post-footer">
+              <div class="post-tags">
+                <% if (post.tags && post.tags.length > 0) { %>
+                  <% post.tags.forEach(function(tag) { %>
+                    <span class="tag">
+                      <%= tag.name %>
+                    </span>
+                  <% }) %>
+                <% } %>
+              </div>
+              <a href="<%- url_for(post.path) %>" class="read-more">
+                阅读更多 →
+              </a>
+            </div>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+
+    <!-- Pagination -->
+    <% if (page.total > 1) { %>
+      <nav class="pagination glass-surface">
+        <% if (page.prev) { %>
+          <a href="<%- url_for(page.prev_link) %>" class="page-link prev">
+            ← 上一页
+          </a>
+        <% } %>
+
+        <div class="page-numbers">
+          <% for (var i = 1; i <= page.total; i++) { %>
+            <% if (i === page.current) { %>
+              <span class="page-number current"><%= i %></span>
+            <% } else { %>
+              <a href="<%- url_for(url_for(page.path) + page.path + '/' + i) %>" class="page-number">
+                <%= i %>
+              </a>
+            <% } %>
+          <% } %>
+        </div>
+
+        <% if (page.next) { %>
+          <a href="<%- url_for(page.next_link) %>" class="page-link next">
+            下一页 →
+          </a>
+        <% } %>
+      </nav>
+    <% } %>
+  </section>
+</div>

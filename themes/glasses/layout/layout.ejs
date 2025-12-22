@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'en' %>" data-theme="<%= theme.theme_config.dark_mode ? 'dark' : 'light' %>">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= page.title ? `${page.title} - ${config.title}` : config.title %></title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="<%- url_for('/css/style.css') %>">
+
+    <!-- Theme CSS Variables -->
+    <style>
+      :root {
+        /* Default Dark Mode Variables */
+        --bg-main: #0f1116;
+        --bg-main-rgb: 15, 17, 22;
+        --text-primary: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.75);
+        --text-tertiary: rgba(255, 255, 255, 0.5);
+
+        /* Glass Effect */
+        --glass-surface: rgba(255, 255, 255, <%- theme.theme_config.styles.glass_opacity %>);
+        --glass-surface-hover: rgba(255, 255, 255, 0.08);
+        --glass-border: rgba(255, 255, 255, 0.2);
+        --glass-blur: <%- theme.theme_config.styles.glass_blur %>;
+
+        --accent-glow: rgba(34, 211, 238, 0.3);
+        --accent-color: <%- theme.theme_config.colors.primary %>;
+
+        --liquid-gradient-start: #ffffff;
+        --liquid-gradient-mid: <%- theme.theme_config.colors.secondary %>;
+        --liquid-gradient-end: #ffffff;
+
+        --border-radius: <%- theme.theme_config.styles.border_radius %>px;
+      }
+
+      [data-theme="light"] {
+        --bg-main: #cbd5e1;
+        --bg-main-rgb: 203, 213, 225;
+        --text-primary: #0f172a;
+        --text-secondary: rgba(15, 23, 42, 0.7);
+        --text-tertiary: rgba(15, 23, 42, 0.5);
+
+        --glass-surface: rgba(255, 255, 255, 0.55);
+        --glass-surface-hover: rgba(255, 255, 255, 0.75);
+        --glass-border: rgba(255, 255, 255, 0.65);
+        --glass-blur: 60px;
+
+        --accent-glow: rgba(8, 145, 178, 0.2);
+        --accent-color: <%- theme.theme_config.colors.accent %>;
+
+        --liquid-gradient-start: #0f172a;
+        --liquid-gradient-mid: <%- theme.theme_config.colors.accent %>;
+        --liquid-gradient-end: #0f172a;
+      }
+
+      body {
+        font-family: <%- theme.theme_config.fonts.primary %>;
+        background-color: var(--bg-main);
+        color: var(--text-primary);
+        overflow-x: hidden;
+        transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s ease;
+      }
+
+      /* Hide scrollbar for clean aesthetic */
+      ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+      }
+
+      /* Liquid gradient text utility */
+      .text-liquid-gradient {
+        background: linear-gradient(135deg, var(--liquid-gradient-start) 0%, var(--liquid-gradient-mid) 50%, var(--liquid-gradient-end) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% 200%;
+        animation: liquidFlow 8s ease infinite;
+      }
+
+      /* Custom scrollbar for search results */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: var(--glass-border);
+        border-radius: 4px;
+      }
+
+      @keyframes liquidFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+    </style>
+
+    <!-- Additional head content -->
+    <%- head_content %>
+
+    <!-- RSS -->
+    <% if (config.feed) { %>
+      <link rel="alternate" href="<%- url_for(config.feed.path) %>" title="<%= config.title %>" type="<%= config.feed.type %>">
+    <% } %>
+  </head>
+  <body>
+    <!-- Liquid Background -->
+    <div class="liquid-background">
+      <div class="liquid-bubble"></div>
+      <div class="liquid-bubble"></div>
+      <div class="liquid-bubble"></div>
+      <div class="liquid-bubble"></div>
+      <div class="liquid-bubble"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Navigation -->
+      <nav class="navbar glass-surface">
+        <div class="nav-container">
+          <div class="nav-brand">
+            <a href="<%- url_for('/') %>" class="brand-link text-liquid-gradient">
+              <%= config.title %>
+            </a>
+          </div>
+
+          <div class="nav-menu">
+            <% Object.keys(theme.theme_config.menu).forEach(function(key) { %>
+              <a href="<%- url_for(theme.theme_config.menu[key]) %>" class="nav-link">
+                <%- key %>
+              </a>
+            <% }) %>
+          </div>
+
+          <div class="nav-actions">
+            <% if (theme.theme_config.features.dark_mode_toggle) { %>
+              <button id="theme-toggle" class="theme-toggle glass-button">
+                <i class="icon-moon">🌙</i>
+                <i class="icon-sun">☀️</i>
+              </button>
+            <% } %>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <%- body %>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer glass-surface">
+        <div class="footer-content">
+          <p><%- theme.theme_config.layout.footer_text %></p>
+          <% if (theme.theme_config.social) { %>
+            <div class="social-links">
+              <% if (theme.theme_config.social.github) { %>
+                <a href="<%- theme.theme_config.social.github %>" class="social-link" target="_blank">GitHub</a>
+              <% } %>
+              <% if (theme.theme_config.social.email) { %>
+                <a href="mailto:<%- theme.theme_config.social.email %>" class="social-link">Email</a>
+              <% } %>
+            </div>
+          <% } %>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Back to Top Button -->
+    <% if (theme.theme_config.features.back_to_top) { %>
+      <button id="back-to-top" class="back-to-top glass-button">
+        <i>↑</i>
+      </button>
+    <% } %>
+
+    <!-- Scripts -->
+    <script src="<%- url_for('/js/main.js') %>"></script>
+
+    <!-- Additional scripts -->
+    <%- scripts_content %>
+  </body>
+</html>
