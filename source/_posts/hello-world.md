@@ -6,6 +6,7 @@ categories: ['博客', '欢迎']
 layout: post
 cover: https://github.com/myki-jim.png
 author: Jimmy Ki
+sticky: true
 ---
 
 # Hello World
