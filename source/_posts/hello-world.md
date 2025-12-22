@@ -1,8 +1,8 @@
 ---
 title: Hello World - 我的博客开张啦！
 date: 2025-12-22T12:15
-tags: ['博客', 'Hexo', '技术']
-categories: ['生活']
+tags: ['博客', 'Hexo', '技术', '欢迎']
+categories: ['博客', '欢迎']
 layout: post
 ---
 
