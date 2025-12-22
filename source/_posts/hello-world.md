@@ -1,47 +1,21 @@
 ---
-title: Hello World - 我的博客开张啦！
-date: 2025-12-22T12:15
+title: Hello World
+date: 2019-11-21
 tags: ['博客', 'Hexo', '技术', '欢迎']
 categories: ['博客', '欢迎']
 layout: post
-cover: https://avatars.githubusercontent.com/u/250856597?v=4
 ---
 
-![封面图片](https://avatars.githubusercontent.com/u/250856597?v=4)
+# Hello World
 
-欢迎来到我的个人技术博客！
+你好，世界！
+这是我的第一篇博客，希望以后可以在这里记录下自己的成长历程。
 
-## 关于这个博客
+# 感谢
 
-这是我的第一篇博客文章，使用 [Hexo](https://hexo.io/) 静态博客框架搭建。这个博客将记录我的：
+感谢 [Hexo](https://hexo.io/) 和 [Next](https://github.com/theme-next/hexo-theme-next) 让我可以这么方便地搭建自己的博客。
 
-- 技术学习笔记
-- 项目开发经验
-- 编程心得体会
-- 生活随想
+# 参考资料
 
-## 博客特色
-
-- 基于 Hexo 构建，加载快速
-- 使用 Next 主题，界面简洁美观
-- 响应式设计，支持多设备访问
-- 支持标签和分类功能
-- 集成 GitHub Actions 自动化部署
-
-## 未来计划
-
-- [ ] 分享前端开发经验
-- [ ] 记录算法学习过程
-- [ ] 探索新技术趋势
-- [ ] 建立个人知识库
-
-## 联系方式
-
-如果你对我的文章有任何疑问或建议，欢迎通过以下方式联系我：
-
-- GitHub: [myki-jim](https://github.com/myki-jim)
-- Email: (稍后添加)
-
----
-
-感谢访问，希望我的博客能对你有所帮助！✨
+- [Hexo官方文档](https://hexo.io/docs/)
+- [Next官方文档](https://theme-next.iissnan.com/)
