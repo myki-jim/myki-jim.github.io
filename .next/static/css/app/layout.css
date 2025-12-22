@@ -1,0 +1,404 @@
+/*!*************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./app/globals.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************/
+/* Glass Effect Classes */
+.glass-surface {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+.glass-surface:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="light"] .glass-surface {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+[data-theme="light"] .glass-surface:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* Liquid Background Animation */
+.liquid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.liquid-bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffffff, #a5f3fc, #ffffff);
+  filter: blur(60px);
+  opacity: 0.4;
+  animation: liquidFloat 20s infinite ease-in-out;
+}
+
+.liquid-bubble:nth-child(1) {
+  width: 300px;
+  height: 300px;
+  top: -150px;
+  left: -150px;
+  animation-delay: 0s;
+}
+
+.liquid-bubble:nth-child(2) {
+  width: 200px;
+  height: 200px;
+  top: 50%;
+  right: -100px;
+  animation-delay: 5s;
+}
+
+.liquid-bubble:nth-child(3) {
+  width: 400px;
+  height: 400px;
+  bottom: -200px;
+  left: 30%;
+  animation-delay: 10s;
+}
+
+.liquid-bubble:nth-child(4) {
+  width: 250px;
+  height: 250px;
+  top: 20%;
+  left: 60%;
+  animation-delay: 15s;
+}
+
+.liquid-bubble:nth-child(5) {
+  width: 350px;
+  height: 350px;
+  top: 60%;
+  right: 30%;
+  animation-delay: 20s;
+}
+
+@keyframes liquidFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 30px) scale(0.9);
+  }
+}
+/*!******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./app/styles/theme.css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************/
+:root {
+  /* Default Dark Mode Variables */
+  --bg-main: #0f1116;
+  --bg-main-rgb: 15, 17, 22;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.75);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
+
+  /* Stronger Glass Effect */
+  --glass-surface: rgba(255, 255, 255, 0.03);
+  --glass-surface-hover: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: 50px;
+
+  --accent-glow: rgba(34, 211, 238, 0.3);
+  --accent-color: #22d3ee;
+
+  --liquid-gradient-start: #ffffff;
+  --liquid-gradient-mid: #a5f3fc;
+  --liquid-gradient-end: #ffffff;
+}
+
+[data-theme="light"] {
+  --bg-main: #ffffff;
+  --bg-main-rgb: 255, 255, 255;
+  --text-primary: #1f2937;
+  --text-secondary: rgba(31, 41, 55, 0.7);
+  --text-tertiary: rgba(31, 41, 55, 0.5);
+
+  /* Stronger Glass Effect */
+  --glass-surface: rgba(255, 255, 255, 0.8);
+  --glass-surface-hover: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-blur: 60px;
+
+  --accent-glow: rgba(59, 130, 246, 0.2);
+  --accent-color: #3b82f6;
+
+  --liquid-gradient-start: #1f2937;
+  --liquid-gradient-mid: #3b82f6;
+  --liquid-gradient-end: #1f2937;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s ease;
+}
+
+/* Global smooth transitions for theme switching */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Faster transitions for interactive elements */
+button, a, input, textarea, select {
+  transition-duration: 200ms;
+}
+
+/* Hide scrollbar for clean aesthetic */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Liquid gradient text utility */
+.text-liquid-gradient {
+  background: linear-gradient(135deg, var(--liquid-gradient-start) 0%, var(--liquid-gradient-mid) 50%, var(--liquid-gradient-end) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: liquidFlow 8s ease infinite;
+  transition: background 0.5s ease;
+}
+
+/* Custom scrollbar for search results */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}
+
+@keyframes liquidFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Line clamp utility */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./app/styles/markdown.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+/* Markdown content styling */
+.prose {
+  color: var(--text-secondary);
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.prose h1 {
+  font-size: 2.5em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.prose h2 {
+  font-size: 2em;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+}
+
+.prose h3 {
+  font-size: 1.5em;
+  margin-top: 1.75em;
+  margin-bottom: 0.5em;
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  line-height: 1.75;
+}
+
+.prose code {
+  background-color: var(--glass-surface-hover);
+  color: var(--text-primary);
+  padding: 0.25em 0.5em;
+  border-radius: 0.375rem;
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+.prose pre {
+  background-color: var(--glass-surface-hover);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  overflow-x: auto;
+  margin: 1.5em 0;
+}
+
+.prose pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: var(--text-primary);
+}
+
+.prose blockquote {
+  border-left: 4px solid var(--accent-color);
+  padding-left: 1.5rem;
+  margin: 1.5em 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 2rem;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.prose a:hover {
+  text-decoration: underline;
+}
+
+.prose img {
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  margin: 2em 0;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--glass-border);
+  margin: 3em 0;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2em 0;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid var(--glass-border);
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.prose th {
+  background-color: var(--glass-surface-hover);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Code highlighting styles for dark mode */
+[data-theme="dark"] .prose pre .hljs {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .prose pre .hljs-keyword {
+  color: #ff79c6;
+}
+
+[data-theme="dark"] .prose pre .hljs-string {
+  color: #50fa7b;
+}
+
+[data-theme="dark"] .prose pre .hljs-number {
+  color: #bd93f9;
+}
+
+[data-theme="dark"] .prose pre .hljs-comment {
+  color: #6272a4;
+}
+
+[data-theme="dark"] .prose pre .hljs-function {
+  color: #8be9fd;
+}
+
+[data-theme="dark"] .prose pre .hljs-variable {
+  color: #f8f8f2;
+}
+
+/* Code highlighting styles for light mode */
+[data-theme="light"] .prose pre .hljs {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .prose pre .hljs-keyword {
+  color: #d73a49;
+}
+
+[data-theme="light"] .prose pre .hljs-string {
+  color: #22863a;
+}
+
+[data-theme="light"] .prose pre .hljs-number {
+  color: #005cc5;
+}
+
+[data-theme="light"] .prose pre .hljs-comment {
+  color: #6a737d;
+}
+
+[data-theme="light"] .prose pre .hljs-function {
+  color: #6f42c1;
+}
+
+[data-theme="light"] .prose pre .hljs-variable {
+  color: #24292e;
+}
