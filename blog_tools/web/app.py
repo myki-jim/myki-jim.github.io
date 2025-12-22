@@ -235,10 +235,23 @@ def edit_post(filename):
             return redirect(url_for('index'))
 
         with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
+            full_content = f.read()
 
         post_info = blog_writer._parse_post_info(file_path)
-        return render_template('edit_post.html', post=post_info, content=content)
+
+        # 分离 front matter 和正文内容
+        import re
+        front_matter_pattern = r'^---\n(.*?)\n---\n(.*)$'
+        match = re.match(front_matter_pattern, full_content, re.DOTALL)
+
+        if match:
+            # 只提取正文内容，不包括 front matter
+            body_content = match.group(2).strip()
+        else:
+            # 如果没有 front matter，使用完整内容
+            body_content = full_content
+
+        return render_template('edit_post.html', post=post_info, content=body_content)
 
     except Exception as e:
         flash(f'加载文章失败: {str(e)}', 'error')
@@ -267,14 +280,9 @@ def update_post(filename):
             full_content = f.read()
 
         # 分离 front matter 和正文内容
-        front_matter_end = -1
-        lines = full_content.split('\n')
-
-        if lines and lines[0].strip() == '---':
-            for i in range(1, len(lines)):
-                if lines[i].strip() == '---':
-                    front_matter_end = i
-                    break
+        import re
+        front_matter_pattern = r'^---\n(.*?)\n---\n(.*)$'
+        match = re.match(front_matter_pattern, full_content, re.DOTALL)
 
         # 构建新的front matter
         tags_array = ', '.join([f"'{tag}'" for tag in tags]) if tags else ''
@@ -290,19 +298,8 @@ layout: {layout}
 
 """
 
-        # 写入新内容
-        if front_matter_end != -1:
-            # 保留原有内容，只替换front matter
-            content_lines = lines[front_matter_end + 1:]
-            # 移除开头的空行
-            while content_lines and not content_lines[0].strip():
-                content_lines.pop(0)
-
-            content_after_front_matter = '\n'.join(content_lines) if content_lines else ''
-            new_content = new_front_matter + content + '\n'
-        else:
-            # 如果没有front matter，直接添加
-            new_content = new_front_matter + content + '\n'
+        # 写入新内容 - 只使用表单中的内容，不保留任何原有内容
+        new_content = new_front_matter + content + '\n'
 
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(new_content)
