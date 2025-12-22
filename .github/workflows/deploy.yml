@@ -37,9 +37,17 @@ jobs:
       run: |
         npm install
 
+    - name: Extract blog data
+      run: |
+        npm run extract-data
+
     - name: Build Next.js static site
       run: |
         npm run next-build
+
+    - name: Export static files
+      run: |
+        npm run next-export
 
     - name: Show generated files
       run: |

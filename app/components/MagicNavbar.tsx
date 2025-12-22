@@ -35,6 +35,15 @@ const MagicNavbar: React.FC<MagicNavbarProps> = ({ onNavigate, activePage, posts
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
 
+  // Load theme from localStorage on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' | null;
+    if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light')) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  }, []);
+
   // Close more menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

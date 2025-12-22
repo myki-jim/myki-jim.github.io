@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "next-build": "next build",
+    "next-export": "next export",
+    "build": "npm run extract-data && npm run next-build && npm run next-export",
     "start": "next start",
     "extract-data": "node scripts/extract-hexo-data.js",
-    "clean": "rm -rf .next out public",
-    "export": "next build && next export"
+    "clean": "rm -rf .next out public/data/posts public/data/index.json"
   },
   "dependencies": {
     "date-fns": "^2.30.0",
