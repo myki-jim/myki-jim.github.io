@@ -4,7 +4,10 @@ date: 2025-12-22T12:15
 tags: ['博客', 'Hexo', '技术', '欢迎']
 categories: ['博客', '欢迎']
 layout: post
+cover: https://avatars.githubusercontent.com/u/250856597?v=4
 ---
+
+![封面图片](https://avatars.githubusercontent.com/u/250856597?v=4)
 
 欢迎来到我的个人技术博客！
 
