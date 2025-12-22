@@ -2,6 +2,7 @@ import './globals.css'
 import './styles/theme.css'
 import './styles/markdown.css'
 import { Metadata } from 'next'
+import BodyWrapper from './components/BodyWrapper'
 
 export const metadata: Metadata = {
   title: "Jimmy Ki's Blog",
@@ -24,7 +25,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="https://github.com/myki-jim.png" />
       </head>
       <body>
-        {children}
+        <BodyWrapper>{children}</BodyWrapper>
       </body>
     </html>
   )
