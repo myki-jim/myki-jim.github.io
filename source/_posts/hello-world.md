@@ -1,6 +1,14 @@
 ---
 title: Hello World - 我的博客开张啦！
 date: 2025-12-22T12:15
+tags: ['博客', 'Hexo', '技术', '欢迎']
+categories: ['生活']
+layout: post
+---
+
+---
+title: Hello World - 我的博客开张啦！
+date: 2025-12-22T12:15
 tags: ['博客', 'Hexo', '技术']
 categories: ['生活']
 layout: post
@@ -21,11 +29,11 @@ layout: post
 
 ## 博客特色
 
-- 🚀 基于 Hexo 构建，加载快速
-- 🎨 使用 Next 主题，界面简洁美观
-- 📱 响应式设计，支持多设备访问
-- 🔍 支持标签和分类功能
-- ⚡ 集成 GitHub Actions 自动化部署
+- 基于 Hexo 构建，加载快速
+- 使用 Next 主题，界面简洁美观
+- 响应式设计，支持多设备访问
+- 支持标签和分类功能
+- 集成 GitHub Actions 自动化部署
 
 ## 未来计划
 
