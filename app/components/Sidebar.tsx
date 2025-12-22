@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Send, Mail, Coffee, Twitter, Code2, BookOpen, Tag, Folder } from 'lucide-react';
+import { Github, Send, Mail, Coffee, Twitter, Code2 } from 'lucide-react';
 import { BlogData } from './types';
 
 interface SidebarProps {
@@ -46,9 +46,9 @@ const Sidebar: React.FC<SidebarProps> = ({ blogData }) => {
       <div>
         <h4 className="text-xs font-bold text-[var(--text-tertiary)] uppercase tracking-widest mb-3 px-2">统计信息</h4>
         <div className="grid grid-cols-3 gap-3">
-          <StatTile icon={<BookOpen size={18} />} label="文章" count={postsCount} delay={0} />
-          <StatTile icon={<Folder size={18} />} label="分类" count={categoriesCount} delay={0.1} />
-          <StatTile icon={<Tag size={18} />} label="标签" count={tagsCount} delay={0.2} />
+          <StatTile label="文章" count={postsCount} delay={0} />
+          <StatTile label="分类" count={categoriesCount} delay={0.1} />
+          <StatTile label="标签" count={tagsCount} delay={0.2} />
         </div>
       </div>
 
@@ -102,15 +102,14 @@ const Sidebar: React.FC<SidebarProps> = ({ blogData }) => {
   );
 };
 
-const StatTile = ({ icon, label, count, delay }: { icon: React.ReactNode, label: string, count: number, delay: number }) => (
+const StatTile = ({ label, count, delay }: { label: string, count: number, delay: number }) => (
   <motion.div
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay }}
-    className="aspect-square flex flex-col items-center justify-center gap-2 rounded-2xl bg-[var(--glass-surface)] border border-[var(--glass-border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+    className="aspect-square flex flex-col items-center justify-between rounded-2xl bg-[var(--glass-surface)] border border-[var(--glass-border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors p-3"
     style={{ backdropFilter: "blur(var(--glass-blur))" }}
   >
-    {icon}
     <span className="text-lg font-bold text-[var(--accent-color)]">{count}</span>
     <span className="text-[10px] font-medium opacity-50">{label}</span>
   </motion.div>
