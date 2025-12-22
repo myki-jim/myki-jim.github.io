@@ -1,0 +1,270 @@
+### New console messages
+- [ERROR] Manifest: Line: 1, column: 1, Syntax error. @ https://blog-ck7.pages.dev/manifest.json:0
+
+### Page state
+- Page URL: https://blog-ck7.pages.dev/2024/11/27/CTF%E5%B7%A5%E5%85%B7%E9%9B%86%EF%BD%9Cby%20ki/
+- Page Title: CTF工具集｜by ki - jimmyki云分享
+- Page Snapshot:
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "JimmyKi's Blog" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e5]:
+        - link "归档" [ref=e6] [cursor=pointer]:
+          - /url: /archives
+        - link "GitHub" [ref=e7] [cursor=pointer]:
+          - /url: https://github.com/Jimmy-Ki
+  - article [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - link "CTF" [ref=e11] [cursor=pointer]:
+          - /url: /categories/CTF/
+        - link "工具" [ref=e12] [cursor=pointer]:
+          - /url: /categories/CTF/工具/
+      - generic [ref=e13]: November 27, 2024
+      - heading "CTF工具集｜by ki" [level=1] [ref=e14]
+    - complementary [ref=e15]:
+      - generic [ref=e16]:
+        - paragraph [ref=e17]:
+          - link "工具总结" [ref=e18] [cursor=pointer]:
+            - /url: "#工具总结"
+        - paragraph [ref=e19]:
+          - link "相关下载" [ref=e20] [cursor=pointer]:
+            - /url: "#相关下载"
+        - paragraph [ref=e21]:
+          - link "常用MISC（杂项）工具" [ref=e22] [cursor=pointer]:
+            - /url: "#常用MISC（杂项）工具"
+    - generic [ref=e24]:
+      - heading "# 工具总结" [level=2] [ref=e25]:
+        - link "#" [ref=e26] [cursor=pointer]:
+          - /url: "#工具总结"
+        - text: 工具总结
+      - list [ref=e27]:
+        - listitem [ref=e28]:
+          - link "http://esoteric.sange.fi/brainfuck/impl/interp/i.html" [ref=e29] [cursor=pointer]:
+            - /url: http://esoteric.sange.fi/brainfuck/impl/interp/i.html
+          - text: //解析一些特殊符号组成的图形
+        - listitem [ref=e30]:
+          - link "https://tu.sioe.cn/gj/fenjie/" [ref=e31] [cursor=pointer]:
+            - /url: https://tu.sioe.cn/gj/fenjie/
+          - text: //将gif拆分为png
+        - listitem [ref=e32]:
+          - link "https://www.toolhelper.cn/EncodeDecode/EncodeDecode" [ref=e33] [cursor=pointer]:
+            - /url: https://www.toolhelper.cn/EncodeDecode/EncodeDecode
+          - text: //简单的进制转换
+        - listitem [ref=e34]:
+          - link "https://online-barcode-reader.inliteresearch.com/" [ref=e35] [cursor=pointer]:
+            - /url: https://online-barcode-reader.inliteresearch.com/
+          - text: //二维码
+        - listitem [ref=e36]:
+          - link "http://app.xunjiepdf.com/pdf2word//pdf转换器" [ref=e37] [cursor=pointer]:
+            - /url: http://app.xunjiepdf.com/pdf2word//pdf%E8%BD%AC%E6%8D%A2%E5%99%A8
+        - listitem [ref=e38]:
+          - link "http://www.keyfc.net/bbs/tools/tudoucode.aspx" [ref=e39] [cursor=pointer]:
+            - /url: http://www.keyfc.net/bbs/tools/tudoucode.aspx
+          - text: //佛语。。
+        - listitem [ref=e40]:
+          - link "https://lzltool.cn/Tools/Rot13" [ref=e41] [cursor=pointer]:
+            - /url: https://lzltool.cn/Tools/Rot13
+      - heading "# 相关下载" [level=2] [ref=e42]:
+        - link "#" [ref=e43] [cursor=pointer]:
+          - /url: "#相关下载"
+        - text: 相关下载
+      - list [ref=e44]:
+        - listitem [ref=e45]:
+          - list [ref=e46]:
+            - listitem [ref=e47]:
+              - text: winhex（磁盘编辑工具）
+              - text: 下载地址：
+              - link "https://zhangfa.lanzoub.com/iQEARyoy2ze" [ref=e48] [cursor=pointer]:
+                - /url: https://zhangfa.lanzoub.com/iQEARyoy2ze
+        - listitem [ref=e49]:
+          - list [ref=e50]:
+            - listitem [ref=e51]:
+              - text: ARCHPR（压缩包破解）
+              - text: 下载地址：
+              - link "https://zhangfa.lanzoub.com/iQmy8yq3tuh" [ref=e52] [cursor=pointer]:
+                - /url: https://zhangfa.lanzoub.com/iQmy8yq3tuh
+        - listitem [ref=e53]:
+          - list [ref=e54]:
+            - listitem [ref=e55]:
+              - text: Ziperello（压缩包密码破解）
+              - text: 下载地址：
+              - link "https://zhangfa.lanzoub.com/idz1Xzuvxfe" [ref=e56] [cursor=pointer]:
+                - /url: https://zhangfa.lanzoub.com/idz1Xzuvxfe
+        - listitem [ref=e57]:
+          - list [ref=e58]:
+            - listitem [ref=e59]:
+              - text: ExeinfoPe（脱壳检测工具）
+              - text: 下载地址：
+              - link "https://zhangfa.lanzoub.com/ie4Tv01uszuf" [ref=e60] [cursor=pointer]:
+                - /url: https://zhangfa.lanzoub.com/ie4Tv01uszuf
+        - listitem [ref=e61]:
+          - list [ref=e62]:
+            - listitem [ref=e63]:
+              - text: IDAPro（逆向分析工具）
+              - text: 下载地址：
+              - link "https://download.csdn.net/download/l8947943/85018706" [ref=e64] [cursor=pointer]:
+                - /url: https://download.csdn.net/download/l8947943/85018706
+        - listitem [ref=e65]:
+          - list [ref=e66]:
+            - listitem [ref=e67]:
+              - text: jetbrain学生党使用（请支持正版）
+              - link "https://www.gwalker.cn/article-f4a2a56g519ac9529d3a3cf927b78c0f.html" [ref=e68] [cursor=pointer]:
+                - /url: https://www.gwalker.cn/article-f4a2a56g519ac9529d3a3cf927b78c0f.html
+        - listitem [ref=e69]:
+          - list [ref=e70]:
+            - listitem [ref=e71]: CTF小工具在线合集（多种小工具yyds，用于加解密，二维码在线处理等）
+          - list [ref=e72]:
+            - listitem [ref=e73]:
+              - link "http://www.hiencode.com/" [ref=e74] [cursor=pointer]:
+                - /url: http://www.hiencode.com/
+            - listitem [ref=e75]:
+              - link "https://www.ctftools.com/down/" [ref=e76] [cursor=pointer]:
+                - /url: https://www.ctftools.com/down/
+            - listitem [ref=e77]:
+              - link "https://www.wishingstarmoye.com/" [ref=e78] [cursor=pointer]:
+                - /url: https://www.wishingstarmoye.com/
+        - listitem [ref=e79]:
+          - list [ref=e80]:
+            - listitem [ref=e81]:
+              - text: 密码学大素数在线分解
+              - link "http://www.factordb.com/index.php" [ref=e82] [cursor=pointer]:
+                - /url: http://www.factordb.com/index.php
+        - listitem [ref=e83]:
+          - list [ref=e84]:
+            - listitem [ref=e85]:
+              - text: 蚁剑工具（注入连接后端工具）
+              - link "https://zhangfa.lanzoub.com/iv2S801uxjti" [ref=e86] [cursor=pointer]:
+                - /url: https://zhangfa.lanzoub.com/iv2S801uxjti
+        - listitem [ref=e87]:
+          - list [ref=e88]:
+            - listitem [ref=e89]:
+              - text: 御剑工具汇总（注入连接后端工具）
+              - link "https://zhangfa.lanzoub.com/ia8XQ01uxk0f" [ref=e90] [cursor=pointer]:
+                - /url: https://zhangfa.lanzoub.com/ia8XQ01uxk0f
+        - listitem [ref=e91]:
+          - list [ref=e92]:
+            - listitem [ref=e93]:
+              - text: Stegsolve（隐写分析工具）
+              - link "https://zhangfa.lanzoub.com/idNsd06v43sd" [ref=e94] [cursor=pointer]:
+                - /url: https://zhangfa.lanzoub.com/idNsd06v43sd
+        - listitem [ref=e95]:
+          - list [ref=e96]:
+            - listitem [ref=e97]:
+              - text: ZipCenOp.jar（自动修复zip伪加密文件）
+              - link "https://zhangfa.lanzoub.com/imhZ206wft0d" [ref=e98] [cursor=pointer]:
+                - /url: https://zhangfa.lanzoub.com/imhZ206wft0d
+        - listitem [ref=e99]:
+          - list [ref=e100]:
+            - listitem [ref=e101]:
+              - text: Audacity_3.1.3.exe（用于音频分析剪辑）
+              - link "https://zhangfa.lanzoub.com/iO2k10729zih" [ref=e102] [cursor=pointer]:
+                - /url: https://zhangfa.lanzoub.com/iO2k10729zih
+        - listitem [ref=e103]:
+          - list [ref=e104]:
+            - listitem [ref=e105]:
+              - text: QR_Research.exe（二维码扫描小工具）
+              - link "https://zhangfa.lanzoub.com/idPZt073id4b" [ref=e106] [cursor=pointer]:
+                - /url: https://zhangfa.lanzoub.com/idPZt073id4b
+        - listitem [ref=e107]:
+          - list [ref=e108]:
+            - listitem [ref=e109]:
+              - text: 暴力破解字典库（常用于爆破用的密码库）
+              - link "https://github.com/rootphantomer/Blasting_dictionary" [ref=e110] [cursor=pointer]:
+                - /url: https://github.com/rootphantomer/Blasting_dictionary
+      - heading "# 常用MISC（杂项）工具" [level=2] [ref=e111]:
+        - link "#" [ref=e112] [cursor=pointer]:
+          - /url: "#常用MISC（杂项）工具"
+        - text: 常用MISC（杂项）工具
+      - list [ref=e113]:
+        - listitem [ref=e114]: Audacity （提取莫斯密码辅助工具）
+        - listitem [ref=e115]: stegsolve （图片隐写分析工具）
+        - listitem [ref=e116]: QR_Research （二维码工具）
+        - listitem [ref=e117]: ZipCenOp.jar(验证是否为伪加密工具)
+        - listitem [ref=e118]: AAPR(rar密码破解工具)
+        - listitem [ref=e119]:
+          - text: Ziperello(zip密码破解工具)
+          - text: 7.Winhex(程序查看调试工具)
+        - listitem [ref=e120]:
+          - text: RouterPassView(路由器配置查看工具)
+          - text: 四、常用REVERSE（逆向）工具
+        - listitem [ref=e121]: ExeinfoPe （判断软件版本和是否有壳）
+        - listitem [ref=e122]: IDA64位
+        - listitem [ref=e123]:
+          - text: IDA32位
+          - text: 五、ctf常用扫描字典
+      - paragraph [ref=e124]:
+        - link "http://www.hiencode.com/" [ref=e125] [cursor=pointer]:
+          - /url: http://www.hiencode.com/
+        - text: （解码工具箱
+      - paragraph [ref=e126]:
+        - text: zip文件的结尾以一串504B0506开始、
+        - text: rar文件以C43D7B00400700结尾。
+        - text: JPG文件结尾为FFD9
+        - text: PNG文件 结尾为000049454E44AE426082。
+        - text: Gif文件结尾为3B。
+      - paragraph [ref=e127]:
+        - text: cat指令在windows中替换为type
+        - link "https://www.gpsvisualizer.com/map_input" [ref=e128] [cursor=pointer]:
+          - /url: https://www.gpsvisualizer.com/map_input
+        - text: //地图
+    - generic [ref=e129]:
+      - heading "关于本文" [level=1] [ref=e130]
+      - paragraph [ref=e132]:
+        - text: 由 Jimmy Ki 撰写, 采用
+        - link "CC BY-NC 4.0" [ref=e133] [cursor=pointer]:
+          - /url: https://creativecommons.org/licenses/by-nc/4.0
+        - text: 许可协议.
+      - paragraph [ref=e134]:
+        - link "#CTF" [ref=e136] [cursor=pointer]:
+          - /url: /tagss/CTF/
+        - link "#工具" [ref=e137] [cursor=pointer]:
+          - /url: /tagss/工具/
+        - link "#网络安全" [ref=e138] [cursor=pointer]:
+          - /url: /tagss/网络安全/
+    - generic [ref=e139]:
+      - link "下一篇 别被骗了！某多多买游戏CDK根本不靠谱！" [ref=e140] [cursor=pointer]:
+        - /url: /2024/11/29/%E5%88%AB%E8%A2%AB%E9%AA%97%E4%BA%86,%E6%9F%90%E5%A4%9A%E5%A4%9A%E4%B9%B0%E6%B8%B8%E6%88%8FCDK%E6%A0%B9%E6%9C%AC%E4%B8%8D%E9%9D%A0%E8%B0%B1%EF%BC%81/
+        - generic [ref=e142]:
+          - paragraph [ref=e143]: 下一篇
+          - heading "别被骗了！某多多买游戏CDK根本不靠谱！" [level=3] [ref=e144]
+      - link "上一篇 公网ipv6配置教程他来了！可用作远程桌面连接、服务器（非web网页）、游戏服务（我的世界）" [ref=e145] [cursor=pointer]:
+        - /url: /2024/11/25/%E5%85%AC%E7%BD%91ipv6%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E4%BB%96%E6%9D%A5%E4%BA%86%EF%BC%81%E5%8F%AF%E7%94%A8%E4%BD%9C%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E9%9D%9Eweb%E7%BD%91%E9%A1%B5%EF%BC%89%E3%80%81%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%EF%BC%88%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C%EF%BC%89/
+        - generic [ref=e147]:
+          - paragraph [ref=e148]: 上一篇
+          - heading "公网ipv6配置教程他来了！可用作远程桌面连接、服务器（非web网页）、游戏服务（我的世界）" [level=3] [ref=e149]
+  - contentinfo [ref=e150]:
+    - generic [ref=e151]:
+      - generic [ref=e152]:
+        - generic [ref=e153]:
+          - heading "博客" [level=2] [ref=e154]
+          - link "博客" [ref=e155] [cursor=pointer]:
+            - /url: /
+          - link "瞎搞" [ref=e156] [cursor=pointer]:
+            - /url: https://github.com/Jimmy-Ki
+        - generic [ref=e157]:
+          - heading "我的" [level=2] [ref=e158]
+          - link "GitHub" [ref=e159] [cursor=pointer]:
+            - /url: https://github.com/Jimmy-Ki
+          - link "邮箱" [ref=e160] [cursor=pointer]:
+            - /url: mailto:Jimmy-Ki@qq.com
+      - generic [ref=e161]:
+        - text: © 2025 Jimmy Ki
+        - text: 由
+        - link "Hexo" [ref=e162] [cursor=pointer]:
+          - /url: http://hexo.io/
+        - text: 驱动
+      - radiogroup [ref=e163]:
+        - generic [ref=e164]:
+          - radio "Light"
+          - generic [ref=e165]: Light
+        - generic [ref=e166]:
+          - radio "Dark"
+          - generic [ref=e167]: Dark
+        - generic [ref=e168]:
+          - radio "Auto" [checked]
+          - generic [ref=e169]: Auto
+```

@@ -4,7 +4,7 @@ date: 2025-03-23
 tags: ['CTF', '网络安全', '渗透', '抓包']
 categories: ['CTF', '工具', '抓包', '渗透测试']
 layout: post
-banner: "https://blog-ck7.pages.dev/img/niushop-upload-vuln-banner.png"
+banner: "https://blogtc.jimmyki.com/images/CTF/n7.png"
 ---
 
 ！！！注意：本文章仅用于学习交流，请勿用于非法用途！！！
@@ -53,7 +53,7 @@ NiuShop是一款基于ThinkPHP5.1开发的B2B2C多用户商城系统。在某些
 
 我们发现，在用户中心存在头像上传功能，这可能是一个潜在的文件上传点。 尝试上传文件，看看是否存在文件类型限制或其他安全措施。
 
-![上传漏洞所在地方](https://blog-ck7.pages.dev/img/niushop-upload-location.png)
+![上传漏洞所在地方](https://blogtc.jimmyki.com/images/CTF/n2.png)
 
 ### 构造上传包并上传文件
 
@@ -71,7 +71,7 @@ NiuShop是一款基于ThinkPHP5.1开发的B2B2C多用户商城系统。在某些
 - **文件名**：上传文件的原始名称。
 - **文件内容**：上传文件的二进制数据。
 
-![对上传的图片进行抓包](https://blog-ck7.pages.dev/img/niushop-upload-packet.png)
+![对上传的图片进行抓包](https://blogtc.jimmyki.com/images/CTF/n3p.png)
 
 #### 绕过文件类型限制：
 
@@ -86,7 +86,7 @@ NiuShop是一款基于ThinkPHP5.1开发的B2B2C多用户商城系统。在某些
 
 我们尝试修改 `Content-Type` 为 `image/png`，并且文件名改为 `xxxxxx.php`，再次上传。
 
-![修改包内容](https://blog-ck7.pages.dev/img/niushop-modified-packet.png)
+![修改包内容](https://blogtc.jimmyki.com/images/CTF/n31.png)
 
 #### 上传恶意代码：
 
@@ -102,13 +102,13 @@ NiuShop是一款基于ThinkPHP5.1开发的B2B2C多用户商城系统。在某些
 
 如果上传成功，服务器会返回上传文件的URL地址或存储路径。我们需要找到上传文件的存储路径，然后在浏览器中访问该路径。
 
-![上传成功](https://blog-ck7.pages.dev/img/niushop-upload-success.png)
+![上传成功](https://blogtc.jimmyki.com/images/CTF/n5.png)
 
 通过访问上传的PHP文件，并传递 `cmd` 参数，我们可以执行任意系统命令，从而获取网站服务器的控制权限。
 
 例如，访问 `http://your-niushop-domain/upload/avatar/xxxxxx.php` ，可以连接到中国菜刀
 
-![获取网站权限](https://blog-ck7.pages.dev/img/niushop-shell-access.png)
+![获取网站权限](https://blogtc.jimmyki.com/images/CTF/n6.png)
 
 (PS):niushop简直千疮百痍啊
 

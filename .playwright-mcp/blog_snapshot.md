@@ -1,0 +1,292 @@
+### New console messages
+- [ERROR] Manifest: Line: 1, column: 1, Syntax error. @ https://blog-ck7.pages.dev/manifest.json:0
+
+### Page state
+- Page URL: https://blog-ck7.pages.dev/2025/03/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/
+- Page Title: niushop文件上传漏洞实战 - jimmyki云分享
+- Page Snapshot:
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "JimmyKi's Blog" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e5]:
+        - link "归档" [ref=e6] [cursor=pointer]:
+          - /url: /archives
+        - link "GitHub" [ref=e7] [cursor=pointer]:
+          - /url: https://github.com/Jimmy-Ki
+  - article [ref=e8]:
+    - generic [ref=e9]:
+      - generic [ref=e10]:
+        - link "CTF" [ref=e11] [cursor=pointer]:
+          - /url: /categories/CTF/
+        - link "工具" [ref=e12] [cursor=pointer]:
+          - /url: /categories/CTF/工具/
+        - link "抓包" [ref=e13] [cursor=pointer]:
+          - /url: /categories/CTF/工具/抓包/
+        - link "渗透测试" [ref=e14] [cursor=pointer]:
+          - /url: /categories/CTF/工具/抓包/渗透测试/
+      - generic [ref=e15]: March 23, 2025
+      - heading "niushop文件上传漏洞实战" [level=1] [ref=e16]
+    - complementary [ref=e17]:
+      - generic [ref=e18]:
+        - paragraph [ref=e19]:
+          - link "宇宙级免责声明！！" [ref=e20] [cursor=pointer]:
+            - /url: "#宇宙级免责声明！！"
+        - paragraph [ref=e21]:
+          - link "niushop文件上传漏洞实战" [ref=e22] [cursor=pointer]:
+            - /url: "#niushop文件上传漏洞实战"
+        - paragraph [ref=e23]:
+          - link "0x01 漏洞概述" [ref=e24] [cursor=pointer]:
+            - /url: "#0x01-漏洞概述"
+        - paragraph [ref=e25]:
+          - link "0x02 漏洞复现" [ref=e26] [cursor=pointer]:
+            - /url: "#0x02-漏洞复现"
+    - generic [ref=e28]:
+      - heading "# 宇宙级免责声明！！" [level=1] [ref=e29]:
+        - link "#" [ref=e30] [cursor=pointer]:
+          - /url: "#宇宙级免责声明！！"
+        - text: 宇宙级免责声明！！
+      - paragraph [ref=e31]: ！！！注意：本文章仅用于学习交流，请勿用于非法用途！！！
+      - heading "# niushop文件上传漏洞实战" [level=1] [ref=e32]:
+        - link "#" [ref=e33] [cursor=pointer]:
+          - /url: "#niushop文件上传漏洞实战"
+        - text: niushop文件上传漏洞实战
+      - heading "# 0x01 漏洞概述" [level=2] [ref=e34]:
+        - link "#" [ref=e35] [cursor=pointer]:
+          - /url: "#0x01-漏洞概述"
+        - text: 0x01 漏洞概述
+      - paragraph [ref=e36]: NiuShop是一款基于ThinkPHP5.1开发的B2B2C多用户商城系统。在某些版本的NiuShop中，存在文件上传漏洞。由于对上传文件的类型和内容校验不足，攻击者可以利用该漏洞上传恶意文件（如webshell），从而获取网站服务器的控制权限。 成功利用此漏洞，攻击者可以执行任意代码，篡改网站数据，甚至控制整个服务器，造成严重的安全风险。
+      - heading "# 0x02 漏洞复现" [level=2] [ref=e37]:
+        - link "#" [ref=e38] [cursor=pointer]:
+          - /url: "#0x02-漏洞复现"
+        - text: 0x02 漏洞复现
+      - heading "# 1. 环境搭建" [level=3] [ref=e39]:
+        - link "#" [ref=e40] [cursor=pointer]:
+          - /url: "#1-环境搭建"
+        - text: 1. 环境搭建
+      - paragraph [ref=e41]: 在开始漏洞复现之前，我们需要搭建一个存在漏洞的NiuShop环境。
+      - list [ref=e42]:
+        - listitem [ref=e43]:
+          - paragraph [ref=e44]:
+            - strong [ref=e45]: 下载NiuShop源码：
+            - text: 从官方网站或可信渠道下载存在漏洞的NiuShop版本源码，并解压到本地或云服务器上。 （建议选择历史版本，更容易复现漏洞）
+        - listitem [ref=e46]:
+          - paragraph [ref=e47]:
+            - strong [ref=e48]: 搭建PHP环境：
+            - text: 确保你的服务器或本地环境已经安装并配置好了PHP环境。这通常包括：
+          - list [ref=e49]:
+            - listitem [ref=e50]: 安装PHP解释器（建议选择与NiuShop兼容的版本，例如PHP 7.2 或 7.4）。
+            - listitem [ref=e51]: 安装Web服务器（如Apache或Nginx）。
+            - listitem [ref=e52]: 安装数据库服务器（如MySQL或MariaDB）。
+        - listitem [ref=e53]:
+          - paragraph [ref=e54]:
+            - strong [ref=e55]: 配置数据库：
+          - list [ref=e56]:
+            - listitem [ref=e57]: 创建一个新的数据库，用于存储NiuShop的数据。
+            - listitem [ref=e58]:
+              - text: 修改NiuShop的配置文件（通常位于
+              - code [ref=e59]: config/database.php
+              - text: ），填写数据库连接信息，包括数据库主机、数据库名称、用户名和密码。
+        - listitem [ref=e60]:
+          - paragraph [ref=e61]:
+            - strong [ref=e62]: 部署NiuShop：
+            - text: 将解压后的NiuShop源码复制到Web服务器的根目录下。
+        - listitem [ref=e63]:
+          - paragraph [ref=e64]:
+            - strong [ref=e65]: 运行安装向导：
+            - text: 在浏览器中访问NiuShop的安装页面（通常是你的域名或IP地址加上
+            - code [ref=e66]: /install
+            - text: ），按照安装向导的提示完成NiuShop的安装。
+      - paragraph [ref=e67]:
+        - emphasis [ref=e68]: 巴拉巴拉……(PHP环境、PHP项目部署建议度娘)
+        - strong [ref=e69]: （这里可以更详细一些，给出一些常用的PHP环境搭建工具，例如 XAMPP, WAMP, LAMP 等，并简单介绍如何使用这些工具搭建环境。也可以提供一些在线教程的链接。）
+      - heading "# 2. 漏洞利用" [level=3] [ref=e70]:
+        - link "#" [ref=e71] [cursor=pointer]:
+          - /url: "#2-漏洞利用"
+        - text: 2. 漏洞利用
+      - paragraph [ref=e72]: 现在我们已经成功搭建了一个存在漏洞的NiuShop网站，接下来我们将演示如何利用文件上传漏洞来获取网站权限。
+      - list [ref=e73]:
+        - listitem [ref=e74]:
+          - list [ref=e75]:
+            - listitem [ref=e76]:
+              - strong [ref=e77]: 找到上传点
+      - paragraph [ref=e78]: 在NiuShop网站中寻找上传点。常见的上传点通常位于用户中心、商品上传、图片上传等地方。我们需要仔细浏览网站的各个功能模块，寻找可能存在文件上传功能的页面。
+      - paragraph [ref=e79]: 我们发现，在用户中心存在头像上传功能，这可能是一个潜在的文件上传点。 尝试上传文件，看看是否存在文件类型限制或其他安全措施。
+      - paragraph [ref=e80]:
+        - img "上传漏洞所在地方" [ref=e81]
+      - list [ref=e82]:
+        - listitem [ref=e83]:
+          - list [ref=e84]:
+            - listitem [ref=e85]:
+              - strong [ref=e86]: 构造上传包并上传文件
+          - list [ref=e87]:
+            - listitem [ref=e88]:
+              - paragraph [ref=e89]:
+                - strong [ref=e90]: 抓包分析：
+                - text: 首先，上传一张正常的图片（例如
+                - code [ref=e91]: image.png
+                - text: ），并使用抓包工具（如Burp Suite, Proxyman, Charles等）观察上传点的请求包。抓包工具可以帮助我们分析上传请求的各个参数，包括请求方法、URL、请求头、请求体等。
+            - listitem [ref=e92]:
+              - paragraph [ref=e93]:
+                - strong [ref=e94]: 分析请求：
+                - text: 重点关注以下信息：
+              - list [ref=e95]:
+                - listitem [ref=e96]:
+                  - strong [ref=e97]: 请求URL：
+                  - text: 上传文件的URL地址。
+                - listitem [ref=e98]:
+                  - strong [ref=e99]: 请求方法：
+                  - text: 通常是POST请求。
+                - listitem [ref=e100]:
+                  - strong [ref=e101]: Content-Type：
+                  - text: 指示上传文件的类型。
+                - listitem [ref=e102]:
+                  - strong [ref=e103]: 文件名：
+                  - text: 上传文件的原始名称。
+                - listitem [ref=e104]:
+                  - strong [ref=e105]: 文件内容：
+                  - text: 上传文件的二进制数据。
+      - paragraph [ref=e106]:
+        - img "对上传的图片进行抓包" [ref=e107]
+      - list [ref=e108]:
+        - listitem [ref=e109]:
+          - paragraph [ref=e110]:
+            - strong [ref=e111]: 绕过文件类型限制：
+            - text: 通过抓包分析，我们发现上传点存在文件类型限制。这意味着服务器会检查上传文件的扩展名或MIME类型，以防止上传恶意文件。
+          - paragraph [ref=e112]:
+            - text: 常见的绕过文件类型限制的方法包括：
+            - text: "*"
+            - strong [ref=e113]: 修改Content-Type：
+            - text: 将
+            - code [ref=e114]: Content-Type
+            - text: 修改为
+            - code [ref=e115]: image/png
+            - text: 或其他允许的MIME类型。
+            - text: "*"
+            - strong [ref=e116]: 修改文件名：
+            - text: 将文件名改为
+            - code [ref=e117]: xxxxxx.php
+            - text: ，尝试直接上传PHP文件。
+            - text: "*"
+            - strong [ref=e118]: 双扩展名绕过：
+            - text: 将文件名改为
+            - code [ref=e119]: xxxxxx.php.png
+            - text: 或
+            - code [ref=e120]: xxxxxx.jpg.php
+            - text: 。
+            - text: "*"
+            - strong [ref=e121]: 利用文件内容：
+            - text: 在PHP文件头部添加图片的文件头信息，伪装成图片文件。
+      - paragraph [ref=e122]:
+        - text: 我们尝试修改
+        - code [ref=e123]: Content-Type
+        - text: 为
+        - code [ref=e124]: image/png
+        - text: ，并且文件名改为
+        - code [ref=e125]: xxxxxx.php
+        - text: ，再次上传。
+      - paragraph [ref=e126]:
+        - img "修改包内容" [ref=e127]
+      - list [ref=e128]:
+        - listitem [ref=e129]:
+          - strong [ref=e130]: 上传恶意代码：
+          - text: 在PHP文件中，我们可以写入一些恶意代码，例如：
+          - figure [ref=e131]:
+            - table [ref=e132]:
+              - rowgroup [ref=e133]:
+                - row "1 2 3 4 <?php echo \"<pre>\"; system($_GET['cmd']); ?>" [ref=e134]:
+                  - cell "1 2 3 4" [ref=e135]:
+                    - generic [ref=e136]:
+                      - text: "1"
+                      - text: "2"
+                      - text: "3"
+                      - text: "4"
+                  - cell "<?php echo \"<pre>\"; system($_GET['cmd']); ?>" [ref=e137]:
+                    - generic [ref=e138]:
+                      - generic [ref=e139]: <?php
+                      - generic [ref=e140]: echo "<pre>";
+                      - generic [ref=e141]: system($_GET['cmd']);
+                      - generic [ref=e142]: "?>"
+          - text: 这段代码允许我们通过
+          - code [ref=e143]: cmd
+          - text: 参数执行任意系统命令。
+      - list [ref=e144]:
+        - listitem [ref=e145]:
+          - list [ref=e146]:
+            - listitem [ref=e147]:
+              - strong [ref=e148]: 上传成功，获取网站权限
+      - paragraph [ref=e149]: 如果上传成功，服务器会返回上传文件的URL地址或存储路径。我们需要找到上传文件的存储路径，然后在浏览器中访问该路径。
+      - paragraph [ref=e150]:
+        - img "上传成功" [ref=e151]
+      - paragraph [ref=e152]:
+        - text: 通过访问上传的PHP文件，并传递
+        - code [ref=e153]: cmd
+        - text: 参数，我们可以执行任意系统命令，从而获取网站服务器的控制权限。
+      - paragraph [ref=e154]:
+        - text: 例如，访问
+        - code [ref=e155]: http://your-niushop-domain/upload/avatar/xxxxxx.php
+        - text: ，可以连接到中国菜刀
+      - paragraph [ref=e156]:
+        - img "获取网站权限" [ref=e157]
+      - paragraph [ref=e158]: (PS):niushop简直千疮百痍啊
+    - generic [ref=e159]:
+      - heading "关于本文" [level=1] [ref=e160]
+      - paragraph [ref=e162]:
+        - text: 由 Jimmy Ki 撰写, 采用
+        - link "CC BY-NC 4.0" [ref=e163] [cursor=pointer]:
+          - /url: https://creativecommons.org/licenses/by-nc/4.0
+        - text: 许可协议.
+      - paragraph [ref=e164]:
+        - link "#CTF" [ref=e166] [cursor=pointer]:
+          - /url: /tagss/CTF/
+        - link "#网络安全" [ref=e167] [cursor=pointer]:
+          - /url: /tagss/网络安全/
+        - link "#渗透" [ref=e168] [cursor=pointer]:
+          - /url: /tagss/渗透/
+        - link "#抓包" [ref=e169] [cursor=pointer]:
+          - /url: /tagss/抓包/
+    - generic [ref=e170]:
+      - link "下一篇 【春秋云镜】CVE-2023-51048" [ref=e171] [cursor=pointer]:
+        - /url: /2025/03/23/CVE-2023-51048/
+        - generic [ref=e173]:
+          - paragraph [ref=e174]: 下一篇
+          - heading "【春秋云镜】CVE-2023-51048" [level=3] [ref=e175]
+      - link "上一篇 【春秋云镜】CVE-2017-20063" [ref=e176] [cursor=pointer]:
+        - /url: /2025/03/23/CVE-2017-20063/
+        - generic [ref=e178]:
+          - paragraph [ref=e179]: 上一篇
+          - heading "【春秋云镜】CVE-2017-20063" [level=3] [ref=e180]
+  - contentinfo [ref=e181]:
+    - generic [ref=e182]:
+      - generic [ref=e183]:
+        - generic [ref=e184]:
+          - heading "博客" [level=2] [ref=e185]
+          - link "博客" [ref=e186] [cursor=pointer]:
+            - /url: /
+          - link "瞎搞" [ref=e187] [cursor=pointer]:
+            - /url: https://github.com/Jimmy-Ki
+        - generic [ref=e188]:
+          - heading "我的" [level=2] [ref=e189]
+          - link "GitHub" [ref=e190] [cursor=pointer]:
+            - /url: https://github.com/Jimmy-Ki
+          - link "邮箱" [ref=e191] [cursor=pointer]:
+            - /url: mailto:Jimmy-Ki@qq.com
+      - generic [ref=e192]:
+        - text: © 2025 Jimmy Ki
+        - text: 由
+        - link "Hexo" [ref=e193] [cursor=pointer]:
+          - /url: http://hexo.io/
+        - text: 驱动
+      - radiogroup [ref=e194]:
+        - generic [ref=e195]:
+          - radio "Light"
+          - generic [ref=e196]: Light
+        - generic [ref=e197]:
+          - radio "Dark"
+          - generic [ref=e198]: Dark
+        - generic [ref=e199]:
+          - radio "Auto" [checked]
+          - generic [ref=e200]: Auto
+```

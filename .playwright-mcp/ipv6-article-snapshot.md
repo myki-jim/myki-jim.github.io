@@ -1,0 +1,160 @@
+### New console messages
+- [ERROR] Manifest: Line: 1, column: 1, Syntax error. @ https://blog-ck7.pages.dev/manifest.json:0
+
+### Page state
+- Page URL: https://blog-ck7.pages.dev/
+- Page Title: jimmyki云分享
+- Page Snapshot:
+```yaml
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "JimmyKi's Blog" [ref=e4] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e5]:
+        - link "归档" [ref=e6] [cursor=pointer]:
+          - /url: /archives
+        - link "GitHub" [ref=e7] [cursor=pointer]:
+          - /url: https://github.com/Jimmy-Ki
+  - generic [ref=e8]:
+    - generic [ref=e10]:
+      - heading "jimmyki技术日常分享" [level=2] [ref=e11]
+      - heading "Let Us Talk With JimmyKi" [level=2] [ref=e12]
+    - heading "最新文章" [level=2] [ref=e13]
+    - generic [ref=e14]:
+      - article [ref=e15]:
+        - link "CTF 工具 抓包 渗透测试 文件上传漏洞 春秋云镜 CVE-2023-1313 【春秋云镜】CVE-2023-1313 March 23, 2025" [ref=e16] [cursor=pointer]:
+          - /url: /2025/03/23/CVE-2023-1313/
+          - generic [ref=e18]:
+            - generic [ref=e19]: CTF 工具 抓包 渗透测试 文件上传漏洞 春秋云镜 CVE-2023-1313
+            - generic [ref=e20]: 【春秋云镜】CVE-2023-1313
+            - generic [ref=e21]:
+              - generic [ref=e22]: March
+              - generic [ref=e23]: 23,
+              - generic [ref=e24]: "2025"
+      - article [ref=e25]:
+        - link "CTF 工具 抓包 渗透测试 文件上传漏洞 春秋云镜 CVE-2023-38836 【春秋云镜】CVE-2023-38836 March 23, 2025" [ref=e26] [cursor=pointer]:
+          - /url: /2025/03/23/CVE-2023-38836/
+          - generic [ref=e28]:
+            - generic [ref=e29]: CTF 工具 抓包 渗透测试 文件上传漏洞 春秋云镜 CVE-2023-38836
+            - generic [ref=e30]: 【春秋云镜】CVE-2023-38836
+            - generic [ref=e31]:
+              - generic [ref=e32]: March
+              - generic [ref=e33]: 23,
+              - generic [ref=e34]: "2025"
+      - article [ref=e35]:
+        - link "CTF 工具 抓包 渗透测试 文件上传漏洞 春秋云镜 CVE-2023-51048 【春秋云镜】CVE-2023-51048 March 23, 2025" [ref=e36] [cursor=pointer]:
+          - /url: /2025/03/23/CVE-2023-51048/
+          - generic [ref=e38]:
+            - generic [ref=e39]: CTF 工具 抓包 渗透测试 文件上传漏洞 春秋云镜 CVE-2023-51048
+            - generic [ref=e40]: 【春秋云镜】CVE-2023-51048
+            - generic [ref=e41]:
+              - generic [ref=e42]: March
+              - generic [ref=e43]: 23,
+              - generic [ref=e44]: "2025"
+      - article [ref=e45]:
+        - link "CTF 工具 抓包 渗透测试 niushop文件上传漏洞实战 March 23, 2025" [ref=e46] [cursor=pointer]:
+          - /url: /2025/03/23/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/
+          - generic [ref=e48]:
+            - generic [ref=e49]: CTF 工具 抓包 渗透测试
+            - generic [ref=e50]: niushop文件上传漏洞实战
+            - generic [ref=e51]:
+              - generic [ref=e52]: March
+              - generic [ref=e53]: 23,
+              - generic [ref=e54]: "2025"
+      - article [ref=e55]:
+        - link "CTF 工具 抓包 渗透测试 文件上传漏洞 春秋云镜 CVE-2017-20063 【春秋云镜】CVE-2017-20063 March 23, 2025" [ref=e56] [cursor=pointer]:
+          - /url: /2025/03/23/CVE-2017-20063/
+          - generic [ref=e58]:
+            - generic [ref=e59]: CTF 工具 抓包 渗透测试 文件上传漏洞 春秋云镜 CVE-2017-20063
+            - generic [ref=e60]: 【春秋云镜】CVE-2017-20063
+            - generic [ref=e61]:
+              - generic [ref=e62]: March
+              - generic [ref=e63]: 23,
+              - generic [ref=e64]: "2025"
+      - article [ref=e65]:
+        - link "我的个人简历 March 18, 2025" [ref=e66] [cursor=pointer]:
+          - /url: /2025/03/18/%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86/
+          - generic [ref=e68]:
+            - generic [ref=e69]: 我的个人简历
+            - generic [ref=e70]:
+              - generic [ref=e71]: March
+              - generic [ref=e72]: 18,
+              - generic [ref=e73]: "2025"
+      - article [ref=e74]:
+        - link "网络安全 CTF 游戏 CDK 别被骗了！某多多买游戏CDK根本不靠谱！ November 29, 2024" [ref=e75] [cursor=pointer]:
+          - /url: /2024/11/29/%E5%88%AB%E8%A2%AB%E9%AA%97%E4%BA%86,%E6%9F%90%E5%A4%9A%E5%A4%9A%E4%B9%B0%E6%B8%B8%E6%88%8FCDK%E6%A0%B9%E6%9C%AC%E4%B8%8D%E9%9D%A0%E8%B0%B1%EF%BC%81/
+          - generic [ref=e77]:
+            - generic [ref=e78]: 网络安全 CTF 游戏 CDK
+            - generic [ref=e79]: 别被骗了！某多多买游戏CDK根本不靠谱！
+            - generic [ref=e80]:
+              - generic [ref=e81]: November
+              - generic [ref=e82]: 29,
+              - generic [ref=e83]: "2024"
+      - article [ref=e84]:
+        - link "CTF 工具 CTF工具集｜by ki November 27, 2024" [ref=e85] [cursor=pointer]:
+          - /url: /2024/11/27/CTF%E5%B7%A5%E5%85%B7%E9%9B%86%EF%BD%9Cby%20ki/
+          - generic [ref=e87]:
+            - generic [ref=e88]: CTF 工具
+            - generic [ref=e89]: CTF工具集｜by ki
+            - generic [ref=e90]:
+              - generic [ref=e91]: November
+              - generic [ref=e92]: 27,
+              - generic [ref=e93]: "2024"
+      - article [ref=e94]:
+        - link "教程 公网ipv6配置教程他来了！可用作远程桌面连接、服务器（非web网页）、游戏服务（我的世界） November 25, 2024" [ref=e95] [cursor=pointer]:
+          - /url: /2024/11/25/%E5%85%AC%E7%BD%91ipv6%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B%E4%BB%96%E6%9D%A5%E4%BA%86%EF%BC%81%E5%8F%AF%E7%94%A8%E4%BD%9C%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E8%BF%9E%E6%8E%A5%E3%80%81%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%88%E9%9D%9Eweb%E7%BD%91%E9%A1%B5%EF%BC%89%E3%80%81%E6%B8%B8%E6%88%8F%E6%9C%8D%E5%8A%A1%EF%BC%88%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C%EF%BC%89/
+          - generic [ref=e97]:
+            - generic [ref=e98]: 教程
+            - generic [ref=e99]: 公网ipv6配置教程他来了！可用作远程桌面连接、服务器（非web网页）、游戏服务（我的世界）
+            - generic [ref=e100]:
+              - generic [ref=e101]: November
+              - generic [ref=e102]: 25,
+              - generic [ref=e103]: "2024"
+      - article [ref=e104]:
+        - link "Hello World November 21, 2019" [ref=e105] [cursor=pointer]:
+          - /url: /2019/11/21/hello-world/
+          - generic [ref=e107]:
+            - generic [ref=e108]: Hello World
+            - generic [ref=e109]:
+              - generic [ref=e110]: November
+              - generic [ref=e111]: 21,
+              - generic [ref=e112]: "2019"
+    - generic [ref=e113]:
+      - text: "1"
+      - link "2" [ref=e114] [cursor=pointer]:
+        - /url: /page/2/
+      - link "下一页" [ref=e115] [cursor=pointer]:
+        - /url: /page/2/
+  - contentinfo [ref=e116]:
+    - generic [ref=e117]:
+      - generic [ref=e118]:
+        - generic [ref=e119]:
+          - heading "博客" [level=2] [ref=e120]
+          - link "博客" [ref=e121] [cursor=pointer]:
+            - /url: /
+          - link "瞎搞" [ref=e122] [cursor=pointer]:
+            - /url: https://github.com/Jimmy-Ki
+        - generic [ref=e123]:
+          - heading "我的" [level=2] [ref=e124]
+          - link "GitHub" [ref=e125] [cursor=pointer]:
+            - /url: https://github.com/Jimmy-Ki
+          - link "邮箱" [ref=e126] [cursor=pointer]:
+            - /url: mailto:Jimmy-Ki@qq.com
+      - generic [ref=e127]:
+        - text: © 2025 Jimmy Ki
+        - text: 由
+        - link "Hexo" [ref=e128] [cursor=pointer]:
+          - /url: http://hexo.io/
+        - text: 驱动
+      - radiogroup [ref=e129]:
+        - generic [ref=e130]:
+          - radio "Light"
+          - generic [ref=e131]: Light
+        - generic [ref=e132]:
+          - radio "Dark"
+          - generic [ref=e133]: Dark
+        - generic [ref=e134]:
+          - radio "Auto" [checked]
+          - generic [ref=e135]: Auto
+```
