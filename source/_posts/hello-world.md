@@ -1,6 +1,6 @@
 ---
 title: Hello World
-date: 2099-11-21 22:00:00
+date: 2019-11-21 22:00:00
 tags: ['博客', 'Hexo', '技术', '欢迎']
 categories: ['博客', '欢迎']
 layout: post
