@@ -1,0 +1,115 @@
+:root {
+  /* Default Dark Mode Variables */
+  --bg-main: #0f1116;
+  --bg-main-rgb: 15, 17, 22;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.75);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
+
+  /* Stronger Glass Effect */
+  --glass-surface: rgba(255, 255, 255, 0.03);
+  --glass-surface-hover: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: 50px;
+
+  --accent-glow: rgba(34, 211, 238, 0.3);
+  --accent-color: #22d3ee;
+
+  --liquid-gradient-start: #ffffff;
+  --liquid-gradient-mid: #a5f3fc;
+  --liquid-gradient-end: #ffffff;
+}
+
+[data-theme="light"] {
+  --bg-main: #ffffff;
+  --bg-main-rgb: 255, 255, 255;
+  --text-primary: #1f2937;
+  --text-secondary: rgba(31, 41, 55, 0.7);
+  --text-tertiary: rgba(31, 41, 55, 0.5);
+
+  /* Stronger Glass Effect */
+  --glass-surface: rgba(255, 255, 255, 0.8);
+  --glass-surface-hover: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-blur: 60px;
+
+  --accent-glow: rgba(59, 130, 246, 0.2);
+  --accent-color: #3b82f6;
+
+  --liquid-gradient-start: #1f2937;
+  --liquid-gradient-mid: #3b82f6;
+  --liquid-gradient-end: #1f2937;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s ease;
+}
+
+/* Global smooth transitions for theme switching */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Faster transitions for interactive elements */
+button, a, input, textarea, select {
+  transition-duration: 200ms;
+}
+
+/* Hide scrollbar for clean aesthetic */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Liquid gradient text utility */
+.text-liquid-gradient {
+  background: linear-gradient(135deg, var(--liquid-gradient-start) 0%, var(--liquid-gradient-mid) 50%, var(--liquid-gradient-end) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: liquidFlow 8s ease infinite;
+  transition: background 0.5s ease;
+}
+
+/* Custom scrollbar for search results */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}
+
+@keyframes liquidFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Line clamp utility */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}

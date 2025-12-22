@@ -1,0 +1,72 @@
+# Glasses Theme Configuration
+# Copy this file to your root directory and modify as needed
+
+# 主题元信息
+name: Glasses
+version: 1.0.0
+description: 现代化玻璃拟态主题，具有液体流动效果和优雅的视觉体验
+author: jimmyki
+repository: https://github.com/myki-jim/myki-jim.github.io
+
+# 主题设置
+theme_config:
+  # 外观设置
+  dark_mode: true
+  glass_effect: true
+  liquid_animation: true
+
+  # 颜色配置
+  colors:
+    primary: "#22d3ee"
+    secondary: "#a5f3fc"
+    accent: "#0891b2"
+
+  # 字体设置
+  fonts:
+    primary: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+
+  # 布局设置
+  layout:
+    navbar_fixed: true
+    sidebar_enabled: true
+    footer_text: "© 2025 MyKi's Blog. Powered by Hexo and Glasses Theme."
+
+  # 动画设置
+  animations:
+    liquid_flow: true
+    glass_morphism: true
+    page_transition: true
+
+  # 社交链接
+  social:
+    github: "https://github.com/myki-jim"
+    email: "myki.jim@gmail.com"
+
+  # 导航菜单
+  menu:
+    Home: /
+    Archives: /archives
+    Categories: /categories
+    Tags: /tags
+    About: /about
+
+# 功能开关
+features:
+  dark_mode_toggle: true
+  search: true
+  back_to_top: true
+  reading_progress: true
+
+# 样式配置
+styles:
+  glass_blur: 50px
+  glass_opacity: 0.03
+  border_radius: 12px
+  shadow_strength: 0.2
+
+# 头像设置
+avatar:
+  enabled: false
+  url: /images/avatar.jpg
+  rounded: true
+  opacity: 0.8
