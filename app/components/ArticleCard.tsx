@@ -15,7 +15,9 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post, index, onClick, layout 
 
   // Format date
   const formattedDate = format(new Date(post.date), 'MMM dd, yyyy');
-  const readTime = Math.ceil(post.content.split(' ').length / 200) + ' min';
+  // Calculate read time based on excerpt length or use default
+  const wordCount = post.excerpt ? post.excerpt.split(' ').length : 200;
+  const readTime = Math.ceil(wordCount / 200) + ' min';
 
   return (
     <div
