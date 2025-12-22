@@ -15,6 +15,9 @@ function initializeApp() {
     // 检查服务器状态
     checkServerStatus();
 
+    // 初始化Git状态指示器
+    initGitStatusIndicator();
+
     // 初始化提示工具
     initializeTooltips();
 
@@ -384,6 +387,19 @@ function setupKeyboardShortcuts() {
 function checkStatus() {
     checkGitStatus();
     checkServerStatus();
+}
+
+// 初始化Git状态指示器
+function initGitStatusIndicator() {
+    fetch('/git_status')
+        .then(response => response.json())
+        .then(data => {
+            updateGitStatusIndicator(data);
+        })
+        .catch(error => {
+            console.log('初始化Git状态失败');
+            updateGitStatusIndicator({ error: true });
+        });
 }
 
 // 复制文本到剪贴板
