@@ -58,8 +58,8 @@
                     </div>
                     <div class="vr me-2"></div>
                     <!-- Git状态指示器 -->
-                    <div id="gitStatusIndicator" class="git-status-indicator git-clean" onclick="showGitStatusModal()">
-                        <i class="bi bi-check-circle"></i>
+                    <div id="gitStatusIndicator" class="git-status-indicator git-clean">
+                        <i class="bi bi-check2"></i>
                     </div>
                     <!-- Git操作 -->
                     <button class="btn btn-outline-light me-2" onclick="quickCommit()">
@@ -88,38 +88,7 @@
         {% block content %}{% endblock %}
     </div>
 
-    <!-- Git状态模态框 -->
-    <div class="modal fade" id="gitStatusModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <i class="bi bi-git"></i> Git 状态
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="gitStatusContent">
-                        <div class="text-center">
-                            <div class="spinner-border spinner-border-sm" role="status">
-                                <span class="visually-hidden">检查中...</span>
-                            </div>
-                            <p class="mt-2">正在检查Git状态...</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="bi bi-x"></i> 关闭
-                    </button>
-                    <button type="button" class="btn btn-primary" onclick="commitChanges()">
-                        <i class="bi bi-check2"></i> 提交更改
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+  
     <!-- 提交模态框 -->
     <div class="modal fade" id="commitModal" tabindex="-1">
         <div class="modal-dialog">
