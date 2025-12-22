@@ -77,7 +77,7 @@ export default function HomePage() {
       case 'home':
         return <HomeView onOpenPost={(id) => handleNavigate('post', id)} posts={posts} blogData={blogData || undefined} />;
       case 'post':
-        return <PostView post={getPostById(activePostId)} onBack={() => handleNavigate('home')} />;
+        return <PostView post={getPostById(activePostId)} onBack={() => handleNavigate('home')} blogData={blogData || undefined} />;
       case 'tags':
         return <TagsView onOpenPost={(id) => handleNavigate('post', id)} posts={posts} />;
       case 'categories':

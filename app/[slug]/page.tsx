@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import LiquidBackground from '../components/LiquidBackground';
 import MagicNavbar from '../components/MagicNavbar';
 import PostView from '../components/PostView';
-import { Post } from '../components/types';
+import { Post, BlogData } from '../components/types';
 
 export default function PostPage() {
   const params = useParams();
@@ -14,6 +14,7 @@ export default function PostPage() {
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
   const [allPosts, setAllPosts] = useState<Post[]>([]);
+  const [blogData, setBlogData] = useState<BlogData | null>(null);
 
   useEffect(() => {
     if (params.slug) {
@@ -28,6 +29,7 @@ export default function PostPage() {
       if (indexResponse.ok) {
         const indexData = await indexResponse.json();
         setAllPosts(indexData.posts);
+        setBlogData(indexData);
       }
 
       // 加载当前文章的完整数据
@@ -106,6 +108,7 @@ export default function PostPage() {
           <PostView
             post={post}
             onBack={() => router.push('/')}
+            blogData={blogData || undefined}
           />
         </motion.div>
       </main>

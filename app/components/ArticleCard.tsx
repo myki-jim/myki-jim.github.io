@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, Eye, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { Post } from './types';
 import { format } from 'date-fns';
 
@@ -15,9 +15,6 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post, index, onClick, layout 
 
   // Format date
   const formattedDate = format(new Date(post.date), 'MMM dd, yyyy');
-  // Calculate read time based on excerpt length or use default
-  const wordCount = post.excerpt ? post.excerpt.split(' ').length : 200;
-  const readTime = Math.ceil(wordCount / 200) + ' min';
 
   return (
     <div
@@ -65,16 +62,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post, index, onClick, layout 
         </div>
 
         {/* Bottom Meta */}
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-[var(--glass-border)]/50">
-          <div className="flex items-center gap-4 text-xs text-[var(--text-tertiary)]">
-            <span className="flex items-center gap-1">
-              <Clock size={12} /> {readTime}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Eye size={12} /> {post.views || 0}
-            </span>
-          </div>
-
+        <div className="flex items-center justify-end mt-4">
           <div className="flex items-center gap-2 text-sm font-semibold text-[var(--accent-color)] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">
             Read <ArrowUpRight size={14} />
           </div>

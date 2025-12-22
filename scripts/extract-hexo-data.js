@@ -70,7 +70,8 @@ function extractHexoData() {
         content: content,
         author: data.author || 'Jimmy Ki',
         path: `/${slug}/`,
-        coverImage: data.cover || data.coverImage || null
+        coverImage: data.cover || data.coverImage || null,
+        sticky: data.sticky || data.pin || false
       };
 
       // 为每篇文章生成独立的JSON文件
@@ -94,8 +95,14 @@ function extractHexoData() {
     });
   }
 
-  // 按日期排序
-  posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  // 按置顶和日期排序（置顶文章优先，然后按日期降序）
+  posts.sort((a, b) => {
+    // 置顶文章排在前面
+    if (a.sticky && !b.sticky) return -1;
+    if (!a.sticky && b.sticky) return 1;
+    // 都是置顶或都不是置顶时，按日期降序
+    return new Date(b.date) - new Date(a.date);
+  });
 
   // 生成索引数据文件（只包含文章列表，不包含完整内容）
   const blogData = {

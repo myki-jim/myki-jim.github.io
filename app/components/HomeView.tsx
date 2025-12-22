@@ -14,7 +14,20 @@ interface HomeViewProps {
 type LayoutMode = 'list' | 'grid';
 
 const HomeView: React.FC<HomeViewProps> = ({ onOpenPost, posts, blogData }) => {
-  const [layout, setLayout] = useState<LayoutMode>('list');
+  const [layout, setLayout] = useState<LayoutMode>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('blog-layout');
+      return (saved === 'list' || saved === 'grid') ? saved : 'list';
+    }
+    return 'list';
+  });
+
+  const handleLayoutChange = (newLayout: LayoutMode) => {
+    setLayout(newLayout);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('blog-layout', newLayout);
+    }
+  };
 
   return (
     <motion.div
@@ -36,14 +49,14 @@ const HomeView: React.FC<HomeViewProps> = ({ onOpenPost, posts, blogData }) => {
             {/* Layout Toggle */}
             <div className="flex gap-1 p-1 rounded-lg bg-[var(--glass-surface)] border border-[var(--glass-border)]">
               <button
-                onClick={() => setLayout('list')}
+                onClick={() => handleLayoutChange('list')}
                 className={`p-2 rounded-md transition-all ${layout === 'list' ? 'bg-[var(--glass-surface-hover)] text-[var(--accent-color)]' : 'text-[var(--text-tertiary)] hover:text-[var(--text-primary)]'}`}
                 title="List View"
               >
                 <List size={16} />
               </button>
               <button
-                onClick={() => setLayout('grid')}
+                onClick={() => handleLayoutChange('grid')}
                 className={`p-2 rounded-md transition-all ${layout === 'grid' ? 'bg-[var(--glass-surface-hover)] text-[var(--accent-color)]' : 'text-[var(--text-tertiary)] hover:text-[var(--text-primary)]'}`}
                 title="Grid View"
               >

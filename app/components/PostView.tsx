@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, Calendar, Share2, Bookmark } from 'lucide-react';
-import { Post } from './types';
+import { Post, BlogData } from './types';
 import Sidebar from './Sidebar';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
@@ -12,9 +12,10 @@ import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/pris
 interface PostViewProps {
   post: Post | undefined;
   onBack: () => void;
+  blogData?: BlogData;
 }
 
-const PostView: React.FC<PostViewProps> = ({ post, onBack }) => {
+const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
   if (!post) return <div>文章未找到</div>;
 
   // Calculate read time based on content
@@ -264,7 +265,7 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack }) => {
         </div>
 
         <div className="lg:w-[320px] flex-shrink-0">
-          <Sidebar />
+          <Sidebar blogData={blogData} />
         </div>
       </motion.div>
     </div>
