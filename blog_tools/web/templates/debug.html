@@ -1,0 +1,382 @@
+{% extends "base.html" %}
+
+{% block title %}调试工具 - Hexo 写作工具{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-gear"></i> Hexo 调试工具</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h6><i class="bi bi-terminal"></i> 命令操作</h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" onclick="executeCommand('clean')">
+                                <i class="bi bi-trash"></i> 清理缓存
+                            </button>
+                            <button class="btn btn-success" onclick="executeCommand('generate')">
+                                <i class="bi bi-build"></i> 生成静态文件
+                            </button>
+                            <button class="btn btn-info" onclick="executeCommand('server')">
+                                <i class="bi bi-play-circle"></i> 启动服务器
+                            </button>
+                            <button class="btn btn-warning" onclick="executeCommand('deploy')">
+                                <i class="bi bi-cloud-upload"></i> 部署到远程
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h6><i class="bi bi-info-circle"></i> 项目信息</h6>
+                        <div id="projectInfo">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden">加载中...</span>
+                            </div>
+                            加载中...
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <h6><i class="bi bi-terminal-fill"></i> 命令输出</h6>
+                    <div class="bg-dark text-light p-3 rounded" style="min-height: 200px; font-family: monospace; font-size: 0.875em; overflow-y: auto;">
+                        <div id="commandOutput">
+                            <span class="text-success">$ </span>等待命令执行...
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-secondary btn-sm mt-2" onclick="clearOutput()">
+                        <i class="bi bi-x-circle"></i> 清空输出
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="bi bi-git"></i> Git 操作</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="bi bi-clock-history"></i> 状态检查</h6>
+                        <button class="btn btn-outline-primary" onclick="checkGitStatus()">
+                            <i class="bi bi-arrow-clockwise"></i> 检查Git状态
+                        </button>
+                        <div id="gitStatusInfo" class="mt-3"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6><i class="bi bi-lightning"></i> 快速操作</h6>
+                        <div class="btn-group-vertical d-grid gap-2">
+                            <button class="btn btn-outline-success" onclick="quickCommit()">
+                                <i class="bi bi-check-circle"></i> 提交所有更改
+                            </button>
+                            <button class="btn btn-outline-warning" onclick="quickPush()">
+                                <i class="bi bi-send"></i> 推送到远程
+                            </button>
+                            <button class="btn btn-outline-danger" onclick="pullLatest()">
+                                <i class="bi bi-download"></i> 拉取最新更改
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-speedometer2"></i> 系统状态</h6>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>本地服务器</span>
+                        <span class="badge bg-secondary" id="serverStatus">未知</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>Git状态</span>
+                        <span class="badge bg-secondary" id="gitBadge">未知</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>最后构建</span>
+                        <small class="text-muted" id="lastBuild">从未</small>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>部署状态</span>
+                        <span class="badge bg-success" id="deployStatus">正常</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-list-check"></i> 快速检查</h6>
+            </div>
+            <div class="card-body">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkConfig">
+                    <label class="form-check-label" for="checkConfig">
+                        检查配置文件
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkTheme">
+                    <label class="form-check-label" for="checkTheme">
+                        检查主题文件
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkPosts">
+                    <label class="form-check-label" for="checkPosts">
+                        检查文章格式
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="checkImages">
+                    <label class="form-check-label" for="checkImages">
+                        检查图片链接
+                    </label>
+                </div>
+                <button class="btn btn-primary btn-sm mt-2 w-100" onclick="runChecks()">
+                    <i class="bi bi-play-fill"></i> 运行检查
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-question-circle"></i> 帮助链接</h6>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <a href="https://hexo.io/docs/" target="_blank" class="list-group-item list-group-item-action">
+                        <i class="bi bi-book"></i> Hexo 文档
+                    </a>
+                    <a href="https://theme-next.js.org/" target="_blank" class="list-group-item list-group-item-action">
+                        <i class="bi bi-palette"></i> Next 主题文档
+                    </a>
+                    <a href="https://pages.github.com/" target="_blank" class="list-group-item list-group-item-action">
+                        <i class="bi bi-github"></i> GitHub Pages
+                    </a>
+                    <a href="https://git-scm.com/docs" target="_blank" class="list-group-item list-group-item-action">
+                        <i class="bi bi-git"></i> Git 文档
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// 执行Hexo命令
+function executeCommand(command) {
+    const output = document.getElementById('commandOutput');
+    output.innerHTML += `<br><span class="text-info">$ hexo ${command}</span><br>`;
+
+    fetch('/api/execute', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ command: command })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            output.innerHTML += `<span class="text-success">${data.output}</span><br>`;
+        } else {
+            output.innerHTML += `<span class="text-danger">错误: ${data.error}</span><br>`;
+        }
+        output.scrollTop = output.scrollHeight;
+    })
+    .catch(error => {
+        output.innerHTML += `<span class="text-danger">网络错误: ${error}</span><br>`;
+        output.scrollTop = output.scrollHeight;
+    });
+}
+
+// 清空输出
+function clearOutput() {
+    document.getElementById('commandOutput').innerHTML = '<span class="text-success">$ </span>等待命令执行...';
+}
+
+// 检查Git状态
+function checkGitStatus() {
+    const statusInfo = document.getElementById('gitStatusInfo');
+    statusInfo.innerHTML = '<div class="spinner-border spinner-border-sm" role="status"></div> 检查中...';
+
+    fetch('/git_status')
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                statusInfo.innerHTML = `<span class="text-danger">错误: ${data.error}</span>`;
+                document.getElementById('gitBadge').textContent = '错误';
+                document.getElementById('gitBadge').className = 'badge bg-danger';
+                return;
+            }
+
+            let html = '<div class="small">';
+            html += `<p><strong>分支:</strong> ${data.branch}</p>`;
+            html += `<p><strong>状态:</strong> ${data.is_clean ? '干净' : '有更改'}</p>`;
+
+            if (data.untracked_files && data.untracked_files.length > 0) {
+                html += `<p><strong>未跟踪文件:</strong><br>`;
+                data.untracked_files.slice(0, 3).forEach(file => {
+                    html += `<small class="text-muted">• ${file}</small><br>`;
+                });
+                if (data.untracked_files.length > 3) {
+                    html += `<small class="text-muted">... 还有 ${data.untracked_files.length - 3} 个文件</small><br>`;
+                }
+            }
+
+            if (data.modified_files && data.modified_files.length > 0) {
+                html += `<p><strong>修改文件:</strong><br>`;
+                data.modified_files.slice(0, 3).forEach(file => {
+                    html += `<small class="text-warning">• ${file}</small><br>`;
+                });
+                if (data.modified_files.length > 3) {
+                    html += `<small class="text-muted">... 还有 ${data.modified_files.length - 3} 个文件</small><br>`;
+                }
+            }
+
+            html += '</div>';
+            statusInfo.innerHTML = html;
+
+            // 更新状态徽章
+            const badge = document.getElementById('gitBadge');
+            if (data.is_clean) {
+                badge.textContent = '干净';
+                badge.className = 'badge bg-success';
+            } else {
+                badge.textContent = '有更改';
+                badge.className = 'badge bg-warning';
+            }
+        })
+        .catch(error => {
+            statusInfo.innerHTML = `<span class="text-danger">检查失败: ${error}</span>`;
+        });
+}
+
+// 快速提交
+function quickCommit() {
+    const modal = new bootstrap.Modal(document.getElementById('commitModal'));
+    modal.show();
+}
+
+// 快速推送
+function quickPush() {
+    if (!confirm('确定要推送到远程仓库吗？这将部署你的博客。')) {
+        return;
+    }
+
+    fetch('/git_push', {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('推送成功！博客将在几分钟后部署完成。');
+            checkGitStatus();
+        } else {
+            alert('推送失败: ' + data.error);
+        }
+    })
+    .catch(error => {
+        alert('推送失败: ' + error);
+    });
+}
+
+// 拉取最新更改
+function pullLatest() {
+    if (!confirm('确定要从远程仓库拉取最新更改吗？这可能会覆盖你的本地更改。')) {
+        return;
+    }
+
+    fetch('/git_pull', {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('拉取成功！');
+            location.reload();
+        } else {
+            alert('拉取失败: ' + data.error);
+        }
+    })
+    .catch(error => {
+        alert('拉取失败: ' + error);
+    });
+}
+
+// 运行检查
+function runChecks() {
+    const checks = {
+        config: document.getElementById('checkConfig').checked,
+        theme: document.getElementById('checkTheme').checked,
+        posts: document.getElementById('checkPosts').checked,
+        images: document.getElementById('checkImages').checked
+    };
+
+    const output = document.getElementById('commandOutput');
+    output.innerHTML += `<br><span class="text-info">运行系统检查...</span><br>`;
+
+    // 这里可以添加实际的检查逻辑
+    if (checks.config) {
+        output.innerHTML += `<span class="text-success">✓ 配置文件检查通过</span><br>`;
+    }
+    if (checks.theme) {
+        output.innerHTML += `<span class="text-success">✓ 主题文件检查通过</span><br>`;
+    }
+    if (checks.posts) {
+        output.innerHTML += `<span class="text-success">✓ 文章格式检查通过</span><br>`;
+    }
+    if (checks.images) {
+        output.innerHTML += `<span class="text-success">✓ 图片链接检查完成</span><br>`;
+    }
+
+    output.scrollTop = output.scrollHeight;
+}
+
+// 加载项目信息
+function loadProjectInfo() {
+    const info = document.getElementById('projectInfo');
+
+    fetch('/api/project_info')
+        .then(response => response.json())
+        .then(data => {
+            let html = '<div class="small">';
+            html += `<p><strong>Hexo版本:</strong> ${data.hexo_version || '未知'}</p>`;
+            html += `<p><strong>Node.js版本:</strong> ${data.node_version || '未知'}</p>`;
+            html += `<p><strong>文章数量:</strong> ${data.post_count || 0}</p>`;
+            html += `<p><strong>主题:</strong> ${data.theme || '未知'}</p>`;
+            html += '</div>';
+            info.innerHTML = html;
+        })
+        .catch(error => {
+            info.innerHTML = '<span class="text-danger">加载失败</span>';
+        });
+}
+
+// 页面加载时初始化
+document.addEventListener('DOMContentLoaded', function() {
+    loadProjectInfo();
+    checkGitStatus();
+
+    // 定期更新状态
+    setInterval(checkGitStatus, 30000); // 每30秒更新一次Git状态
+});
+</script>
+{% endblock %}

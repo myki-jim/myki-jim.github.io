@@ -1,0 +1,587 @@
+{% extends "base.html" %}
+
+{% block title %}编辑文章 - {{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0"><i class="bi bi-pencil"></i> 编辑文章</h4>
+                <small class="text-muted">{{ post.filename }}</small>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('update_post', filename=post.filename) }}">
+                    <!-- 文章元数据编辑区 -->
+                    <div class="row mb-4 p-3 bg-light rounded">
+                        <div class="col-md-4">
+                            <label class="form-label"><strong>标题</strong></label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{ post.title }}" placeholder="输入文章标题">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label"><strong>日期</strong></label>
+                            <input type="datetime-local" class="form-control" id="date" name="date" value="{{ post.date }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label"><strong>布局</strong></label>
+                            <select class="form-control" id="layout" name="layout">
+                                <option value="post" {% if post.layout == 'post' %}selected{% endif %}>文章</option>
+                                <option value="page" {% if post.layout == 'page' %}selected{% endif %}>页面</option>
+                                <option value="draft" {% if post.layout == 'draft' %}selected{% endif %}>草稿</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label for="tags" class="form-label"><strong>标签</strong></label>
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" id="tagsInput" placeholder="输入标签名称，按回车或点击添加" title="支持多个标签，如：JavaScript, Python, Web开发">
+                                <button class="btn btn-outline-secondary" type="button" onclick="addTag()" title="添加标签">
+                                    <i class="bi bi-plus"></i> 添加
+                                </button>
+                            </div>
+                            <div id="tagsContainer" class="d-flex flex-wrap gap-2">
+                                {% for tag in post.tags %}
+                                <span class="badge bg-secondary tag-item" data-tag="{{ tag }}">
+                                    {{ tag }}
+                                    <button type="button" class="btn-close btn-sm" onclick="removeTag(this)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </span>
+                                {% endfor %}
+                                <input type="hidden" id="tags" name="tags" value="{{ post.tags|join(',') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="categories" class="form-label"><strong>分类</strong></label>
+                            <div class="input-group mb-2">
+                                <input type="text" class="form-control" id="categoriesInput" placeholder="输入分类名称，按回车或点击添加" title="如：技术, 学习笔记, 项目总结">
+                                <button class="btn btn-outline-primary" type="button" onclick="addCategory()" title="添加分类">
+                                    <i class="bi bi-plus"></i> 添加
+                                </button>
+                            </div>
+                            <div id="categoriesContainer" class="d-flex flex-wrap gap-2">
+                                {% for category in post.categories %}
+                                <span class="badge bg-primary category-item" data-category="{{ category }}">
+                                    {{ category }}
+                                    <button type="button" class="btn-close btn-sm" onclick="removeCategory(this)">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </span>
+                                {% endfor %}
+                                <input type="hidden" id="categories" name="categories" value="{{ post.categories|join(',') }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="content" class="form-label">文章内容</label>
+                                <div class="border rounded">
+                                    <div class="toolbar bg-light p-2 border-bottom">
+                                        <div class="btn-group btn-group-sm me-2">
+                                            <button type="button" class="btn btn-outline-secondary" onclick="insertMarkdown('**', '**')">
+                                                <i class="bi bi-type-bold"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="insertMarkdown('*', '*')">
+                                                <i class="bi bi-type-italic"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="insertMarkdown('`', '`')">
+                                                <i class="bi bi-code"></i>
+                                            </button>
+                                        </div>
+                                        <div class="btn-group btn-group-sm me-2">
+                                            <button type="button" class="btn btn-outline-secondary" onclick="insertMarkdown('# ', '')">
+                                                H1
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="insertMarkdown('## ', '')">
+                                                H2
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="insertMarkdown('### ', '')">
+                                                H3
+                                            </button>
+                                        </div>
+                                        <div class="btn-group btn-group-sm">
+                                            <button type="button" class="btn btn-outline-secondary" onclick="insertMarkdown('[', '](url)')">
+                                                <i class="bi bi-link"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="insertMarkdown('![alt text](', ')')">
+                                                <i class="bi bi-image"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="insertMarkdown('\\n```\\n', '\\n```\\n')">
+                                                <i class="bi bi-code-slash"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="insertMarkdown('\\n- ', '')">
+                                                <i class="bi bi-list-ul"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="insertMarkdown('\\n1. ', '')">
+                                                <i class="bi bi-list-ol"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <textarea class="form-control border-0" id="content" name="content" rows="25">{{ content }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6 class="mb-0"><i class="bi bi-info-circle"></i> 文章信息</h6>
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>标题:</strong> {{ post.title }}</p>
+                                    <p><strong>日期:</strong> {{ post.date }}</p>
+                                    <p><strong>文件名:</strong> {{ post.filename }}</p>
+                                    {% if post.tags %}
+                                    <p><strong>标签:</strong><br>
+                                        {% for tag in post.tags %}
+                                        <span class="badge bg-secondary me-1">{{ tag }}</span>
+                                        {% endfor %}
+                                    </p>
+                                    {% endif %}
+                                    {% if post.categories %}
+                                    <p><strong>分类:</strong><br>
+                                        {% for category in post.categories %}
+                                        <span class="badge bg-primary me-1">{{ category }}</span>
+                                        {% endfor %}
+                                    </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="card mt-3">
+                                <div class="card-header">
+                                    <h6 class="mb-0"><i class="bi bi-eye"></i> 实时预览</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-check form-switch mb-2">
+                                        <input class="form-check-input" type="checkbox" id="previewToggle" checked>
+                                        <label class="form-check-label" for="previewToggle">
+                                            显示预览
+                                        </label>
+                                    </div>
+                                    <div id="preview" style="height: 300px; overflow-y: auto; font-size: 0.875em;">
+                                        <div class="text-muted">编辑内容预览将显示在这里...</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card mt-3">
+                                <div class="card-header">
+                                    <h6 class="mb-0"><i class="bi bi-lightning"></i> 快速操作</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-grid gap-2">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="openInBrowser()">
+                                            <i class="bi bi-eye"></i> 浏览器预览
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="copyContent()">
+                                            <i class="bi bi-clipboard"></i> 复制内容
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="revertContent()">
+                                            <i class="bi bi-arrow-counterclockwise"></i> 恢复原内容
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between">
+                                <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                                    <i class="bi bi-arrow-left"></i> 返回列表
+                                </a>
+                                <div>
+                                    <div class="d-inline-block me-3">
+                                        <small class="text-muted" id="saveStatus">
+                                            <i class="bi bi-check-circle"></i> 已保存
+                                        </small>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-primary me-2" onclick="previewInNewWindow()">
+                                        <i class="bi bi-window"></i> 新窗口预览
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger me-2" onclick="confirmDelete()">
+                                        <i class="bi bi-trash"></i> 删除文章
+                                    </button>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="bi bi-save"></i> 保存更改
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// 原始内容备份
+const originalContent = document.getElementById('content').value;
+let hasUnsavedChanges = false;
+
+// 插入Markdown语法
+function insertMarkdown(before, after) {
+    const textarea = document.getElementById('content');
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const text = textarea.value;
+    const selectedText = text.substring(start, end);
+
+    const newText = text.substring(0, start) + before + selectedText + after + text.substring(end);
+    textarea.value = newText;
+
+    // 重新设置光标位置
+    const newCursorPos = start + before.length + selectedText.length;
+    textarea.setSelectionRange(newCursorPos, newCursorPos);
+    textarea.focus();
+
+    // 更新预览
+    updatePreview();
+}
+
+// 更新预览
+function updatePreview() {
+    if (!document.getElementById('previewToggle').checked) {
+        return;
+    }
+
+    const content = document.getElementById('content').value;
+    const preview = document.getElementById('preview');
+
+    if (!content.trim()) {
+        preview.innerHTML = '<div class="text-muted">编辑内容预览将显示在这里...</div>';
+        return;
+    }
+
+    // 简单的Markdown预览
+    let html = content
+        .replace(/^---\n[\s\S]*?---\n/, '') // 移除front matter
+        .replace(/^# (.*$)/gim, '<h4>$1</h4>')
+        .replace(/^## (.*$)/gim, '<h5>$1</h5>')
+        .replace(/^### (.*$)/gim, '<h6>$1</h6>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/`(.+?)`/g, '<code>$1</code>')
+        .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+        .replace(/\n\n/g, '</p><p>')
+        .replace(/\n/g, '<br>');
+
+    preview.innerHTML = '<p>' + html + '</p>';
+}
+
+// 预览开关
+document.getElementById('previewToggle').addEventListener('change', updatePreview);
+
+// 在浏览器中预览
+function openInBrowser() {
+    // 这里可以调用预览生成逻辑
+    alert('请确保 Hexo 服务器正在运行，然后访问 http://localhost:4000');
+}
+
+// 新窗口预览
+function previewInNewWindow() {
+    const content = document.getElementById('content').value;
+    const previewWindow = window.open('', '_blank');
+    previewWindow.document.write(`
+        <html>
+        <head>
+            <title>文章预览 - {{ post.title }}</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+            <style>
+                body { max-width: 800px; margin: 0 auto; padding: 20px; }
+                pre { background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; }
+                code { background: #f8f9fa; padding: 2px 4px; border-radius: 3px; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h1>{{ post.title }}</h1>
+                <hr>
+                <div class="content">
+                    <pre style="white-space: pre-wrap; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">${content}</pre>
+                </div>
+            </div>
+        </body>
+        </html>
+    `);
+}
+
+// 复制内容
+function copyContent() {
+    const content = document.getElementById('content').value;
+    navigator.clipboard.writeText(content).then(() => {
+        alert('内容已复制到剪贴板');
+    }).catch(() => {
+        alert('复制失败，请手动复制');
+    });
+}
+
+// 恢复原内容
+function revertContent() {
+    if (confirm('确定要恢复到原始内容吗？当前的更改将会丢失。')) {
+        document.getElementById('content').value = originalContent;
+        updatePreview();
+    }
+}
+
+// 自动保存功能
+let autoSaveTimer;
+document.getElementById('content').addEventListener('input', function() {
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(() => {
+        // 这里可以添加自动保存逻辑
+        console.log('自动保存...');
+        updatePreview();
+    }, 2000);
+});
+
+// 键盘快捷键
+document.addEventListener('keydown', function(e) {
+    // Ctrl/Cmd + S 保存
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        document.querySelector('form').submit();
+    }
+    // Ctrl/Cmd + P 预览
+    if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault();
+        previewInNewWindow();
+    }
+});
+
+// 标签管理功能
+function addTag() {
+    const input = document.getElementById('tagsInput');
+    const tag = input.value.trim();
+
+    if (tag && !tagExists(tag, 'tag')) {
+        addTagElement(tag);
+        updateTagsInput();
+        input.value = '';
+        input.focus();
+
+        // 显示添加成功提示
+        showToast(`标签 "${tag}" 已添加`, 'success');
+    } else if (tag && tagExists(tag, 'tag')) {
+        showToast(`标签 "${tag}" 已存在`, 'warning');
+    }
+}
+
+function removeTag(button) {
+    const tagElement = button.parentElement;
+    const tagName = tagElement.getAttribute('data-tag');
+    tagElement.remove();
+    updateTagsInput();
+    showToast(`标签 "${tagName}" 已删除`, 'info');
+}
+
+function addTagElement(tag) {
+    const container = document.getElementById('tagsContainer');
+    const tagElement = document.createElement('span');
+    tagElement.className = 'badge bg-secondary tag-item';
+    tagElement.setAttribute('data-tag', tag);
+    tagElement.innerHTML = `
+        ${tag}
+        <button type="button" class="btn-close btn-sm" onclick="removeTag(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    `;
+    container.insertBefore(tagElement, container.lastElementChild);
+}
+
+function tagExists(tag, type) {
+    const existingItems = document.querySelectorAll(`.${type}-item`);
+    return Array.from(existingItems).some(item => item.getAttribute(`data-${type}`) === tag);
+}
+
+// 分类管理功能
+function addCategory() {
+    const input = document.getElementById('categoriesInput');
+    const category = input.value.trim();
+
+    if (category && !categoryExists(category)) {
+        addCategoryElement(category);
+        updateCategoriesInput();
+        input.value = '';
+        input.focus();
+
+        // 显示添加成功提示
+        showToast(`分类 "${category}" 已添加`, 'success');
+    } else if (category && categoryExists(category)) {
+        showToast(`分类 "${category}" 已存在`, 'warning');
+    }
+}
+
+function removeCategory(button) {
+    const categoryElement = button.parentElement;
+    const categoryName = categoryElement.getAttribute('data-category');
+    categoryElement.remove();
+    updateCategoriesInput();
+    showToast(`分类 "${categoryName}" 已删除`, 'info');
+}
+
+function addCategoryElement(category) {
+    const container = document.getElementById('categoriesContainer');
+    const categoryElement = document.createElement('span');
+    categoryElement.className = 'badge bg-primary category-item';
+    categoryElement.setAttribute('data-category', category);
+    categoryElement.innerHTML = `
+        ${category}
+        <button type="button" class="btn-close btn-sm" onclick="removeCategory(this)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    `;
+    container.insertBefore(categoryElement, container.lastElementChild);
+}
+
+function categoryExists(category) {
+    const existingItems = document.querySelectorAll('.category-item');
+    return Array.from(existingItems).some(item => item.getAttribute('data-category') === category);
+}
+
+// 更新隐藏的input字段
+function updateTagsInput() {
+    const tags = Array.from(document.querySelectorAll('.tag-item')).map(item => item.getAttribute('data-tag'));
+    document.getElementById('tags').value = tags.join(',');
+    markAsChanged();
+}
+
+function updateCategoriesInput() {
+    const categories = Array.from(document.querySelectorAll('.category-item')).map(item => item.getAttribute('data-category'));
+    document.getElementById('categories').value = categories.join(',');
+    markAsChanged();
+}
+
+// 标记内容已更改
+function markAsChanged() {
+    hasUnsavedChanges = true;
+    updateSaveStatus('已修改', 'warning');
+}
+
+// 更新保存状态
+function updateSaveStatus(text, status = 'info') {
+    const statusElement = document.getElementById('saveStatus');
+    const iconClass = status === 'success' ? 'check-circle' : status === 'warning' ? 'exclamation-triangle' : 'info-circle';
+    const colorClass = status === 'success' ? 'text-success' : status === 'warning' ? 'text-warning' : 'text-info';
+
+    statusElement.className = colorClass;
+    statusElement.innerHTML = `<i class="bi bi-${iconClass}"></i> ${text}`;
+}
+
+// 回车键添加标签/分类
+document.getElementById('tagsInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        addTag();
+    }
+});
+
+document.getElementById('categoriesInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        addCategory();
+    }
+});
+
+// 监听表单字段变化
+document.getElementById('content').addEventListener('input', markAsChanged);
+document.getElementById('title').addEventListener('input', markAsChanged);
+document.getElementById('date').addEventListener('change', markAsChanged);
+document.getElementById('layout').addEventListener('change', markAsChanged);
+
+// 页面离开前警告
+window.addEventListener('beforeunload', function(e) {
+    if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = '您有未保存的更改，确定要离开吗？';
+        return e.returnValue;
+    }
+});
+
+// 删除文章确认
+function confirmDelete() {
+    if (confirm('确定要删除这篇文章吗？此操作无法撤销！')) {
+        // 创建一个隐藏的表单来提交删除请求
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '{{ url_for("delete_post", filename=post.filename) }}';
+
+        // 添加CSRF token如果有的话
+        const csrfToken = document.querySelector('meta[name="csrf-token"]');
+        if (csrfToken) {
+            const tokenInput = document.createElement('input');
+            tokenInput.type = 'hidden';
+            tokenInput.name = 'csrf_token';
+            tokenInput.value = csrfToken.getAttribute('content');
+            form.appendChild(tokenInput);
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+
+// Toast 通知功能
+function showToast(message, type = 'info') {
+    // 移除已存在的 toast
+    const existingToast = document.querySelector('.custom-toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+
+    const toast = document.createElement('div');
+    toast.className = 'custom-toast alert alert-' + (type === 'success' ? 'success' : type === 'warning' ? 'warning' : 'info') + ' alert-dismissible fade show position-fixed';
+    toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 250px;';
+    toast.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+
+    document.body.appendChild(toast);
+
+    // 3秒后自动移除
+    setTimeout(() => {
+        if (toast.parentNode) {
+            toast.remove();
+        }
+    }, 3000);
+}
+
+// 页面加载完成后初始化
+document.addEventListener('DOMContentLoaded', function() {
+    updatePreview();
+
+    // 表单提交时重置修改状态
+    document.querySelector('form').addEventListener('submit', function() {
+        hasUnsavedChanges = false;
+        updateSaveStatus('正在保存...', 'info');
+    });
+
+    // 显示自动保存提示
+    setTimeout(() => {
+        const autoSaveInfo = document.createElement('div');
+        autoSaveInfo.className = 'alert alert-info alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3';
+        autoSaveInfo.style.zIndex = '9999';
+        autoSaveInfo.innerHTML = `
+            <i class="bi bi-info-circle"></i> 提示：使用 Ctrl+S 保存，Ctrl+P 预览
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(autoSaveInfo);
+
+        // 3秒后自动关闭
+        setTimeout(() => {
+            autoSaveInfo.remove();
+        }, 3000);
+    }, 1000);
+});
+</script>
+{% endblock %}

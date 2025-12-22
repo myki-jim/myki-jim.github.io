@@ -1,0 +1,137 @@
+# ===============================================================
+# NexT Theme Configuration
+# ===============================================================
+# 更多详细配置请参考: https://theme-next.js.org/docs/
+
+# 选择 Scheme (Mist, Muse, Pisces, Gemini)
+scheme: Gemini
+
+# 网站图标设置
+favicon:
+  small: /images/favicon-16x16-next.png
+  medium: /images/favicon-32x32-next.png
+  apple_touch_icon: /images/apple-touch-icon-next.png
+  safari_pinned_tab: /images/logo.svg
+  #android_manifest: /manifest.json
+  #ms_browserconfig: /browserconfig.xml
+
+# 菜单设置
+menu:
+  home: / || fa fa-home
+  about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+
+menu_settings:
+  icons: true
+  badges: false
+
+# 侧边栏设置
+sidebar:
+  position: left
+  width: 256
+  display: post
+  padding: 18
+  offset: 12
+
+# 头像设置
+avatar:
+  # 替换为你的头像链接
+  url: /images/avatar.gif
+  rounded: true
+  opacity: 1
+  rotated: false
+
+# 社交链接
+social:
+  GitHub: https://github.com/myki-jim || fab fa-github
+  #Twitter: https://twitter.com/yourname || fab fa-twitter
+  # E-Mail: mailto:yourname@email.com || fa fa-envelope
+
+social_icons:
+  enable: true
+  icons_only: false
+  transition: false
+
+# 阅读进度条
+reading_progress:
+  enable: true
+  start_at: left
+  position: top
+  reversed: false
+  color: '#37c6c5'
+  height: 3px
+
+# 回到顶部按钮
+back2top:
+  enable: true
+  sidebar: false
+  scrollpercent: true
+
+# 代码块设置
+codeblock:
+  highlight_theme: default
+  copy_button:
+    enable: true
+    show_result: true
+    style: mac
+
+# 标签页设置
+tabs:
+  enable: true
+  transition:
+    tabs: true
+    labels: true
+  border_radius: 5
+
+# 评论系统 (可选)
+disqusqus:
+  enable: false
+
+# Google Analytics (可选)
+google_analytics:
+  tracking_id: ''
+  only_pageview: true
+
+# 网站统计
+busuanzi_count:
+  enable: false
+  total_visitors: true
+  total_visitors_icon: fa fa-user
+  total_views: true
+  total_views_icon: fa fa-eye
+  post_views: true
+  post_views_icon: fa fa-eye-slash
+
+# Creative Commons 4.0 International License
+creative_commons:
+  license: by-nc-sa
+  sidebar: false
+  post: true
+  language:
+
+# 搜索
+local_search:
+  enable: false
+  trigger: auto
+  top_n_per_article: 1
+  preload: false
+
+# 开启 CDN
+vendors:
+  internal: local
+  plugins: undefined
+
+# 添加自定义 CSS 或 JS
+custom_file_path:
+  #head: source/_data/head.njk
+  #header: source/_data/header.njk
+  #sidebar: source/_data/sidebar.njk
+  #postMeta: source/_data/post-meta.njk
+  #postBodyEnd: source/_data/post-body-end.njk
+  #footer: source/_data/footer.njk
+  #bodyEnd: source/_data/body-end.njk
+  #variable: source/_data/variables.styl
+  #mixin: source/_data/mixins.styl
+  #style: source/_data/styles.styl
