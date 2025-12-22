@@ -1,9 +1,11 @@
 ---
 title: Hello World
-date: 2019-11-21
+date: 2019-11-21 22:00:00
 tags: ['博客', 'Hexo', '技术', '欢迎']
 categories: ['博客', '欢迎']
 layout: post
+banner: https://blogtc.jimmyki.com/images/%E6%88%AA%E5%B1%8F2024-11-29%2014.33.35.png
+author: Jimmy Ki
 ---
 
 # Hello World
@@ -13,9 +15,13 @@ layout: post
 
 # 感谢
 
-感谢 [Hexo](https://hexo.io/) 和 [Next](https://github.com/theme-next/hexo-theme-next) 让我可以这么方便地搭建自己的博客。
+感谢Hexo和Next让我可以这么方便地搭建自己的博客。
 
 # 参考资料
 
 - [Hexo官方文档](https://hexo.io/docs/)
 - [Next官方文档](https://theme-next.iissnan.com/)
+
+# 关于本文
+
+由 Jimmy Ki 撰写, 采用 CC BY-NC 4.0 许可协议.
