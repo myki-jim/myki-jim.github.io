@@ -1,0 +1,23 @@
+{
+  "id": "hello-world",
+  "slug": "hello-world",
+  "title": "Hello World - 我的博客开张啦！",
+  "date": "2025-12-22T12:15",
+  "updated": "2025-12-22T12:15",
+  "categories": [
+    "博客",
+    "欢迎"
+  ],
+  "tags": [
+    "博客",
+    "Hexo",
+    "技术",
+    "欢迎"
+  ],
+  "layout": "post",
+  "excerpt": "",
+  "content": "\r\n![封面图片](https://avatars.githubusercontent.com/u/250856597?v=4)\r\n\r\n欢迎来到我的个人技术博客！\r\n\r\n## 关于这个博客\r\n\r\n这是我的第一篇博客文章，使用 [Hexo](https://hexo.io/) 静态博客框架搭建。这个博客将记录我的：\r\n\r\n- 技术学习笔记\r\n- 项目开发经验\r\n- 编程心得体会\r\n- 生活随想\r\n\r\n## 博客特色\r\n\r\n- 基于 Hexo 构建，加载快速\r\n- 使用 Next 主题，界面简洁美观\r\n- 响应式设计，支持多设备访问\r\n- 支持标签和分类功能\r\n- 集成 GitHub Actions 自动化部署\r\n\r\n## 未来计划\r\n\r\n- [ ] 分享前端开发经验\r\n- [ ] 记录算法学习过程\r\n- [ ] 探索新技术趋势\r\n- [ ] 建立个人知识库\r\n\r\n## 联系方式\r\n\r\n如果你对我的文章有任何疑问或建议，欢迎通过以下方式联系我：\r\n\r\n- GitHub: [myki-jim](https://github.com/myki-jim)\r\n- Email: (稍后添加)\r\n\r\n---\r\n\r\n感谢访问，希望我的博客能对你有所帮助！✨\r\n",
+  "author": "Jimmy Ki",
+  "path": "/hello-world/",
+  "coverImage": "https://avatars.githubusercontent.com/u/250856597?v=4"
+}

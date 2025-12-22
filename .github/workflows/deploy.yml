@@ -43,11 +43,7 @@ jobs:
 
     - name: Build Next.js static site
       run: |
-        npm run next-build
-
-    - name: Export static files
-      run: |
-        npm run next-export
+        npm run build
 
     - name: Show generated files
       run: |
