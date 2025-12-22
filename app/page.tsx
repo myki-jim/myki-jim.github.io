@@ -40,11 +40,23 @@ export default function HomePage() {
   };
 
   const handleNavigate = (page: PageType, id?: string) => {
-    if (id) {
-      setActivePostId(id);
+    if (page === 'post' && id) {
+      // Navigate to dynamic route
+      window.location.href = `/${id}`;
+    } else if (page === 'tags') {
+      window.location.href = '/tags';
+    } else if (page === 'categories') {
+      window.location.href = '/categories';
+    } else if (page === 'about') {
+      window.location.href = '/about';
+    } else {
+      // Handle in-page navigation for home
+      if (id) {
+        setActivePostId(id);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setCurrentPage(page);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setCurrentPage(page);
   };
 
   const getPostById = (id: string | null): Post | undefined => {

@@ -5,9 +5,8 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/glasses-blog' : '',
-  basePath: process.env.NODE_ENV === 'production' ? '/glasses-blog' : '',
-    webpack: (config) => {
+  // Remove basePath and assetPrefix for root path deployment
+  webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': '.',
@@ -19,7 +18,7 @@ const nextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true
+  },
   }
-}
 
 module.exports = nextConfig
