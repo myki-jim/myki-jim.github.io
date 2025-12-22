@@ -99,9 +99,9 @@ export default function PostPage() {
       <main className="relative z-10 w-full min-h-screen">
         <motion.div
           key={post.slug}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          initial={{ opacity: 0, y: 15, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
         >
           <PostView
             post={post}
