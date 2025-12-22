@@ -54,7 +54,8 @@ function extractHexoData() {
         excerpt: excerpt || '',
         content: content,
         author: data.author || 'Jimmy Ki',
-        path: `/${file.replace('.md', '')}/`
+        path: `/${file.replace('.md', '')}/`,
+        coverImage: data.cover || data.coverImage || null
       };
 
       posts.push(post);
