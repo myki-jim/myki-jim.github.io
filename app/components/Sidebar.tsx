@@ -107,10 +107,10 @@ const StatTile = ({ label, count, delay }: { label: string, count: number, delay
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay }}
-    className="aspect-square flex flex-col items-center justify-between rounded-2xl bg-[var(--glass-surface)] border border-[var(--glass-border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors p-3"
+    className="aspect-square flex flex-col items-center justify-center rounded-2xl bg-[var(--glass-surface)] border border-[var(--glass-border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors p-4"
     style={{ backdropFilter: "blur(var(--glass-blur))" }}
   >
-    <span className="text-lg font-bold text-[var(--accent-color)]">{count}</span>
+    <span className="text-2xl font-bold text-[var(--accent-color)]">{count}</span>
     <span className="text-[10px] font-medium opacity-50">{label}</span>
   </motion.div>
 );
