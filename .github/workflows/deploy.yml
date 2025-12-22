@@ -6,6 +6,18 @@ on:
   pull_request:
     branches: [ main ]
 
+# Sets permissions for the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -32,8 +44,19 @@ jobs:
 
     - name: Generate static files
       run: |
+        echo "Current directory contents:"
+        ls -la
+        echo "Node version:"
+        node --version
+        echo "NPM version:"
+        npm --version
+        echo "Hexo version:"
+        npx hexo version
+        echo "Cleaning and generating..."
         hexo clean
         hexo generate
+        echo "Generated files:"
+        ls -la public/
 
     - name: Setup Pages
       uses: actions/configure-pages@v4
