@@ -1,0 +1,25 @@
+# Next.js build output
+.next/
+out/
+build/
+dist/
+
+# Next.js production bundles
+.next/static/chunks/
+.next/static/css/
+
+# Next.js development files
+.next/cache/
+.next/trace
+
+# Environment variables
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# Turbo
+.turbo
