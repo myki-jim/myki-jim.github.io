@@ -341,3 +341,94 @@ pre {
 .progress-bar {
     transition: width 0.3s ease;
 }
+
+/* Git状态指示器样式 */
+.git-status-indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 0.5rem;
+    position: relative;
+    font-size: 14px;
+    color: #fff;
+    background-color: var(--secondary-color);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.git-status-indicator:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.git-status-indicator.git-clean {
+    background-color: var(--success-color);
+    border-color: rgba(25, 135, 84, 0.3);
+}
+
+.git-status-indicator.git-clean:hover {
+    background-color: #157347;
+}
+
+.git-status-indicator.git-dirty {
+    background-color: var(--warning-color);
+    border-color: rgba(255, 193, 7, 0.3);
+}
+
+.git-status-indicator.git-dirty:hover {
+    background-color: #e0a800;
+}
+
+.git-status-indicator.git-error {
+    background-color: var(--danger-color);
+    border-color: rgba(220, 53, 69, 0.3);
+}
+
+.git-status-indicator.git-error:hover {
+    background-color: #bb2d3b;
+}
+
+.git-count {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: var(--danger-color);
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    border: 1px solid #fff;
+}
+
+/* Git状态详情样式 */
+.git-status-details {
+    font-size: 0.9rem;
+}
+
+.git-status-details p {
+    margin-bottom: 0.75rem;
+}
+
+.git-status-details ul {
+    margin-bottom: 0;
+}
+
+.git-status-details li {
+    margin-bottom: 0.25rem;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.git-status-details li:last-child {
+    border-bottom: none;
+}

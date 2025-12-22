@@ -92,57 +92,87 @@ function checkGitStatus() {
     fetch('/git_status')
         .then(response => response.json())
         .then(data => {
-            updateGitBadge(data.is_clean);
-            updateGitStatusDisplay(data);
+            updateGitStatusIndicator(data);
         })
         .catch(error => {
             console.log('检查Git状态失败');
+            updateGitStatusIndicator({ error: true });
         });
 }
 
-// 更新Git徽章
-function updateGitBadge(isClean) {
-    const badge = document.getElementById('gitBadge');
-    if (badge) {
-        if (isClean) {
-            badge.textContent = '干净';
-            badge.className = 'badge bg-success';
-        } else {
-            badge.textContent = '有更改';
-            badge.className = 'badge bg-warning';
+// 更新Git状态指示器
+function updateGitStatusIndicator(data) {
+    const gitStatusElement = document.getElementById('gitStatusIndicator');
+    if (!gitStatusElement) return;
+
+    if (data.error) {
+        gitStatusElement.className = 'git-status-indicator git-error';
+        gitStatusElement.title = 'Git状态检查失败';
+        gitStatusElement.innerHTML = '<i class="bi bi-exclamation-triangle"></i>';
+    } else if (data.is_clean) {
+        gitStatusElement.className = 'git-status-indicator git-clean';
+        gitStatusElement.title = 'Git状态: 干净 - 点击查看详情';
+        gitStatusElement.innerHTML = '<i class="bi bi-check-circle"></i>';
+    } else {
+        const changesCount =
+            (data.modified_files ? data.modified_files.length : 0) +
+            (data.untracked_files ? data.untracked_files.length : 0);
+
+        gitStatusElement.className = 'git-status-indicator git-dirty';
+        gitStatusElement.title = `Git状态: ${changesCount} 个更改 - 点击查看详情`;
+        gitStatusElement.innerHTML = `<i class="bi bi-pencil-square"></i>`;
+        if (changesCount > 0) {
+            gitStatusElement.innerHTML += `<span class="git-count">${changesCount}</span>`;
         }
     }
 }
 
-// 更新Git状态显示
+// 更新Git状态显示内容
 function updateGitStatusDisplay(data) {
-    const gitStatusInfo = document.getElementById('gitStatusInfo');
-    if (gitStatusInfo) {
-        let html = '';
+    const gitStatusInfo = document.getElementById('gitStatusContent');
+    if (!gitStatusInfo) return;
 
-        if (data.error) {
-            html = `<span class="text-danger">错误: ${data.error}</span>`;
-        } else {
-            html = '<div class="small">';
-            html += `<p><strong>分支:</strong> ${data.branch}</p>`;
+    let html = '';
 
-            if (!data.is_clean) {
-                html += '<p><strong>更改:</strong></p>';
+    if (data.error) {
+        html = `<div class="alert alert-danger">错误: ${data.error}</div>`;
+    } else {
+        html = '<div class="git-status-details">';
+        html += `<p><strong><i class="bi bi-diagram-2"></i> 分支:</strong> ${data.branch}</p>`;
+        html += `<p><strong><i class="bi bi-info-circle"></i> 状态:</strong> ${data.is_clean ? '✅ 干净' : '⚠️ 有更改'}</p>`;
 
-                if (data.untracked_files && data.untracked_files.length > 0) {
-                    html += '<small class="text-muted">未跟踪文件: ' + data.untracked_files.length + '</small><br>';
-                }
+        if (!data.is_clean) {
+            html += '<div class="mt-3"><strong><i class="bi bi-file-text"></i> 更改详情:</strong></div>';
 
-                if (data.modified_files && data.modified_files.length > 0) {
-                    html += '<small class="text-warning">修改文件: ' + data.modified_files.length + '</small><br>';
-                }
+            if (data.untracked_files && data.untracked_files.length > 0) {
+                html += '<div class="mt-2"><strong>新增文件:</strong><ul class="list-unstyled ms-3">';
+                data.untracked_files.forEach(file => {
+                    html += `<li class="text-muted small"><i class="bi bi-plus-circle"></i> ${file}</li>`;
+                });
+                html += '</ul></div>';
             }
 
-            html += '</div>';
+            if (data.modified_files && data.modified_files.length > 0) {
+                html += '<div class="mt-2"><strong>修改文件:</strong><ul class="list-unstyled ms-3">';
+                data.modified_files.forEach(file => {
+                    html += `<li class="text-warning small"><i class="bi bi-pencil"></i> ${file}</li>`;
+                });
+                html += '</ul></div>';
+            }
+
+            if (data.staged_files && data.staged_files.length > 0) {
+                html += '<div class="mt-2"><strong>已暂存:</strong><ul class="list-unstyled ms-3">';
+                data.staged_files.forEach(file => {
+                    html += `<li class="text-info small"><i class="bi bi-check-square"></i> ${file}</li>`;
+                });
+                html += '</ul></div>';
+            }
         }
 
-        gitStatusInfo.innerHTML = html;
+        html += '</div>';
     }
+
+    gitStatusInfo.innerHTML = html;
 }
 
 // 快速提交
@@ -224,53 +254,35 @@ function quickPush() {
 
 // 显示Git状态模态框
 function showGitStatusModal() {
+    // 先显示加载状态
+    const content = document.getElementById('gitStatusContent');
+    content.innerHTML = `
+        <div class="text-center">
+            <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">检查中...</span>
+            </div>
+            <p class="mt-2">正在检查Git状态...</p>
+        </div>
+    `;
+
+    // 显示模态框
+    const modal = new bootstrap.Modal(document.getElementById('gitStatusModal'));
+    modal.show();
+
+    // 获取Git状态
     fetch('/git_status')
         .then(response => response.json())
         .then(data => {
-            const content = document.getElementById('gitStatusContent');
-
-            if (data.error) {
-                content.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
-            } else {
-                let html = '<div class="small">';
-                html += `<p><strong>分支:</strong> ${data.branch}</p>`;
-                html += `<p><strong>状态:</strong> ${data.is_clean ? '✅ 干净' : '⚠️ 有更改'}</p>`;
-
-                if (data.untracked_files && data.untracked_files.length > 0) {
-                    html += '<p><strong>未跟踪文件:</strong></p><ul>';
-                    data.untracked_files.forEach(file => {
-                        html += `<li class="text-muted">${file}</li>`;
-                    });
-                    html += '</ul>';
-                }
-
-                if (data.modified_files && data.modified_files.length > 0) {
-                    html += '<p><strong>修改文件:</strong></p><ul>';
-                    data.modified_files.forEach(file => {
-                        html += `<li class="text-warning">${file}</li>`;
-                    });
-                    html += '</ul>';
-                }
-
-                if (data.staged_files && data.staged_files.length > 0) {
-                    html += '<p><strong>暂存文件:</strong></p><ul>';
-                    data.staged_files.forEach(file => {
-                        html += `<li class="text-info">${file}</li>`;
-                    });
-                    html += '</ul>';
-                }
-
-                html += '</div>';
-                content.innerHTML = html;
-            }
-
-            // 显示模态框
-            const modal = new bootstrap.Modal(document.getElementById('gitStatusModal'));
-            modal.show();
+            updateGitStatusDisplay(data);
         })
         .catch(error => {
             console.log('获取Git状态失败');
-            showAlert('获取Git状态失败: ' + error, 'danger');
+            content.innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    获取Git状态失败: ${error}
+                </div>
+            `;
         });
 }
 
