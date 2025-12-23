@@ -167,6 +167,16 @@ export default function ToolsPage() {
       router.push('/');
     } else if (page === 'tools') {
       router.push('/tools');
+    } else if (page === 'tags') {
+      router.push('/tags');
+    } else if (page === 'categories') {
+      router.push('/categories');
+    } else if (page === 'about') {
+      router.push('/about');
+    } else if (page === 'contact') {
+      router.push('/contact');
+    } else if (page === 'post' && id) {
+      router.push(`/${id}`);
     }
   };
 
