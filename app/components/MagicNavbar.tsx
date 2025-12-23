@@ -62,7 +62,7 @@ const MagicNavbar: React.FC<MagicNavbarProps> = ({ onNavigate, activePage, posts
 
   // Transforms
   const top = useTransform(scrollY, [0, threshold], isHome ? [HERO_SEARCH_TOP, 0] : [0, 0]);
-  const width = useTransform(scrollY, [0, threshold], isHome ? ['min(66%, 380px)', '100%'] : ['100%', '100%']);
+  const width = useTransform(scrollY, [0, threshold], isHome ? ['min(50%, 380px)', '100%'] : ['100%', '100%']);
   const borderRadius = useTransform(scrollY, [0, threshold], isHome ? [30, 0] : [0, 0]);
   const height = useTransform(scrollY, [0, threshold], isHome ? [60, 80] : [80, 80]);
   const glassOpacity = useTransform(scrollY, [0, threshold], isHome ? [0.4, 0.9] : [0.9, 0.9]);

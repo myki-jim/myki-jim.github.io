@@ -28,10 +28,10 @@
   --text-tertiary: rgba(31, 41, 55, 0.5);
 
   /* Stronger Glass Effect */
-  --glass-surface: rgba(255, 255, 255, 0.8);
-  --glass-surface-hover: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(0, 0, 0, 0.1);
-  --glass-blur: 60px;
+  --glass-surface: rgba(255, 255, 255, 0.2);
+  --glass-surface-hover: rgba(255, 255, 255, 0.3);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-blur: 80px;
 
   --accent-glow: rgba(59, 130, 246, 0.2);
   --accent-color: #3b82f6;
