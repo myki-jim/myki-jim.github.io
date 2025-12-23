@@ -11,7 +11,13 @@ const nextConfig = {
       ...config.resolve.alias,
       '@': '.',
     }
-    return config;
+    // 启用 WebAssembly
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+      layers: true,
+    }
+    return config
   },
   typescript: {
     ignoreBuildErrors: true

@@ -3,6 +3,25 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import {
+  Regex,
+  Hash,
+  FileCode,
+  Key,
+  Lock,
+  QrCode,
+  Palette,
+  Calculator,
+  Clock,
+  Settings,
+  Type,
+  ArrowRight,
+  FileText,
+  Gamepad2,
+  Wallet,
+  Box,
+  Workflow
+} from 'lucide-react';
 import LiquidBackground from '../components/LiquidBackground';
 import MagicNavbar from '../components/MagicNavbar';
 import { ToolItem } from '../components/types';
@@ -12,18 +31,132 @@ const tools: ToolItem[] = [
     id: 'regex',
     name: '正则表达式测试器',
     description: '实时测试和调试正则表达式，内置常用模式库',
-    icon: '⚡',
+    icon: 'regex',
     category: '开发工具',
     path: '/tools/regex'
   },
-  // 后续会添加更多工具
+  {
+    id: 'hash',
+    name: '哈希生成器',
+    description: '支持 MD5、SHA-1、SHA-256 等多种哈希算法',
+    icon: 'hash',
+    category: '开发工具',
+    path: '/tools/hash'
+  },
+  {
+    id: 'encoder',
+    name: '编解码转换器',
+    description: 'Base64、URL、HTML、十六进制等多种编码实时转换',
+    icon: 'type',
+    category: '开发工具',
+    path: '/tools/encoder'
+  },
+  {
+    id: 'json',
+    name: 'JSON 格式化器',
+    description: '格式化、压缩和验证 JSON 数据',
+    icon: 'fileCode',
+    category: '开发工具',
+    path: '/tools/json'
+  },
+  {
+    id: 'uuid',
+    name: 'UUID 生成器',
+    description: '批量生成 UUID v4，支持多种格式',
+    icon: 'key',
+    category: '开发工具',
+    path: '/tools/uuid'
+  },
+  {
+    id: 'keygen',
+    name: 'RSA 密钥生成器',
+    description: '生成 RSA 公钥私钥对，支持多种格式',
+    icon: 'lock',
+    category: '安全工具',
+    path: '/tools/keygen'
+  },
+  {
+    id: 'password',
+    name: '密码生成器',
+    description: '生成安全的随机密码，支持自定义强度',
+    icon: 'lock',
+    category: '安全工具',
+    path: '/tools/password'
+  },
+  {
+    id: 'markdown',
+    name: 'Markdown 编辑器',
+    description: '实时预览编辑器，支持 GitHub Flavored Markdown',
+    icon: 'fileText',
+    category: '文本处理',
+    path: '/tools/markdown'
+  },
+  {
+    id: '2048',
+    name: '2048 游戏',
+    description: '经典 2048 益智游戏，支持键盘和触摸操作',
+    icon: 'gamepad2',
+    category: '其他',
+    path: '/tools/2048'
+  },
+  {
+    id: 'wallet',
+    name: '钱包地址生成器',
+    description: '生成 BTC、ETH、TRX 等区块链钱包地址',
+    icon: 'wallet',
+    category: '区块链',
+    path: '/tools/wallet'
+  },
+  {
+    id: 'qrcode',
+    name: '二维码生成器',
+    description: '支持文本、链接、WiFi、名片等多种格式',
+    icon: 'qrCode',
+    category: '开发工具',
+    path: '/tools/qrcode'
+  },
+  {
+    id: 'mermaid',
+    name: 'Mermaid 图表编辑器',
+    description: '实时预览，支持流程图、时序图、甘特图等',
+    icon: 'workflow',
+    category: '开发工具',
+    path: '/tools/mermaid'
+  },
+  {
+    id: 'uml',
+    name: 'UML 图表设计器',
+    description: '专业的 UML 建模工具，支持类图、用例图等',
+    icon: 'box',
+    category: '开发工具',
+    path: '/tools/uml'
+  },
 ];
+
+const iconMap: Record<string, React.ElementType> = {
+  regex: Regex,
+  hash: Hash,
+  fileCode: FileCode,
+  fileText: FileText,
+  key: Key,
+  lock: Lock,
+  qrCode: QrCode,
+  palette: Palette,
+  calculator: Calculator,
+  clock: Clock,
+  settings: Settings,
+  type: Type,
+  gamepad2: Gamepad2,
+  wallet: Wallet,
+  box: Box,
+  workflow: Workflow,
+};
 
 export default function ToolsPage() {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<string>('全部');
 
-  const categories = ['全部', '开发工具', '文本处理', '加密解密', '转换工具', '其他'];
+  const categories = ['全部', '开发工具', '安全工具', '文本处理', '区块链', '其他'];
 
   const filteredTools = activeCategory === '全部'
     ? tools
@@ -100,7 +233,12 @@ export default function ToolsPage() {
 
                   {/* Content */}
                   <div className="relative z-10">
-                    <div className="text-4xl mb-4">{tool.icon}</div>
+                    <div className="mb-4 text-[var(--accent-color)]">
+                      {(() => {
+                        const IconComponent = iconMap[tool.icon] || Settings;
+                        return <IconComponent size={40} />;
+                      })()}
+                    </div>
                     <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-color)] transition-colors">
                       {tool.name}
                     </h3>
@@ -111,8 +249,8 @@ export default function ToolsPage() {
                       <span className="text-xs text-[var(--text-tertiary)] uppercase tracking-wider">
                         {tool.category}
                       </span>
-                      <span className="text-sm font-semibold text-[var(--accent-color)] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">
-                        打开 →
+                      <span className="text-sm font-semibold text-[var(--accent-color)] opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 flex items-center gap-1">
+                        打开 <ArrowRight size={16} />
                       </span>
                     </div>
                   </div>
@@ -123,7 +261,7 @@ export default function ToolsPage() {
             {/* Empty State */}
             {filteredTools.length === 0 && (
               <div className="text-center py-20">
-                <div className="text-6xl mb-4">🔧</div>
+                <Settings size={48} className="mx-auto mb-4 text-[var(--text-tertiary)]" />
                 <p className="text-[var(--text-tertiary)]">此分类下暂无工具</p>
               </div>
             )}

@@ -14,7 +14,6 @@ interface CommonPattern {
   name: string;
   pattern: string;
   description: string;
-  example?: string;
 }
 
 const RegexTester: React.FC = () => {
@@ -25,66 +24,22 @@ const RegexTester: React.FC = () => {
   const [error, setError] = useState('');
   const [highlightedText, setHighlightedText] = useState('');
 
-  // 常用正则表达式模式（中文）
   const commonPatterns: CommonPattern[] = [
-    // 基础匹配
-    { name: '电子邮箱', pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}', description: '匹配常见邮箱地址', example: 'user@example.com, admin@test.co.cn' },
-    { name: '手机号码（中国）', pattern: '1[3-9]\\d{9}', description: '匹配中国大陆手机号', example: '13812345678, 15987654321' },
-    { name: '固定电话（中国）', pattern: '0\\d{2,3}-?\\d{7,8}', description: '匹配中国固定电话', example: '010-12345678, 021-87654321' },
-    { name: '身份证号', pattern: '[1-9]\\d{5}(18|19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{3}[\\dXx]', description: '匹配18位身份证号', example: '110101199001011234' },
-    { name: '邮政编码', pattern: '\\d{6}', description: '匹配6位邮政编码', example: '100000, 200000' },
-
-    // 网络相关
-    { name: 'HTTP URL', pattern: 'https?:\\/\\/[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-.,@?^=%&:/~+#]*[\\w\\-@?^=%&/~+#])?', description: '匹配HTTP/HTTPS网址', example: 'https://www.example.com, http://test.org' },
-    { name: 'IPv4 地址', pattern: '\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b', description: '匹配有效的IPv4地址', example: '192.168.1.1, 10.0.0.1' },
-    { name: 'MAC 地址', pattern: '([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})', description: '匹配MAC地址', example: '00:1A:2B:3C:4D:5E' },
-
-    // 日期时间
-    { name: '日期 (YYYY-MM-DD)', pattern: '\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])', description: '匹配标准日期格式', example: '2024-01-15, 2023-12-31' },
-    { name: '时间 (HH:MM:SS)', pattern: '([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d', description: '匹配24小时制时间', example: '14:30:45, 09:15:30' },
-    { name: '日期时间', pattern: '\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])\\s+([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d', description: '匹配日期和时间', example: '2024-01-15 14:30:45' },
-
-    // 颜色代码
-    { name: '十六进制颜色', pattern: '#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\\b', description: '匹配CSS颜色代码', example: '#FF5733, #333, #f00' },
-    { name: 'RGB 颜色', pattern: 'rgb\\(\\s*\\d{1,3}%?\\s*,\\s*\\d{1,3}%?\\s*,\\s*\\d{1,3}%?\\s*\\)', description: '匹配RGB颜色值', example: 'rgb(255, 0, 0), rgb(100, 150, 200)' },
-
-    // 数字货币
-    { name: '金额（人民币）', pattern: '¥\\s?\\d{1,3}(,\\d{3})*(\\.\\d{2})?', description: '匹配人民币金额', example: '¥1,234.56, ¥100' },
-    { name: '金额（美元）', pattern: '\\$\\s?\\d{1,3}(,\\d{3})*(\\.\\d{2})?', description: '匹配美元金额', example: '$1,234.56, $100' },
-    { name: '百分比', pattern: '\\d+(\\.\\d+)?%', description: '匹配百分比', example: '25%, 87.5%' },
-
-    // 代码相关
-    { name: 'HTML 标签', pattern: '<\\/?[a-zA-Z][a-zA-Z0-9]*(?:\\s[^<>]*)?\\/?>', description: '匹配HTML标签', example: '<div>, <img src="test.jpg" />, </span>' },
-    { name: 'JSON 键', pattern: '"([^"\\\\]|\\\\.)*"\\s*:', description: '匹配JSON对象的键', example: '"name": "value", "age": 30' },
-    { name: '整数', pattern: '-?\\b\\d+\\b', description: '匹配整数（含负数）', example: '123, -456' },
-    { name: '小数', pattern: '-?\\b\\d+\\.\\d+\\b', description: '匹配小数', example: '3.14, -2.5' },
-
-    // 文件相关
-    { name: '文件扩展名', pattern: '\\.[a-zA-Z0-9]{2,8}$', description: '匹配文件扩展名', example: '.txt, .jpg, .png' },
-    { name: 'Windows 路径', pattern: '[A-Z]:\\\\(?:[^\\\\:\\/\\*\\?"<>|\\r\\n]+\\\\)*[^\\\\:\\/\\*\\?"<>|\\r\\n]*', description: '匹配Windows文件路径', example: 'C:\\Users\\test\\file.txt' },
-    { name: 'Unix 路径', pattern: '/(?:[^/\\0]+/)*[^/\\0]+', description: '匹配Unix/Linux路径', example: '/home/user/docs/file.txt' },
-
-    // 社交媒体
-    { name: '微信公众号', pattern: '[a-zA-Z0-9_-]{4,20}', description: '匹配微信号格式', example: 'wechat_id_123' },
-    { name: '微博账号', pattern: '@[a-zA-Z0-9_\\u4e00-\\u9fa5]{1,20}', description: '匹配微博@用户', example: '@用户名' },
-    { name: '话题标签', pattern: '#[\\w\\u4e00-\\u9fa5]+', description: '匹配话题标签', example: '#JavaScript, #前端开发' },
-
-    // 通用
-    { name: '用户名', pattern: '[a-zA-Z0-9_]{3,16}', description: '匹配3-16位用户名', example: 'user_123, test_account' },
-    { name: '强密码', pattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$', description: '匹配强密码（大小写+数字+特殊字符）', example: 'MyP@ssw0rd' },
-    { name: '车牌号（普通）', pattern: '[\\u4e00-\\u9fa5][A-Z][A-Z0-9]{5}', description: '匹配普通车牌号', example: '京A12345, 沪B12345' },
-    { name: 'QQ 号码', pattern: '[1-9][0-9]{4,10}', description: '匹配QQ号', example: '123456789' },
-
-    // 编码
-    { name: 'Base64 字符串', pattern: '(?:[A-Za-z0-9+\\/]{4})*(?:[A-Za-z0-9+\\/]{2}==|[A-Za-z0-9+\\/]{3}=)?', description: '匹配Base64编码', example: 'SGVsbG8gV29ybGQ=' },
-    { name: 'UUID/GUID', pattern: '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}', description: '匹配UUID格式', example: '550e8400-e29b-41d4-a716-446655440000' },
-
-    // 版本号
-    { name: '语义化版本', pattern: '\\b\\d+\\.\\d+\\.\\d+(?:-[a-zA-Z0-9.-]+)?\\b', description: '匹配语义化版本号', example: '1.2.3, 2.0.0-beta' },
-
-    // 中文相关
-    { name: '中文字符', pattern: '[\\u4e00-\\u9fa5]', description: '匹配中文字符', example: '你好世界' },
-    { name: '中英文数字混合', pattern: '[a-zA-Z0-9\\u4e00-\\u9fa5]+', description: '匹配中英文和数字', example: '测试Test123' },
+    { name: '电子邮箱', pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}', description: '邮箱地址' },
+    { name: '手机号码（中国）', pattern: '1[3-9]\\d{9}', description: '中国手机号' },
+    { name: '固定电话（中国）', pattern: '0\\d{2,3}-?\\d{7,8}', description: '中国固定电话' },
+    { name: '身份证号', pattern: '[1-9]\\d{5}(18|19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])\\d{3}[\\dXx]', description: '18位身份证号' },
+    { name: 'HTTP URL', pattern: 'https?:\\/\\/[\\w\\-]+(\\.[\\w\\-]+)+([\\w\\-.,@?^=%&:/~+#]*[\\w\\-@?^=%&/~+#])?', description: 'HTTP/HTTPS网址' },
+    { name: 'IPv4 地址', pattern: '\\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\b', description: 'IPv4地址' },
+    { name: '日期 (YYYY-MM-DD)', pattern: '\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])', description: '标准日期格式' },
+    { name: '时间 (HH:MM:SS)', pattern: '([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d', description: '24小时制时间' },
+    { name: '十六进制颜色', pattern: '#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\\b', description: 'CSS颜色代码' },
+    { name: '整数', pattern: '-?\\b\\d+\\b', description: '整数（含负数）' },
+    { name: '小数', pattern: '-?\\b\\d+\\.\\d+\\b', description: '小数' },
+    { name: 'HTML 标签', pattern: '<\\/?[a-zA-Z][a-zA-Z0-9]*(?:\\s[^<>]*)?\\/?>', description: 'HTML标签' },
+    { name: '中文字符', pattern: '[\\u4e00-\\u9fa5]', description: '中文字符' },
+    { name: '用户名', pattern: '[a-zA-Z0-9_]{3,16}', description: '3-16位用户名' },
+    { name: 'UUID/GUID', pattern: '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}', description: 'UUID格式' }
   ];
 
   useEffect(() => {
@@ -163,8 +118,7 @@ const RegexTester: React.FC = () => {
 
   const loadPattern = (regexPattern: CommonPattern) => {
     setPattern(regexPattern.pattern);
-    const exampleText = regexPattern.example || `${regexPattern.description}\n\n在此处输入测试文本...`;
-    setTestString(exampleText);
+    setTestString(`${regexPattern.description}\n\n在此处输入测试文本...`);
   };
 
   const toggleFlag = (flag: keyof typeof flags) => {
@@ -346,48 +300,6 @@ const RegexTester: React.FC = () => {
               </div>
             </div>
           )}
-
-          {/* 快速参考 */}
-          <div className="bg-[var(--glass-surface)] border border-[var(--glass-border)] rounded-3xl p-6 backdrop-blur-2xl">
-            <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">快速参考</h3>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div>
-                <h4 className="font-medium text-[var(--accent-color)] mb-2">字符类</h4>
-                <div className="space-y-1 text-[var(--text-secondary)]">
-                  <div><code>.</code> 任意字符</div>
-                  <div><code>\d</code> 数字 (0-9)</div>
-                  <div><code>\w</code> 字母数字下划线</div>
-                  <div><code>\s</code> 空白字符</div>
-                </div>
-              </div>
-              <div>
-                <h4 className="font-medium text-[var(--accent-color)] mb-2">量词</h4>
-                <div className="space-y-1 text-[var(--text-secondary)]">
-                  <div><code>*</code> 0次或多次</div>
-                  <div><code>+</code> 1次或多次</div>
-                  <div><code>?</code> 0次或1次</div>
-                  <div><code>{'{n,m}'}</code> n到m次</div>
-                </div>
-              </div>
-              <div>
-                <h4 className="font-medium text-[var(--accent-color)] mb-2">锚点</h4>
-                <div className="space-y-1 text-[var(--text-secondary)]">
-                  <div><code>^</code> 字符串开头</div>
-                  <div><code>$</code> 字符串结尾</div>
-                  <div><code>\b</code> 单词边界</div>
-                </div>
-              </div>
-              <div>
-                <h4 className="font-medium text-[var(--accent-color)] mb-2">分组</h4>
-                <div className="space-y-1 text-[var(--text-secondary)]">
-                  <div><code>()</code> 捕获组</div>
-                  <div><code>(?:)</code> 非捕获组</div>
-                  <div><code>[]</code> 字符集</div>
-                  <div><code>|</code> 或运算</div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
