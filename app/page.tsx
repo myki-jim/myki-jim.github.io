@@ -67,6 +67,7 @@ export default function HomePage() {
   };
 
   const renderPage = () => {
+    // Show loading state
     if (loading) {
       return (
         <div className="fixed inset-0 flex items-center justify-center bg-[var(--bg-main)]">
