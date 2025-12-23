@@ -18,7 +18,7 @@ export interface Post {
   path: string;
 }
 
-export type PageType = 'home' | 'post' | 'tags' | 'categories' | 'about' | 'contact';
+export type PageType = 'home' | 'post' | 'tags' | 'categories' | 'about' | 'contact' | 'tools';
 
 interface MagicNavbarProps {
   onNavigate: (page: PageType, id?: string) => void;
@@ -75,16 +75,19 @@ const MagicNavbar: React.FC<MagicNavbarProps> = ({ onNavigate, activePage, posts
   const heroInputPointerEvents = useTransform(scrollY, v => (isHome && v < threshold - 50) ? 'auto' : 'none');
   const finalNavPointerEvents = useTransform(navContentOpacity, v => v > 0.5 ? 'auto' : 'none');
 
-  // Handle Search Filtering
+  // Handle Search Filtering - 支持标题、分类、标签、摘要和内容搜索
   useEffect(() => {
     if (!searchQuery || searchQuery.trim() === '') {
       setSearchResults([]);
       return;
     }
+    const query = searchQuery.toLowerCase();
     const results = posts.filter(post =>
-      (post.title?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-      (post.categories?.[0]?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-      post.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
+      (post.title?.toLowerCase() || '').includes(query) ||
+      (post.categories?.[0]?.toLowerCase() || '').includes(query) ||
+      post.tags.some(tag => tag.toLowerCase().includes(query)) ||
+      (post.excerpt?.toLowerCase() || '').includes(query) ||
+      (post.content?.toLowerCase() || '').includes(query)
     );
     setSearchResults(results);
   }, [searchQuery, posts]);
@@ -101,6 +104,7 @@ const MagicNavbar: React.FC<MagicNavbarProps> = ({ onNavigate, activePage, posts
     { label: '主页', id: 'home' },
     { label: '标签', id: 'tags' },
     { label: '分类', id: 'categories' },
+    { label: '工具箱', id: 'tools' },
     { label: '关于', id: 'about' },
     { label: '联系', id: 'contact' },
   ];
@@ -168,12 +172,6 @@ const MagicNavbar: React.FC<MagicNavbarProps> = ({ onNavigate, activePage, posts
                                 <div className="p-2">
                                   {searchResults.map((post) => (
                                       <div key={post.id} onClick={() => onNavigate('post', post.id)} className="flex items-center gap-3 p-3 hover:bg-[var(--glass-surface-hover)] transition-colors rounded-xl cursor-pointer group">
-                                          <div className="w-12 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-[var(--glass-surface)] border border-[var(--glass-border)]">
-                                            <div className="w-full h-full flex items-center justify-center text-[var(--text-tertiary)] bg-[var(--glass-surface)]">
-                                                <div className="w-4 h-4 rounded-full bg-[var(--accent-color)] opacity-20" />
-                                            </div>
-                                          </div>
-
                                           <div className="flex-1 min-w-0">
                                             <div className="flex justify-between items-start">
                                                 <div className="text-[var(--text-primary)] font-medium text-sm group-hover:text-[var(--accent-color)] transition-colors truncate pr-2">{post.title}</div>
@@ -352,11 +350,6 @@ const MagicNavbar: React.FC<MagicNavbarProps> = ({ onNavigate, activePage, posts
                                 }}
                                 className="flex items-center gap-4 p-4 hover:bg-[var(--glass-surface-hover)] rounded-xl transition-colors group cursor-pointer"
                             >
-                                <div className="w-12 h-12 rounded-lg bg-[var(--glass-surface)] overflow-hidden flex-shrink-0">
-                                    <div className="w-full h-full flex items-center justify-center text-[var(--text-tertiary)]">
-                                        <div className="w-4 h-4 rounded-full bg-[var(--accent-color)] opacity-20" />
-                                    </div>
-                                </div>
                                 <div className="flex-1">
                                     <h4 className="text-[var(--text-primary)] font-medium group-hover:text-[var(--accent-color)] transition-colors">{post.title}</h4>
                                     <p className="text-[var(--text-secondary)] text-sm">{post.excerpt?.substring(0, 60)}...</p>

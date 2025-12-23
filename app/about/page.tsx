@@ -37,6 +37,8 @@ export default function AboutPage() {
       router.push('/tags');
     } else if (page === 'categories') {
       router.push('/categories');
+    } else if (page === 'tools') {
+      router.push('/tools');
     } else if (page === 'about') {
       router.push('/about');
     } else if (page === 'contact') {

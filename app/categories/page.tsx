@@ -40,6 +40,8 @@ export default function CategoriesPage() {
       router.push('/tags');
     } else if (page === 'categories') {
       router.push('/categories');
+    } else if (page === 'tools') {
+      router.push('/tools');
     } else if (page === 'about') {
       router.push('/about');
     } else if (page === 'contact') {

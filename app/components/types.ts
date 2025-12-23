@@ -16,6 +16,15 @@ export interface Post {
   views?: number;
 }
 
+export interface ToolItem {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  category: string;
+  path: string;
+}
+
 export interface PageType {
   home: string;
   post: string;

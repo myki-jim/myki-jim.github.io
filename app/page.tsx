@@ -10,7 +10,7 @@ import PostView from './components/PostView';
 import { TagsView, CategoriesView, AboutView, ContactView } from './components/PageViews';
 import { Post, BlogData, PageType } from './components/types';
 
-type PageType = 'home' | 'post' | 'tags' | 'categories' | 'about' | 'contact';
+type PageType = 'home' | 'post' | 'tags' | 'categories' | 'about' | 'contact' | 'tools';
 
 export default function HomePage() {
   const [currentPage, setCurrentPage] = useState<PageType>('home');
@@ -47,6 +47,8 @@ export default function HomePage() {
       window.location.href = '/tags';
     } else if (page === 'categories') {
       window.location.href = '/categories';
+    } else if (page === 'tools') {
+      window.location.href = '/tools';
     } else if (page === 'about') {
       window.location.href = '/about';
     } else {
