@@ -18,7 +18,6 @@ import {
   ArrowRight,
   FileText,
   Gamepad2,
-  Wallet,
   Box,
   Workflow
 } from 'lucide-react';
@@ -100,14 +99,6 @@ const tools: ToolItem[] = [
     path: '/tools/2048'
   },
   {
-    id: 'wallet',
-    name: '钱包地址生成器',
-    description: '生成 BTC、ETH、TRX 等区块链钱包地址',
-    icon: 'wallet',
-    category: '区块链',
-    path: '/tools/wallet'
-  },
-  {
     id: 'qrcode',
     name: '二维码生成器',
     description: '支持文本、链接、WiFi、名片等多种格式',
@@ -147,7 +138,6 @@ const iconMap: Record<string, React.ElementType> = {
   settings: Settings,
   type: Type,
   gamepad2: Gamepad2,
-  wallet: Wallet,
   box: Box,
   workflow: Workflow,
 };
@@ -156,7 +146,7 @@ export default function ToolsPage() {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState<string>('全部');
 
-  const categories = ['全部', '开发工具', '安全工具', '文本处理', '区块链', '其他'];
+  const categories = ['全部', '开发工具', '安全工具', '文本处理', '其他'];
 
   const filteredTools = activeCategory === '全部'
     ? tools
@@ -283,7 +273,7 @@ export default function ToolsPage() {
       <footer className="relative z-10 border-t border-[var(--glass-border)] bg-[var(--glass-surface)] backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-[var(--text-tertiary)] text-xs tracking-wider">
-            © 2025 Jimmy Ki's Blog. 由 Next.js 和 Liquid Glass 主题驱动。
+            © 2025 Jimmy Ki's Blog. 由 Next.js 和 iOSlike 主题驱动。
           </div>
         </div>
       </footer>

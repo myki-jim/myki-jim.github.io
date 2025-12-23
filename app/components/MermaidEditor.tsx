@@ -46,120 +46,120 @@ const MermaidEditor: React.FC = () => {
   // Sample diagrams with icons
   const sampleDiagrams: SampleDiagram[] = [
     {
-      name: 'Flowchart',
+      name: '流程图',
       icon: <Workflow size={20} />,
       code: `graph TD
-    A[Start] --> B{Is it working?}
-    B -->|Yes| C[Great!]
-    B -->|No| D[Debug]
+    A[开始] --> B{正常工作?}
+    B -->|是| C[很好!]
+    B -->|否| D[调试]
     D --> B`,
-      description: 'Basic flowchart example'
+      description: '基础流程图示例'
     },
     {
-      name: 'Sequence',
+      name: '时序图',
       icon: <GitPullRequest size={20} />,
       code: `sequenceDiagram
-    participant User
-    participant Frontend
-    participant Backend
-    participant Database
+    participant 用户
+    participant 前端
+    participant 后端
+    participant 数据库
 
-    User->>Frontend: Click button
-    Frontend->>Backend: API request
-    Backend->>Database: Query data
-    Database-->>Backend: Return data
-    Backend-->>Frontend: JSON response
-    Frontend-->>User: Display results`,
-      description: 'User authentication flow'
+    用户->>前端: 点击按钮
+    前端->>后端: API 请求
+    后端->>数据库: 查询数据
+    数据库-->>后端: 返回数据
+    后端-->>前端: JSON 响应
+    前端-->>用户: 显示结果`,
+      description: '用户认证流程'
     },
     {
-      name: 'Gantt',
+      name: '甘特图',
       icon: <Calendar size={20} />,
       code: `gantt
-    title Project Timeline
+    title 项目时间线
     dateFormat  YYYY-MM-DD
-    section Phase 1
-    Research           :a1, 2024-01-01, 30d
-    Design             :a2, after a1, 20d
-    section Phase 2
-    Development        :a3, after a2, 40d
-    Testing            :a4, after a3, 15d
-    section Phase 3
-    Deployment         :a5, after a4, 10d`,
-      description: 'Project management timeline'
+    section 阶段 1
+    需求调研           :a1, 2024-01-01, 30d
+    设计阶段             :a2, after a1, 20d
+    section 阶段 2
+    开发阶段        :a3, after a2, 40d
+    测试阶段            :a4, after a3, 15d
+    section 阶段 3
+    部署上线         :a5, after a4, 10d`,
+      description: '项目管理时间线'
     },
     {
-      name: 'Class Diagram',
+      name: '类图',
       icon: <Layers size={20} />,
       code: `classDiagram
-    class Animal {
-        +String name
-        +int age
-        +makeSound()
+    class 动物 {
+        +字符串 名称
+        +整数 年龄
+        +发出声音()
     }
-    class Dog {
-        +String breed
-        +bark()
+    class 狗 {
+        +字符串 品种
+        +吠叫()
     }
-    class Cat {
-        +String color
-        +meow()
+    class 猫 {
+        +字符串 颜色
+        +喵叫()
     }
-    Animal <|-- Dog
-    Animal <|-- Cat`,
-      description: 'Object-oriented design'
+    动物 <|-- 狗
+    动物 <|-- 猫`,
+      description: '面向对象设计'
     },
     {
-      name: 'State Diagram',
+      name: '状态图',
       icon: <Share2 size={20} />,
       code: `stateDiagram-v2
-    [*] --> Still
-    Still --> [*]: Moving
-    Still --> Moving: Move
-    Moving --> Still: Stop`,
-      description: 'State transitions'
+    [*] --> 静止
+    静止 --> [*]: 移动
+    静止 --> 移动: 移动
+    移动 --> 静止: 停止`,
+      description: '状态转换'
     },
     {
-      name: 'ER Diagram',
+      name: 'ER图',
       icon: <Database size={20} />,
       code: `erDiagram
-    CUSTOMER ||--o{ ORDER : places
-    ORDER ||--|{ LINE-ITEM : contains
-    CUSTOMER {
-        string name
-        string email
-        string phone
+    客户 ||--o{ 订单 : 下单
+    订单 ||--|{ 订单项 : 包含
+    客户 {
+        字符串 姓名
+        字符串 邮箱
+        字符串 电话
     }
-    ORDER {
-        int orderNumber
-        date orderDate
-        string status
+    订单 {
+        整数 订单号
+        日期 下单日期
+        字符串 状态
     }
-    LINE-ITEM {
-        string productCode
-        int quantity
-        float price
+    订单项 {
+        字符串 产品编码
+        整数 数量
+        浮点数 价格
     }`,
-      description: 'Database relationships'
+      description: '数据库关系'
     },
     {
-      name: 'Journey',
+      name: '用户旅程',
       icon: <Timer size={20} />,
       code: `journey
-    title Customer Journey
-    section Discovery
-      Research websites: 5: User
-      Compare options: 3: User
-    section Purchase
-      Add to cart: 2: User
-      Complete checkout: 5: User
-    section Support
-      Contact support: 3: User
-      Resolve issue: 4: User`,
-      description: 'User experience mapping'
+    title 客户旅程
+    section 发现阶段
+      浏览网站: 5: 用户
+      比较选择: 3: 用户
+    section 购买阶段
+      加入购物车: 2: 用户
+      完成结账: 5: 用户
+    section 支持阶段
+      联系客服: 3: 用户
+      解决问题: 4: 用户`,
+      description: '用户体验映射'
     },
     {
-      name: 'Git Graph',
+      name: 'Git图',
       icon: <GitBranch size={20} />,
       code: `gitGraph
     commit
@@ -176,35 +176,35 @@ const MermaidEditor: React.FC = () => {
     checkout main
     merge feature
     commit`,
-      description: 'Git branching strategy'
+      description: 'Git分支策略'
     },
     {
-      name: 'Mindmap',
+      name: '思维导图',
       icon: <GitMerge size={20} />,
       code: `mindmap
-  root((Mindmap))
-    Origins
-      Long history
+  root((思维导图))
+    起源
+      悠久历史
       ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectiveness
-      and features
-    On usage
-      Creative techniques
-      Strategic planning
-      Argument mapping`,
-      description: 'Mind mapping structure'
+      普及
+        英国大众心理学作家 托尼·布赞
+    研究
+      关于有效性
+      和特性
+    应用
+      创意技巧
+      战略规划
+      论证映射`,
+      description: '思维导图结构'
     },
     {
-      name: 'Pie Chart',
+      name: '饼图',
       icon: <Box size={20} />,
-      code: `pie title Pets adopted by volunteers
-    "Dogs" : 386
-    "Cats" : 85
-    "Rats" : 15`,
-      description: 'Data visualization'
+      code: `pie title 志愿者领养的宠物
+    "狗" : 386
+    "猫" : 85
+    "仓鼠" : 15`,
+      description: '数据可视化'
     }
   ];
 
@@ -236,8 +236,8 @@ const MermaidEditor: React.FC = () => {
       setSvgContent(svg);
       setError('');
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-      setError(`Rendering error: ${errorMessage}`);
+      const errorMessage = err instanceof Error ? err.message : '未知错误';
+      setError(`渲染错误: ${errorMessage}`);
       setSvgContent('');
     }
   };
@@ -288,11 +288,11 @@ const MermaidEditor: React.FC = () => {
   };
 
   const themes: { value: MermaidTheme; label: string }[] = [
-    { value: 'default', label: 'Default' },
-    { value: 'base', label: 'Base' },
-    { value: 'dark', label: 'Dark' },
-    { value: 'forest', label: 'Forest' },
-    { value: 'neutral', label: 'Neutral' }
+    { value: 'default', label: '默认' },
+    { value: 'base', label: '基础' },
+    { value: 'dark', label: '暗色' },
+    { value: 'forest', label: '森林' },
+    { value: 'neutral', label: '中性' }
   ];
 
   return (
@@ -501,7 +501,7 @@ const MermaidEditor: React.FC = () => {
           <div className="mt-4 p-4 rounded-xl bg-[var(--glass-surface-hover)] border border-[var(--glass-border)]">
             <h4 className="font-bold text-sm text-[var(--text-primary)] mb-3">支持的图表类型</h4>
             <div className="flex flex-wrap gap-2">
-              {['Flowchart', 'Sequence', 'Gantt', 'Class', 'State', 'ER', 'Journey', 'Git', 'Mindmap', 'Pie', 'User Journey', 'Requirement', 'C4'].map((type) => (
+              {['流程图', '时序图', '甘特图', '类图', '状态图', 'ER图', '用户旅程', 'Git图', '思维导图', '饼图', '用例图', '需求图', 'C4架构图'].map((type) => (
                 <span
                   key={type}
                   className="px-3 py-1 rounded-lg bg-[var(--glass-surface)] text-xs text-[var(--text-secondary)]"

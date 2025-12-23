@@ -6,14 +6,12 @@ import {
   Check,
   RefreshCw,
   Shield,
-  Zap,
   Eye,
   EyeOff,
   Trash2,
   Clock,
   AlertCircle,
-  Settings,
-  X
+  Settings
 } from 'lucide-react';
 
 interface PasswordHistory {
@@ -395,84 +393,6 @@ const PasswordGenerator: React.FC = () => {
           </div>
         )}
 
-        {/* 功能特点 */}
-        <div className="bg-[var(--glass-surface)] border border-[var(--glass-border)] rounded-3xl p-6 backdrop-blur-2xl">
-          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">功能特点</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <Shield size={14} />
-                加密强度
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">使用加密级随机数生成器，确保密码的真正随机性</p>
-            </div>
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <Zap size={14} />
-                完全自定义
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">支持 8-128 位长度，多种字符类型组合</p>
-            </div>
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <Eye size={14} />
-                安全提示
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">实时显示密码强度，帮助您创建更安全的密码</p>
-            </div>
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <Copy size={14} />
-                一键复制
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">快速复制生成的密码到剪贴板</p>
-            </div>
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <Clock size={14} />
-                历史记录
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">保存最近 10 个生成的密码，方便回溯</p>
-            </div>
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <AlertCircle size={14} />
-                本地生成
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">所有密码在浏览器本地生成，不会上传到服务器</p>
-            </div>
-          </div>
-        </div>
-
-        {/* 密码安全建议 */}
-        <div className="bg-[var(--glass-surface)] border border-[var(--glass-border)] rounded-3xl p-6 backdrop-blur-2xl">
-          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-            <Shield size={18} className="text-[var(--accent-color)]" />
-            密码安全建议
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-bold text-sm text-[var(--text-primary)] mb-2">创建强密码</h4>
-              <ul className="text-xs text-[var(--text-secondary)] leading-relaxed space-y-1">
-                <li>• 使用至少 12-16 位字符长度</li>
-                <li>• 混合大小写字母、数字和特殊符号</li>
-                <li>• 避免使用个人信息（生日、姓名等）</li>
-                <li>• 不要使用字典中的单词或常见模式</li>
-                <li>• 每个账户使用唯一的密码</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-bold text-sm text-[var(--text-primary)] mb-2">保护您的密码</h4>
-              <ul className="text-xs text-[var(--text-secondary)] leading-relaxed space-y-1">
-                <li>• 使用密码管理器存储密码</li>
-                <li>• 启用双因素认证（2FA）</li>
-                <li>• 定期更换重要账户的密码</li>
-                <li>• 不要在不安全的网络下输入密码</li>
-                <li>• 警惕钓鱼网站和诈骗邮件</li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

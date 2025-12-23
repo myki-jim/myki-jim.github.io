@@ -421,54 +421,6 @@ const JSONFormatter: React.FC = () => {
           </motion.div>
         )}
 
-        {/* 功能特点 */}
-        <div className="bg-[var(--glass-surface)] border border-[var(--glass-border)] rounded-3xl p-6 backdrop-blur-2xl">
-          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">功能特点</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="p-3 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-1 flex items-center gap-2">
-                <Sparkles size={14} />
-                实时格式化
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">输入时自动验证和格式化 JSON</p>
-            </div>
-            <div className="p-3 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-1 flex items-center gap-2">
-                <Minimize2 size={14} />
-                压缩优化
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">一键压缩 JSON，减小文件体积</p>
-            </div>
-            <div className="p-3 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-1 flex items-center gap-2">
-                <Check size={14} />
-                语法验证
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">实时检测 JSON 语法错误并提示</p>
-            </div>
-            <div className="p-3 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-1 flex items-center gap-2">
-                <AlertCircle size={14} />
-                错误定位
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">显示错误位置和详细原因</p>
-            </div>
-            <div className="p-3 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-1 flex items-center gap-2">
-                <Maximize2 size={14} />
-                统计信息
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">显示对象、数组、键值对数量</p>
-            </div>
-            <div className="p-3 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-1 flex items-center gap-2">
-                <Copy size={14} />
-                快捷复制
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">一键复制格式化后的结果</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

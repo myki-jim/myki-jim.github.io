@@ -78,7 +78,7 @@ function extractHexoData() {
       const postJsonPath = path.join(postsOutputDir, `${slug}.json`);
       fs.writeFileSync(postJsonPath, JSON.stringify(post, null, 2));
 
-      // 添加到posts数组（只包含基本信息，用于列表显示）
+      // 添加到posts数组（包含内容用于搜索）
       posts.push({
         id: post.id,
         slug: post.slug,
@@ -87,10 +87,13 @@ function extractHexoData() {
         updated: post.updated,
         categories: post.categories,
         tags: post.tags,
+        layout: post.layout,
         excerpt: post.excerpt,
+        content: post.content,
         author: post.author,
         path: post.path,
-        coverImage: post.coverImage
+        coverImage: post.coverImage,
+        sticky: post.sticky
       });
     });
   }

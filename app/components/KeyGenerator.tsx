@@ -6,10 +6,8 @@ import {
   Download,
   Key,
   Shield,
-  Fingerprint,
   Check,
   RefreshCw,
-  FileText,
   Lock,
   Unlock,
   Eye,
@@ -430,105 +428,6 @@ const KeyGenerator: React.FC = () => {
           </button>
         )}
 
-        {/* 功能特点 */}
-        <div className="bg-[var(--glass-surface)] border border-[var(--glass-border)] rounded-3xl p-6 backdrop-blur-2xl">
-          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">功能特点</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <Shield size={14} />
-                安全生成
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">使用浏览器原生 Web Crypto API 生成，密钥在本地生成，不会上传到服务器</p>
-            </div>
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <Key size={14} />
-                多种格式
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">支持 PKCS#1 和 PKCS#8 两种私钥格式，满足不同场景需求</p>
-            </div>
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <Fingerprint size={14} />
-                密钥指纹
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">自动生成密钥指纹，便于验证和标识密钥对</p>
-            </div>
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <Copy size={14} />
-                一键复制
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">单击即可复制公钥或私钥到剪贴板，方便快捷</p>
-            </div>
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <Download size={14} />
-                文件导出
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">支持将密钥导出为 PEM 格式文件，便于备份和使用</p>
-            </div>
-            <div className="p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-              <h4 className="font-bold text-sm text-[var(--accent-color)] mb-2 flex items-center gap-2">
-                <FileText size={14} />
-                PEM 格式
-              </h4>
-              <p className="text-xs text-[var(--text-secondary)]">生成标准的 PEM 格式密钥，兼容 OpenSSH、SSL 等工具</p>
-            </div>
-          </div>
-        </div>
-
-        {/* 关于 RSA */}
-        <div className="bg-[var(--glass-surface)] border border-[var(--glass-border)] rounded-3xl p-6 backdrop-blur-2xl">
-          <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-            <Shield size={18} className="text-[var(--accent-color)]" />
-            关于 RSA 密钥
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-bold text-sm text-[var(--text-primary)] mb-2">什么是 RSA？</h4>
-              <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-                RSA（Rivest-Shamir-Adleman）是一种非对称加密算法，使用一对密钥：公钥用于加密，私钥用于解密。公钥可以公开分享，而私钥必须保密。RSA 广泛应用于数字签名、密钥交换和数据加密。
-              </p>
-            </div>
-            <div>
-              <h4 className="font-bold text-sm text-[var(--text-primary)] mb-2">使用场景</h4>
-              <ul className="text-xs text-[var(--text-secondary)] leading-relaxed space-y-1">
-                <li>• SSH 登录认证（GitHub、服务器等）</li>
-                <li>• SSL/TLS 证书和 HTTPS</li>
-                <li>• 数字签名和身份验证</li>
-                <li>• 加密通信和数据传输</li>
-                <li>• 代码签名和软件验证</li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-4 p-4 rounded-xl bg-[var(--glass-surface-hover)]">
-            <h4 className="font-bold text-sm text-[var(--text-primary)] mb-2">密钥长度对比</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-[var(--text-secondary)]">
-              <div>
-                <span className="font-bold text-[var(--accent-color)]">2048 位：</span>
-                <span>目前推荐的标准长度，提供足够的安全性，生成速度快，兼容性好。</span>
-              </div>
-              <div>
-                <span className="font-bold text-[var(--accent-color)]">4096 位：</span>
-                <span>更高安全级别，适用于高敏感度场景，但生成速度较慢，密钥文件更大。</span>
-              </div>
-            </div>
-          </div>
-          <div className="mt-4 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/20">
-            <h4 className="font-bold text-sm text-yellow-400 mb-2 flex items-center gap-2">
-              <Lock size={14} />
-              安全提示
-            </h4>
-            <ul className="text-xs text-yellow-200/80 leading-relaxed space-y-1">
-              <li>• 私钥非常重要，请妥善保管，不要泄露给他人</li>
-              <li>• 建议将私钥备份到安全的地方，如密码管理器</li>
-              <li>• 不要在不安全的网络中传输私钥</li>
-              <li>• 定期更换密钥对，特别是用于生产环境的密钥</li>
-            </ul>
-          </div>
-        </div>
       </div>
     </div>
   );

@@ -11,9 +11,7 @@ import {
   ArrowRight,
   Trophy,
   Gamepad2,
-  Sparkles,
-  Target,
-  Lightbulb
+  Sparkles
 } from 'lucide-react';
 
 // 游戏状态类型
@@ -372,13 +370,6 @@ const Game2048: React.FC = () => {
 
   return (
     <div className="w-full space-y-6">
-      {/* 标题和描述 */}
-      <div className="text-center mb-8">
-        <p className="text-[var(--text-secondary)] max-w-md mx-auto">
-          合并方块，达到 2048！使用方向键或滑动屏幕来移动方块。
-        </p>
-      </div>
-
       {/* 游戏信息栏 */}
       <div className="flex flex-wrap items-center justify-between gap-4 max-w-lg mx-auto">
         <div className="flex gap-3">
@@ -577,73 +568,6 @@ const Game2048: React.FC = () => {
             <ArrowRight size={24} />
           </motion.button>
         </div>
-      </div>
-
-      {/* 游戏说明 */}
-      <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-        <motion.div
-          className="p-6 rounded-3xl bg-[var(--glass-surface)] border border-[var(--glass-border)]"
-          style={{ backdropFilter: 'blur(var(--glass-blur))' }}
-        >
-          <h4 className="text-lg font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-            <Target size={18} className="text-[var(--accent-color)]" />
-            游戏规则
-          </h4>
-          <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-            <li className="flex items-start gap-2">
-              <span className="text-[var(--accent-color)] mt-0.5">•</span>
-              <span>使用方向键或 WASD 移动方块</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-[var(--accent-color)] mt-0.5">•</span>
-              <span>触摸屏支持滑动操作</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-[var(--accent-color)] mt-0.5">•</span>
-              <span>相同数字的方块合并时会相加</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-[var(--accent-color)] mt-0.5">•</span>
-              <span>每次移动后会随机生成新方块</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-[var(--accent-color)] mt-0.5">•</span>
-              <span>目标是获得 2048 方块</span>
-            </li>
-          </ul>
-        </motion.div>
-
-        <motion.div
-          className="p-6 rounded-3xl bg-[var(--glass-surface)] border border-[var(--glass-border)]"
-          style={{ backdropFilter: 'blur(var(--glass-blur))' }}
-        >
-          <h4 className="text-lg font-bold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-            <Lightbulb size={18} className="text-[var(--accent-color)]" />
-            策略技巧
-          </h4>
-          <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-            <li className="flex items-start gap-2">
-              <span className="text-[var(--accent-color)] mt-0.5">•</span>
-              <span>将最大数字固定在一个角落</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-[var(--accent-color)] mt-0.5">•</span>
-              <span>构建递减数字链</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-[var(--accent-color)] mt-0.5">•</span>
-              <span>避免小数字被堵在角落</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-[var(--accent-color)] mt-0.5">•</span>
-              <span>提前规划 2-3 步移动</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-[var(--accent-color)] mt-0.5">•</span>
-              <span>善用撤销功能纠正错误</span>
-            </li>
-          </ul>
-        </motion.div>
       </div>
     </div>
   );

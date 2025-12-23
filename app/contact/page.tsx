@@ -71,7 +71,7 @@ export default function ContactPage() {
       <footer className="relative z-10 border-t border-[var(--glass-border)] bg-[var(--glass-surface)] backdrop-blur-xl mt-0">
         <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-[var(--text-tertiary)] text-xs tracking-wider">
-            © 2025 Jimmy Ki's Blog. 由 Next.js 和 Liquid Glass 主题驱动。
+            © 2025 Jimmy Ki's Blog. 由 Next.js 和 iOSlike 主题驱动。
           </div>
           <div className="flex gap-8 text-xs font-medium text-[var(--text-secondary)]">
             <a href="https://github.com/myki-jim/myki-jim.github.io" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent-color)] transition-colors">
