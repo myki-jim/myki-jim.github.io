@@ -27,6 +27,9 @@ interface BlogData {
   };
 }
 
+// Site configuration
+const SITE_URL = 'https://jimmy.wiki';
+
 function escapeXml(unsafe: string): string {
   return unsafe.replace(/[<>&'"]/g, (c) => {
     switch (c) {
@@ -62,7 +65,7 @@ function generateDescription(content: string, excerpt: string): string {
 }
 
 function generateRSS(data: BlogData): string {
-  const { posts, site } = data;
+  const { posts } = data;
   const lastBuildDate = new Date().toUTCString();
 
   // Filter out posts with invalid dates and sort by date (newest first)
@@ -76,20 +79,20 @@ function generateRSS(data: BlogData): string {
   let rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title><![CDATA[${site.title}]]></title>
-    <description><![CDATA[${site.description}]]></description>
-    <link>${site.url}</link>
-    <atom:link href="${site.url}/rss" rel="self" type="application/rss+xml"/>
+    <title><![CDATA[${data.site.title}]]></title>
+    <description><![CDATA[${data.site.description}]]></description>
+    <link>${SITE_URL}</link>
+    <atom:link href="${SITE_URL}/rss" rel="self" type="application/rss+xml"/>
     <language>zh-CN</language>
     <lastBuildDate>${lastBuildDate}</lastBuildDate>
-    <managingEditor>${site.author}</managingEditor>
-    <webMaster>${site.author}</webMaster>
-    <generator>MyKi Blog RSS Generator</generator>
+    <managingEditor>${data.site.author}</managingEditor>
+    <webMaster>${data.site.author}</webMaster>
+    <generator>iOSlike Blog RSS Generator</generator>
 `;
 
   // Add items
   for (const post of validPosts) {
-    const postUrl = `${site.url}${post.path}`;
+    const postUrl = `${SITE_URL}${post.path}`;
     const pubDate = formatDate(post.date);
     const description = generateDescription(post.content, post.excerpt);
 
@@ -126,8 +129,12 @@ export async function GET() {
     }
 
     // Read and parse the blog data
-    const data = fs.readFileSync(dataPath, 'utf8');
+    const buffer = fs.readFileSync(dataPath);
+    const data = buffer.toString('utf8');
     const blogData: BlogData = JSON.parse(data);
+
+    // Override site URL
+    blogData.site.url = SITE_URL;
 
     // Generate RSS XML
     const rss = generateRSS(blogData);
@@ -137,7 +144,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'application/xml; charset=utf-8',
-        'Cache-Control': 'public, max-age=3600, s-maxage=3600', // Cache for 1 hour
+        'Cache-Control': 'public, max-age=3600, s-maxage=3600',
       },
     });
   } catch (error) {
