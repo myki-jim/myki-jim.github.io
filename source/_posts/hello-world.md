@@ -1,10 +1,10 @@
 ---
 title: Hello World
 date: 2099-11-21 22:00:00
-tags: ['博客', 'Hexo', '技术', '欢迎']
+tags: ['博客', 'Next.js', '技术', '欢迎']
 categories: ['博客', '欢迎']
 layout: post
-cover: https://github.com/myki-jim.png
+cover: /images/avatar.png
 author: Jimmy Ki
 sticky: true
 ---

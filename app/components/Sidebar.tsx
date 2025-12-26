@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Send, Mail, Coffee, Twitter, Code2 } from 'lucide-react';
+import { Github, Send, Mail, Code2 } from 'lucide-react';
 import { BlogData } from './types';
 
 interface SidebarProps {
@@ -34,9 +34,9 @@ const Sidebar: React.FC<SidebarProps> = ({ blogData }) => {
           style={{ display: 'none' }}
         />
         <h3 className="text-lg font-bold text-[var(--text-primary)]">Jimmy Ki</h3>
-        <p className="text-xs text-[var(--text-tertiary)] uppercase tracking-widest mb-4">开发者与设计师</p>
+        <p className="text-xs text-[var(--text-tertiary)] uppercase tracking-widest mb-4">安全研究员 & 开发者</p>
         <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-          探索流体物理与数字界面的交叉领域。
+          专注于网络安全、漏洞分析与全栈开发
         </p>
       </div>
 
@@ -60,27 +60,7 @@ const Sidebar: React.FC<SidebarProps> = ({ blogData }) => {
         </div>
       </div>
 
-      {/* Custom Slot (Donation) */}
-      <motion.div
-        whileHover={{ scale: 1.02 }}
-        className="relative p-6 rounded-3xl overflow-hidden border border-amber-500/20 group cursor-pointer"
-      >
-        <div className="absolute inset-0 bg-amber-900/20 transition-colors group-hover:bg-amber-900/30" style={{ backdropFilter: "blur(var(--glass-blur))" }} />
-        <div className="relative z-10 flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-2 text-amber-500 mb-1">
-              <Coffee size={18} />
-              <span className="font-bold text-sm">支持本博客</span>
-            </div>
-            <p className="text-xs text-[var(--text-secondary)]">帮助持续产出优质内容</p>
-          </div>
-          <div className="w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center text-black font-bold text-lg shadow-lg group-hover:scale-110 transition-transform">
-            +
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Custom Slot 2 (Recent Activity) */}
+      {/* Recent Activity */}
       <div
         className="p-6 rounded-3xl bg-[var(--glass-surface)] border border-[var(--glass-border)]"
         style={{ backdropFilter: "blur(var(--glass-blur))" }}
@@ -88,10 +68,13 @@ const Sidebar: React.FC<SidebarProps> = ({ blogData }) => {
         <h4 className="text-xs font-bold text-[var(--text-tertiary)] uppercase tracking-widest mb-3 px-2">最新动态</h4>
         <div className="space-y-2">
           <div className="text-xs text-[var(--text-secondary)]">
+            <span className="text-[var(--text-primary)]">•</span> 添加了图片优化和骨架屏加载
+          </div>
+          <div className="text-xs text-[var(--text-secondary)]">
             <span className="text-[var(--text-primary)]">•</span> 发布了"{blogData?.posts[0]?.title || '最新文章'}"
           </div>
           <div className="text-xs text-[var(--text-tertiary)]">
-            更新于 {blogData?.lastUpdated ? new Date(blogData.lastUpdated).toLocaleDateString() : '最近'}
+            更新于 {blogData?.lastUpdated ? new Date(blogData.lastUpdated).toLocaleDateString() : '今天'}
           </div>
         </div>
       </div>

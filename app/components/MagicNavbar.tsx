@@ -464,14 +464,12 @@ const MagicNavbar: React.FC<MagicNavbarProps> = ({ onNavigate, activePage, posts
                 {/* Left: Logo */}
                 <div className="flex items-center gap-3 cursor-pointer group" onClick={() => onNavigate('home')}>
                     <img
-                        src="https://github.com/myki-jim.png"
+                        src="/images/avatar.png"
                         alt="Jimmy Ki's Avatar"
                         className="w-8 h-8 rounded-full border-2 border-[var(--glass-border)] shadow-lg group-hover:scale-110 transition-transform duration-300 object-cover"
                         onError={(e) => {
                             const target = e.target as HTMLImageElement;
-                            target.style.display = 'none';
-                            const fallback = target.nextElementSibling as HTMLElement;
-                            if (fallback) fallback.style.display = 'block';
+                            target.src = "https://github.com/myki-jim.png";
                         }}
                     />
                     <div
