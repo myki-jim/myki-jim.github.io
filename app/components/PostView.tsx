@@ -8,6 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import ImageLightbox from './ImageLightbox';
 
 interface PostViewProps {
   post: Post | undefined;
@@ -24,6 +25,9 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
 
   // Track current theme for syntax highlighting
   const [isDarkMode, setIsDarkMode] = useState(true);
+
+  // Image lightbox state
+  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
 
   useEffect(() => {
     const updateTheme = () => {
@@ -44,6 +48,14 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
   }, []);
 
   const syntaxTheme = isDarkMode ? oneDark : oneLight;
+
+  const handleImageClick = (src: string, alt: string) => {
+    setLightboxImage({ src, alt });
+  };
+
+  const closeLightbox = () => {
+    setLightboxImage(null);
+  };
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 pt-32">
@@ -67,7 +79,7 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
             <span className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest uppercase text-[var(--accent-color)] bg-[var(--glass-surface)] rounded-full border border-[var(--glass-border)]">
               {post.categories[0] || '未分类'}
             </span>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-[var(--text-primary)] leading-tight mb-6">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-[var(--text-primary)] leading-tight mb-6 break-words" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>
               {post.title}
             </h1>
             <div className="flex items-center gap-6 text-sm text-[var(--text-secondary)]">
@@ -156,12 +168,24 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
                       <img
                         src={src}
                         alt={alt}
+                        loading="lazy"
+                        decoding="async"
+                        onClick={() => handleImageClick(src, alt || '')}
                         style={{
                           borderRadius: '1rem',
                           boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
                           margin: '2em 0',
                           maxWidth: '100%',
                           height: 'auto',
+                          cursor: 'pointer',
+                          transition: 'transform 0.2s',
+                        }}
+                        sizes="(max-width: 768px) 100vw, 80vw"
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = 'scale(1.02)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = 'scale(1)';
                         }}
                         {...props}
                       />
@@ -268,6 +292,16 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
           <Sidebar blogData={blogData} />
         </div>
       </motion.div>
+
+      {/* Image Lightbox */}
+      {lightboxImage && (
+        <ImageLightbox
+          src={lightboxImage.src}
+          alt={lightboxImage.alt}
+          isOpen={!!lightboxImage}
+          onClose={closeLightbox}
+        />
+      )}
     </div>
   );
 };

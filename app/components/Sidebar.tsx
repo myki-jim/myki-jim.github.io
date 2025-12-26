@@ -21,14 +21,12 @@ const Sidebar: React.FC<SidebarProps> = ({ blogData }) => {
         style={{ backdropFilter: "blur(var(--glass-blur))" }}
       >
         <img
-          src="https://github.com/myki-jim.png"
+          src="/images/avatar.png"
           alt="Jimmy Ki"
           className="w-20 h-20 rounded-full border-2 border-[var(--glass-border)] mb-4 shadow-xl object-cover"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-            const fallback = target.nextElementSibling as HTMLElement;
-            if (fallback) fallback.style.display = 'flex';
+            target.src = "https://github.com/myki-jim.png";
           }}
         />
         <div

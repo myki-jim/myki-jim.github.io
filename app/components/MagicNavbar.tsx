@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Search, X, Sun, Moon, MoreHorizontal, FileText, Hash, Folder, Wrench, Home, User, Mail } from 'lucide-react';
+import { SearchResultSkeleton } from './SkeletonLoaders';
 
 // Types for our blog data
 export interface Post {
@@ -81,10 +82,12 @@ const MagicNavbar: React.FC<MagicNavbarProps> = ({ onNavigate, activePage, posts
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMoreMenuOpen, setIsMoreMenuOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
   const searchButtonRef = useRef<HTMLDivElement>(null);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Get button position for animation
   const [buttonPosition, setButtonPosition] = useState({ top: 0, left: 0, width: 0 });
@@ -173,15 +176,26 @@ const MagicNavbar: React.FC<MagicNavbarProps> = ({ onNavigate, activePage, posts
     setSearchResults([]);
   }, []);
 
-  // Handle search filtering - all content types
+  // Handle search filtering - all content types with debounce
   useEffect(() => {
+    // Clear previous timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
     if (!searchQuery || searchQuery.trim() === '') {
       setSearchResults([]);
+      setIsSearching(false);
       return;
     }
 
-    const query = searchQuery.toLowerCase();
-    const results: SearchResult[] = [];
+    // Show loading state
+    setIsSearching(true);
+
+    // Debounce search
+    searchTimeoutRef.current = setTimeout(() => {
+      const query = searchQuery.toLowerCase();
+      const results: SearchResult[] = [];
 
     // Search posts
     posts.filter(post => {
@@ -324,6 +338,14 @@ const MagicNavbar: React.FC<MagicNavbarProps> = ({ onNavigate, activePage, posts
     });
 
     setSearchResults(results.slice(0, 20)); // Limit to 20 results
+    setIsSearching(false);
+  }, 300); // 300ms debounce
+
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
   }, [searchQuery, posts, onNavigate, closeSearch]);
 
   // Theme management
@@ -610,7 +632,16 @@ const MagicNavbar: React.FC<MagicNavbarProps> = ({ onNavigate, activePage, posts
                                     </div>
                                 )}
 
-                                {searchQuery && searchResults.length === 0 && (
+                                {/* Loading Skeleton */}
+                                {isSearching && searchQuery && (
+                                    <div className="space-y-2">
+                                        {Array.from({ length: 3 }).map((_, index) => (
+                                            <SearchResultSkeleton key={`skeleton-${index}`} />
+                                        ))}
+                                    </div>
+                                )}
+
+                                {!isSearching && searchQuery && searchResults.length === 0 && (
                                     <div className="py-12 text-center">
                                         <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[var(--glass-surface-hover)] mb-4">
                                             <X className="text-[var(--text-tertiary)]" size={32} />

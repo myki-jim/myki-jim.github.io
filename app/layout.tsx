@@ -1,7 +1,7 @@
 import './globals.css'
 import './styles/theme.css'
 import './styles/markdown.css'
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import BodyWrapper from './components/BodyWrapper'
 
 export const metadata: Metadata = {
@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   keywords: ['博客', '技术', '编程', '开发', 'JavaScript', 'TypeScript', 'React', 'Next.js'],
   authors: [{ name: 'Jimmy Ki', url: 'https://github.com/myki-jim' }],
   creator: 'Jimmy Ki',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: "Jimmy Ki's Blog",
+  },
   openGraph: {
     type: 'website',
     locale: 'zh_CN',
@@ -47,6 +52,17 @@ export const metadata: Metadata = {
   verification: {
     google: 'google-site-verification-code',
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    { media: '(prefers-color-scheme: dark)', color: '#0f1116' },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+  ],
 }
 
 export default function RootLayout({

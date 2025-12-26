@@ -33,7 +33,14 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post, index, onClick, layout 
           <img
             src={post.coverImage}
             alt={post.title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            style={{ filter: 'blur(10px) transition: filter 0.3s' }}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 256px, 384px"
+            onLoad={(e) => {
+              e.currentTarget.style.filter = 'none';
+            }}
           />
           <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-300" />
         </div>
@@ -51,7 +58,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ post, index, onClick, layout 
 
         {/* Title & Excerpt */}
         <div className="flex-1">
-          <h3 className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-3 group-hover:text-[var(--accent-color)] transition-colors duration-300 leading-tight">
+          <h3 className="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-3 group-hover:text-[var(--accent-color)] transition-colors duration-300 leading-tight break-words" style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}>
             {post.title}
           </h3>
           {post.excerpt && (

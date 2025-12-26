@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LayoutGrid, List } from 'lucide-react';
 import ArticleCard from './ArticleCard';
 import Sidebar from './Sidebar';
+import { ArticleCardSkeleton } from './SkeletonLoaders';
 import { Post, BlogData } from './types';
 
 interface HomeViewProps {
@@ -13,6 +14,8 @@ interface HomeViewProps {
 
 type LayoutMode = 'list' | 'grid';
 
+const POSTS_PER_PAGE = 6;
+
 const HomeView: React.FC<HomeViewProps> = ({ onOpenPost, posts, blogData }) => {
   const [layout, setLayout] = useState<LayoutMode>(() => {
     if (typeof window !== 'undefined') {
@@ -21,6 +24,9 @@ const HomeView: React.FC<HomeViewProps> = ({ onOpenPost, posts, blogData }) => {
     }
     return 'list';
   });
+  const [displayCount, setDisplayCount] = useState(POSTS_PER_PAGE);
+  const [isLoading, setIsLoading] = useState(false);
+  const observerTarget = useRef<HTMLDivElement>(null);
 
   const handleLayoutChange = (newLayout: LayoutMode) => {
     setLayout(newLayout);
@@ -28,6 +34,41 @@ const HomeView: React.FC<HomeViewProps> = ({ onOpenPost, posts, blogData }) => {
       localStorage.setItem('blog-layout', newLayout);
     }
   };
+
+  // Infinite scroll handler
+  const loadMore = useCallback(() => {
+    if (displayCount < posts.length && !isLoading) {
+      setIsLoading(true);
+      // Simulate loading delay for smoother UX
+      setTimeout(() => {
+        setDisplayCount(prev => Math.min(prev + POSTS_PER_PAGE, posts.length));
+        setIsLoading(false);
+      }, 800);
+    }
+  }, [displayCount, posts.length, isLoading]);
+
+  // Intersection Observer for infinite scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMore();
+        }
+      },
+      { threshold: 0.1, rootMargin: '100px' }
+    );
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
+      }
+    };
+  }, [loadMore]);
 
   return (
     <motion.div
@@ -74,7 +115,7 @@ const HomeView: React.FC<HomeViewProps> = ({ onOpenPost, posts, blogData }) => {
               transition={{ duration: 0.2, ease: "easeOut" }}
               className={`grid gap-6 ${layout === 'grid' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}
             >
-              {posts.map((post, index) => (
+              {posts.slice(0, displayCount).map((post, index) => (
                 <ArticleCard
                   key={post.id}
                   post={post}
@@ -83,14 +124,24 @@ const HomeView: React.FC<HomeViewProps> = ({ onOpenPost, posts, blogData }) => {
                   layout={layout}
                 />
               ))}
+
+              {/* Skeleton Loaders */}
+              {isLoading && Array.from({ length: layout === 'grid' ? 2 : 1 }).map((_, index) => (
+                <ArticleCardSkeleton key={`skeleton-${index}`} layout={layout} />
+              ))}
             </motion.div>
           </AnimatePresence>
 
-          {/* Load More Button - can be implemented later */}
-          {posts.length > 0 && (
+          {/* Observer Target */}
+          {displayCount < posts.length && (
+            <div ref={observerTarget} className="h-20" />
+          )}
+
+          {/* End Message */}
+          {displayCount >= posts.length && posts.length > 0 && (
             <div className="mt-20 flex justify-center">
               <div className="text-xs text-[var(--text-tertiary)] text-center">
-                End of articles • {posts.length} total
+                已显示全部 {posts.length} 篇文章
               </div>
             </div>
           )}

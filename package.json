@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run extract-data && next build",
+    "build": "npm run download-assets && npm run extract-data && next build",
     "start": "next start",
     "extract-data": "node scripts/extract-hexo-data.js",
+    "download-assets": "node scripts/download-assets.js",
     "clean": "rm -rf .next out public/data/posts public/data/index.json"
   },
   "dependencies": {
