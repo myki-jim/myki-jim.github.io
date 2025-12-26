@@ -3,7 +3,7 @@ title: iOSlike - 仿 iOS 风格的 Next.js 博客主题
 date: 2025-12-27 12:00:00
 tags: ['Next.js', '博客', '主题', 'iOS', 'React']
 categories: ['技术', '开源']
-cover: /images/avatar.png
+cover: /images/screenshots/screenshot-home.png
 author: Jimmy Ki
 ---
 
@@ -11,7 +11,7 @@ author: Jimmy Ki
 
 iOSlike 是一个仿 iOS 风格的 Next.js 博客主题，采用玻璃拟态设计（Glassmorphism），具有流畅的动画和现代化的界面。
 
-![博客首页](./screenshot-home.png)
+![博客首页](/images/screenshots/screenshot-home.png)
 
 ## 特性
 
@@ -25,7 +25,7 @@ iOSlike 是一个仿 iOS 风格的 Next.js 博客主题，采用玻璃拟态设�
 - 支持搜索文章、页面、工具、标签
 - 搜索结果高亮显示
 
-![搜索功能](./screenshot-search.png)
+![搜索功能](/images/screenshots/screenshot-search.png)
 
 ### 3. 图片优化
 - 懒加载（Lazy Loading）
@@ -40,7 +40,7 @@ iOSlike 是一个仿 iOS 风格的 Next.js 博客主题，采用玻璃拟态设�
 ### 5. 开发工具箱
 内置 12+ 实用工具：
 
-![工具箱](./screenshot-tools.png)
+![工具箱](/images/screenshots/screenshot-tools.png)
 
 | 工具 | 功能 |
 |------|------|
