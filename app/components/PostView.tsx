@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 import { format } from 'date-fns';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import MediaLightbox from './MediaLightbox';
@@ -116,6 +117,7 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
               )}
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeRaw]}
                 components={{
                   code({ node, inline, className, children, ...props }) {
                     const match = /language-(\w+)/.exec(className || '')
@@ -195,55 +197,33 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
                       />
                     )
                   },
-                  video({ src, poster, children, ...props }) {
-                    const videoSrc = src || (children && typeof children === 'string' ? children : '');
-                    if (!videoSrc) return null;
+                  video({ src, poster, ...props }) {
+                    if (!src) return null;
 
                     return (
                       <div
-                        className="video-container my-8"
-                        style={{
-                          position: 'relative',
-                          borderRadius: '1rem',
-                          overflow: 'hidden',
-                          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
-                        }}
-                        onClick={() => handleVideoClick(videoSrc, alt || '视频')}
+                        className="video-container my-8 relative rounded-xl overflow-hidden shadow-lg cursor-pointer group"
+                        onClick={() => handleVideoClick(src, alt || '视频')}
                       >
                         <video
-                          src={videoSrc}
+                          src={src}
                           poster={poster}
                           controls={false}
                           preload="metadata"
-                          style={{
-                            width: '100%',
-                            display: 'block',
-                            cursor: 'pointer',
-                          }}
+                          className="w-full block"
                           onClick={(e) => e.stopPropagation()}
-                          // HDR metadata for proper display
                           style={{
                             colorPrimaries: 'bt2020',
                             transferCharacteristics: 'smpte2084',
                             matrixCoefficients: 'bt2020-ncl',
                           } as React.CSSProperties}
-                        >
-                          {children && typeof children === 'string' && (
-                            <source src={children} type="video/mp4" />
-                          )}
-                        </video>
+                        />
                         {/* HDR Badge */}
-                        <div
-                          className="absolute top-3 right-3 px-2 py-1 bg-red-500/90 text-white text-xs rounded backdrop-blur-sm"
-                          style={{ zIndex: 10 }}
-                        >
+                        <div className="absolute top-3 right-3 px-2 py-1 bg-red-500/90 text-white text-xs rounded backdrop-blur-sm z-10">
                           HDR
                         </div>
                         {/* Play Overlay */}
-                        <div
-                          className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors"
-                          style={{ zIndex: 5 }}
-                        >
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/50 transition-colors z-5">
                           <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                             <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M8 5v14l11-7z" />

@@ -4,7 +4,7 @@ import React, { useEffect, useCallback, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X, ZoomIn, ZoomOut, RotateCw, Download, Play, Pause,
-  Volume2, VolumeX, Maximize2, PictureInPicture, Settings
+  Volume2, VolumeX, Maximize2, PictureInPicture
 } from 'lucide-react';
 
 type MediaType = 'image' | 'video';
@@ -25,12 +25,10 @@ export default function MediaLightbox({ src, alt = '', type, isOpen, onClose }: 
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [showControls, setShowControls] = useState(true);
-  const [isFullscreen, setIsFullscreen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const controlsTimeoutRef = useRef<NodeJS.Timeout>();
 
-  // Reset state when media changes
   useEffect(() => {
     if (isOpen) {
       setZoom(1);
@@ -41,7 +39,6 @@ export default function MediaLightbox({ src, alt = '', type, isOpen, onClose }: 
     }
   }, [isOpen, src]);
 
-  // Handle keyboard events
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (!isOpen) return;
 
@@ -67,7 +64,7 @@ export default function MediaLightbox({ src, alt = '', type, isOpen, onClose }: 
         if (type === 'video') setIsMuted(m => !m);
         break;
       case 'f':
-        toggleFullscreen();
+        if (type === 'video') toggleFullscreen();
         break;
     }
   }, [isOpen, onClose, type]);
@@ -83,7 +80,6 @@ export default function MediaLightbox({ src, alt = '', type, isOpen, onClose }: 
     };
   }, [isOpen, handleKeyDown]);
 
-  // Video progress update
   useEffect(() => {
     if (type !== 'video' || !videoRef.current) return;
 
@@ -101,7 +97,6 @@ export default function MediaLightbox({ src, alt = '', type, isOpen, onClose }: 
     };
   }, [type, isOpen]);
 
-  // Hide controls after inactivity
   useEffect(() => {
     if (!isOpen || type !== 'video') return;
 
@@ -131,14 +126,15 @@ export default function MediaLightbox({ src, alt = '', type, isOpen, onClose }: 
   };
 
   const toggleFullscreen = async () => {
-    if (!containerRef.current) return;
-
-    if (!document.fullscreenElement) {
-      await containerRef.current.requestFullscreen();
-      setIsFullscreen(true);
-    } else {
-      await document.exitFullscreen();
-      setIsFullscreen(false);
+    if (!videoRef.current) return;
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      } else {
+        await videoRef.current.requestFullscreen();
+      }
+    } catch (e) {
+      // Ignore fullscreen errors
     }
   };
 
@@ -161,8 +157,7 @@ export default function MediaLightbox({ src, alt = '', type, isOpen, onClose }: 
       a.click();
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
-    } catch (error) {
-      // Fallback: open in new tab
+    } catch {
       window.open(src, '_blank');
     }
   };
@@ -184,130 +179,63 @@ export default function MediaLightbox({ src, alt = '', type, isOpen, onClose }: 
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md cursor-pointer"
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-md"
           />
 
-          {/* Media Container */}
+          {/* Modal Container - Centered in viewport */}
           <div
-            ref={containerRef}
-            className="fixed inset-0 z-[101] flex flex-col items-center justify-center p-4 pointer-events-none"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-[101] flex flex-col pointer-events-none"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) onClose();
+            }}
           >
-            {/* Top Toolbar - Outside the motion div to avoid positioning issues */}
-            <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20 pointer-events-auto">
-              {/* Media Info */}
-              <div className="text-white/80 text-sm truncate bg-black/50 rounded-full px-3 py-1">
-                {type === 'video' && (
-                  <span className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 bg-red-500 text-white text-xs rounded">HDR</span>
-                    {alt || src.split('/').pop()}
-                  </span>
-                )}
-                {type === 'image' && alt && <span>{alt}</span>}
+            {/* Header */}
+            <div className="flex items-center justify-between px-4 pt-12 pb-3 pointer-events-auto">
+              <div className="text-white/80 text-sm truncate">
+                {alt && <span>{alt}</span>}
               </div>
-
-              {/* Tools */}
-              <div className="flex items-center gap-1 bg-black/50 rounded-full p-1">
-                {type === 'image' && (
-                  <>
-                    <button
-                      onClick={() => setZoom(z => Math.max(z - 0.25, 0.5))}
-                      className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
-                      title="缩小 (-)"
-                    >
-                      <ZoomOut size={18} />
-                    </button>
-                    <button
-                      onClick={() => setZoom(1)}
-                      className="px-3 py-1 rounded-full hover:bg-white/20 text-white text-sm transition-colors"
-                      title="重置"
-                    >
-                      {Math.round(zoom * 100)}%
-                    </button>
-                    <button
-                      onClick={() => setZoom(z => Math.min(z + 0.25, 3))}
-                      className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
-                      title="放大 (+)"
-                    >
-                      <ZoomIn size={18} />
-                    </button>
-                    <button
-                      onClick={() => setRotation(r => (r + 90) % 360)}
-                      className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
-                      title="旋转 (r)"
-                    >
-                      <RotateCw size={18} />
-                    </button>
-                  </>
-                )}
-                <button
-                  onClick={downloadMedia}
-                  className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
-                  title="下载"
-                >
-                  <Download size={18} />
-                </button>
-                {type === 'video' && (
-                  <>
-                    <button
-                      onClick={toggleFullscreen}
-                      className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
-                      title="全屏 (f)"
-                    >
-                      <Maximize2 size={18} />
-                    </button>
-                    <button
-                      onClick={() => videoRef.current?.requestPictureInPicture()}
-                      className="p-2 rounded-full hover:bg-white/20 text-white transition-colors"
-                      title="画中画"
-                    >
-                      <PictureInPicture size={18} />
-                    </button>
-                  </>
-                )}
-                <button
-                  onClick={onClose}
-                  className="p-2 rounded-full hover:bg-red-500/50 text-white transition-colors ml-1"
-                  title="关闭 (Esc)"
-                >
-                  <X size={18} />
-                </button>
-              </div>
+              <button
+                onClick={onClose}
+                className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white transition-colors"
+              >
+                <X size={20} />
+              </button>
             </div>
 
             {/* Media Content */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
-              className="relative max-w-full max-h-full pointer-events-auto"
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            <div
+              ref={containerRef}
+              className="flex-1 flex items-center justify-center p-4 overflow-hidden"
             >
-              <div
-                className="relative bg-black/50 rounded-xl overflow-hidden"
-                style={{
-                  transform: `scale(${zoom}) rotate(${rotation}deg)`,
-                  transition: 'transform 0.2s ease-out',
-                  maxWidth: '100%',
-                  maxHeight: 'calc(90vh - 80px)',
-                }}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ type: 'spring', bounce: 0.15, duration: 0.3 }}
+                className="relative max-w-full max-h-full"
               >
                 {type === 'image' ? (
-                  <img
-                    src={src}
-                    alt={alt}
-                    className="max-w-full max-h-[calc(90vh-80px)] object-contain"
-                    draggable={false}
-                    onContextMenu={(e) => e.preventDefault()}
-                  />
+                  <div
+                    className="relative"
+                    style={{
+                      transform: `scale(${zoom}) rotate(${rotation}deg)`,
+                      transition: 'transform 0.2s ease-out',
+                    }}
+                  >
+                    <img
+                      src={src}
+                      alt={alt}
+                      className="max-w-full max-h-[calc(100vh-200px)] object-contain rounded-lg"
+                      draggable={false}
+                      onContextMenu={(e) => e.preventDefault()}
+                    />
+                  </div>
                 ) : (
                   <div className="relative">
                     <video
                       ref={videoRef}
-                      className="max-w-full max-h-[calc(90vh-80px)]"
+                      className="max-w-full max-h-[calc(100vh-200px)] rounded-lg"
                       playsInline
-                      webkit-playsinline
                       muted={isMuted}
                       onClick={togglePlay}
                       style={{
@@ -322,25 +250,25 @@ export default function MediaLightbox({ src, alt = '', type, isOpen, onClose }: 
 
                     {/* Video Controls */}
                     <div
-                      className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4 transition-opacity duration-300 ${
+                      className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-4 rounded-b-lg transition-opacity duration-300 ${
                         showControls ? 'opacity-100' : 'opacity-0'
                       }`}
                     >
+                      {/* Progress */}
                       <input
                         type="range"
                         min={0}
                         max={duration || 100}
                         value={currentTime}
                         onChange={handleSeek}
-                        className="w-full h-1 bg-white/30 rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer"
+                        className="w-full h-1 bg-white/30 rounded-full appearance-none cursor-pointer mb-3
+                          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full"
                       />
 
-                      <div className="flex items-center justify-between mt-3">
+                      {/* Controls Row */}
+                      <div className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <button
-                            onClick={togglePlay}
-                            className="p-2 hover:bg-white/20 rounded-full text-white transition-colors"
-                          >
+                          <button onClick={togglePlay} className="p-2 hover:bg-white/20 rounded-full text-white transition-colors">
                             {isPlaying ? <Pause size={20} /> : <Play size={20} />}
                           </button>
                           <span className="text-white/80 text-sm font-mono">
@@ -348,24 +276,22 @@ export default function MediaLightbox({ src, alt = '', type, isOpen, onClose }: 
                           </span>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                          <button
-                            onClick={() => setIsMuted(!isMuted)}
-                            className="p-2 hover:bg-white/20 rounded-full text-white transition-colors"
-                          >
+                        <div className="flex items-center gap-2">
+                          <button onClick={() => setIsMuted(!isMuted)} className="p-2 hover:bg-white/20 rounded-full text-white transition-colors">
                             {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
                           </button>
-                          <span className="text-white/60 text-xs bg-white/10 px-2 py-1 rounded">
-                            HDR10
-                          </span>
+                          <button onClick={toggleFullscreen} className="p-2 hover:bg-white/20 rounded-full text-white transition-colors">
+                            <Maximize2 size={18} />
+                          </button>
                         </div>
                       </div>
                     </div>
 
+                    {/* Play Overlay */}
                     {!isPlaying && (
                       <button
                         onClick={togglePlay}
-                        className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors"
+                        className="absolute inset-0 flex items-center justify-center bg-black/30"
                       >
                         <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
                           <Play size={32} className="text-white ml-1" />
@@ -374,15 +300,64 @@ export default function MediaLightbox({ src, alt = '', type, isOpen, onClose }: 
                     )}
                   </div>
                 )}
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
 
-            {/* Bottom Info */}
-            {type === 'image' && (
-              <p className="absolute bottom-4 text-sm text-white/60 bg-black/50 rounded-full px-3 py-1 pointer-events-auto">
-                快捷键: +/- 缩放 | r 旋转 | Esc 关闭
-              </p>
-            )}
+            {/* Bottom Toolbar - Glassmorphism */}
+            <div className="px-4 pb-8 pointer-events-auto">
+              <div className="flex items-center justify-center gap-2 bg-[var(--glass-surface)]/80 backdrop-blur-xl border border-[var(--glass-border)] rounded-2xl p-2 mx-auto max-w-md">
+                {type === 'image' && (
+                  <>
+                    <button
+                      onClick={() => setZoom(z => Math.max(z - 0.25, 0.5))}
+                      className="p-3 rounded-xl hover:bg-white/10 text-white transition-colors"
+                    >
+                      <ZoomOut size={20} />
+                    </button>
+                    <button
+                      onClick={() => setZoom(1)}
+                      className="px-4 py-2 rounded-xl hover:bg-white/10 text-white text-sm transition-colors"
+                    >
+                      {Math.round(zoom * 100)}%
+                    </button>
+                    <button
+                      onClick={() => setZoom(z => Math.min(z + 0.25, 3))}
+                      className="p-3 rounded-xl hover:bg-white/10 text-white transition-colors"
+                    >
+                      <ZoomIn size={20} />
+                    </button>
+                    <div className="w-px h-6 bg-white/20" />
+                    <button
+                      onClick={() => setRotation(r => (r + 90) % 360)}
+                      className="p-3 rounded-xl hover:bg-white/10 text-white transition-colors"
+                    >
+                      <RotateCw size={20} />
+                    </button>
+                  </>
+                )}
+                <button
+                  onClick={downloadMedia}
+                  className="p-3 rounded-xl hover:bg-white/10 text-white transition-colors"
+                >
+                  <Download size={20} />
+                </button>
+                {type === 'video' && (
+                  <button
+                    onClick={() => videoRef.current?.requestPictureInPicture()}
+                    className="p-3 rounded-xl hover:bg-white/10 text-white transition-colors"
+                  >
+                    <PictureInPicture size={20} />
+                  </button>
+                )}
+              </div>
+
+              {/* Shortcuts hint */}
+              {type === 'image' && (
+                <p className="text-center text-white/40 text-xs mt-3">
+                  +/- 缩放 • r 旋转 • Esc 关闭
+                </p>
+              )}
+            </div>
           </div>
         </>
       )}
