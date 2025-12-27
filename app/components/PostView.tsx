@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import ImageLightbox from './ImageLightbox';
+import MediaLightbox from './MediaLightbox';
 
 interface PostViewProps {
   post: Post | undefined;
@@ -26,8 +26,8 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
   // Track current theme for syntax highlighting
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  // Image lightbox state
-  const [lightboxImage, setLightboxImage] = useState<{ src: string; alt: string } | null>(null);
+  // Image/Video lightbox state
+  const [lightboxMedia, setLightboxMedia] = useState<{ src: string; alt: string; type: 'image' | 'video' } | null>(null);
 
   useEffect(() => {
     const updateTheme = () => {
@@ -50,11 +50,15 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
   const syntaxTheme = isDarkMode ? oneDark : oneLight;
 
   const handleImageClick = (src: string, alt: string) => {
-    setLightboxImage({ src, alt });
+    setLightboxMedia({ src, alt, type: 'image' });
+  };
+
+  const handleVideoClick = (src: string, alt: string) => {
+    setLightboxMedia({ src, alt, type: 'video' });
   };
 
   const closeLightbox = () => {
-    setLightboxImage(null);
+    setLightboxMedia(null);
   };
 
   return (
@@ -191,6 +195,64 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
                       />
                     )
                   },
+                  video({ src, poster, children, ...props }) {
+                    const videoSrc = src || (children && typeof children === 'string' ? children : '');
+                    if (!videoSrc) return null;
+
+                    return (
+                      <div
+                        className="video-container my-8"
+                        style={{
+                          position: 'relative',
+                          borderRadius: '1rem',
+                          overflow: 'hidden',
+                          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+                        }}
+                        onClick={() => handleVideoClick(videoSrc, alt || '视频')}
+                      >
+                        <video
+                          src={videoSrc}
+                          poster={poster}
+                          controls={false}
+                          preload="metadata"
+                          style={{
+                            width: '100%',
+                            display: 'block',
+                            cursor: 'pointer',
+                          }}
+                          onClick={(e) => e.stopPropagation()}
+                          // HDR metadata for proper display
+                          style={{
+                            colorPrimaries: 'bt2020',
+                            transferCharacteristics: 'smpte2084',
+                            matrixCoefficients: 'bt2020-ncl',
+                          } as React.CSSProperties}
+                        >
+                          {children && typeof children === 'string' && (
+                            <source src={children} type="video/mp4" />
+                          )}
+                        </video>
+                        {/* HDR Badge */}
+                        <div
+                          className="absolute top-3 right-3 px-2 py-1 bg-red-500/90 text-white text-xs rounded backdrop-blur-sm"
+                          style={{ zIndex: 10 }}
+                        >
+                          HDR
+                        </div>
+                        {/* Play Overlay */}
+                        <div
+                          className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors"
+                          style={{ zIndex: 5 }}
+                        >
+                          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                            <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  },
                   hr() {
                     return (
                       <hr
@@ -293,12 +355,13 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
         </div>
       </motion.div>
 
-      {/* Image Lightbox */}
-      {lightboxImage && (
-        <ImageLightbox
-          src={lightboxImage.src}
-          alt={lightboxImage.alt}
-          isOpen={!!lightboxImage}
+      {/* Media Lightbox (Image & Video) */}
+      {lightboxMedia && (
+        <MediaLightbox
+          src={lightboxMedia.src}
+          alt={lightboxMedia.alt}
+          type={lightboxMedia.type}
+          isOpen={!!lightboxMedia}
           onClose={closeLightbox}
         />
       )}
