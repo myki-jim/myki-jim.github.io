@@ -33,7 +33,7 @@ author: Jimmy Ki
 
 测试远程 HDR 视频播放（支持 10000 nits）：
 
-<video src="https://pan.jimmyki.com/50cfb52c5f3bbe7349eaf338257fca34_raw.mp4" />
+<video src="/videos/hdr-test.mp4" />
 
 ## 视频功能
 
