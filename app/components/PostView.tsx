@@ -200,35 +200,44 @@ const PostView: React.FC<PostViewProps> = ({ post, onBack, blogData }) => {
                   video({ src, poster, ...props }) {
                     if (!src) return null;
 
+                    const isRemote = src.startsWith('http://') || src.startsWith('https://');
+                    const videoSrc = isRemote ? src : src;
+
                     return (
                       <div
                         className="video-container my-8 relative rounded-xl overflow-hidden shadow-lg cursor-pointer group"
-                        onClick={() => handleVideoClick(src, alt || '视频')}
+                        onClick={() => handleVideoClick(videoSrc, alt || '视频')}
                       >
                         <video
-                          src={src}
+                          src={videoSrc}
                           poster={poster}
-                          controls={false}
                           preload="metadata"
                           className="w-full block"
-                          onClick={(e) => e.stopPropagation()}
                           style={{
                             colorPrimaries: 'bt2020',
                             transferCharacteristics: 'smpte2084',
                             matrixCoefficients: 'bt2020-ncl',
                           } as React.CSSProperties}
                         />
-                        {/* HDR Badge */}
-                        <div className="absolute top-3 right-3 px-2 py-1 bg-red-500/90 text-white text-xs rounded backdrop-blur-sm z-10">
-                          HDR
-                        </div>
-                        {/* Play Overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/50 transition-colors z-5">
-                          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                            <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M8 5v14l11-7z" />
-                            </svg>
+                        {/* Poster/Thumbnail Overlay */}
+                        {!poster && (
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-center justify-center">
+                            <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                              <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                              </svg>
+                            </div>
                           </div>
+                        )}
+                        {/* HDR Badge */}
+                        {src.toLowerCase().includes('hdr') || src.toLowerCase().includes('.mov') ? (
+                          <div className="absolute top-3 right-3 px-2 py-1 bg-red-500/90 text-white text-xs rounded backdrop-blur-sm z-10">
+                            HDR
+                          </div>
+                        ) : null}
+                        {/* Remote/Local Badge */}
+                        <div className="absolute top-3 left-3 px-2 py-1 bg-black/60 text-white/80 text-xs rounded backdrop-blur-sm z-10">
+                          {isRemote ? '远程视频' : '本地视频'}
                         </div>
                       </div>
                     );
