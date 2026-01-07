@@ -18,7 +18,7 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "bip32": "^5.0.0",
     "bip39": "^3.1.0",
-    "bitcoinjs-lib": "^7.0.0",
+    "bitcoinjs-lib": "^7.0.1",
     "crypto-js": "^4.2.0",
     "date-fns": "^2.30.0",
     "ecpair": "^3.0.0",
