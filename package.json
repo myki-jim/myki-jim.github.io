@@ -16,7 +16,7 @@
     "@types/html2pdf.js": "^0.10.0",
     "@types/qrcode": "^1.5.6",
     "@types/react-syntax-highlighter": "^15.5.13",
-    "bip32": "^5.0.0",
+    "bip32": "^5.0.1",
     "bip39": "^3.1.0",
     "bitcoinjs-lib": "^7.0.0",
     "crypto-js": "^4.2.0",
